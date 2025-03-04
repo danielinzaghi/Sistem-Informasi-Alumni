@@ -19,20 +19,23 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    });
+        return view('dashboard');
+    })->name('admin.dashboard');
+    Route::get('/admin/user', function() {
+        return view('users.index');
+    })->name('admin.user');
 });
 
 Route::middleware(['auth', 'role:alumni'])->group(function () {
     Route::get('/alumni/dashboard', function () {
-        return view('alumni.dashboard');
-    });
+        return view('dashboard');
+    })->name('alumni.dashboard');
 });
 
 Route::middleware(['auth', 'role:dosen'])->group(function () {
     Route::get('/dosen/dashboard', function () {
-        return view('dosen.dashboard');
-    });
+        return view('dashboard');
+    })->name('dosen.dashboard');
 });
 
 

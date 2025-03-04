@@ -15,6 +15,30 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <!-- jQuery (Wajib, sebelum DataTables) -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+        <!-- DataTables CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+        <link
+            rel="stylesheet"
+            href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+        <!-- Tambahkan Bootstrap & Date Range Picker -->
+        <!-- jQuery harus dipanggil dulu -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.1/daterangepicker.min.js"></script>
+
+        <!-- DataTables JS -->
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script
+            src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
     </head>
     <body class="font-sans antialiased">
 
@@ -27,9 +51,7 @@
                         <!-- Breadcrumb -->
                         @if (!Route::is('profile.edit'))
 
-                        <nav
-                            class="w-full sm:w-auto"
-                            aria-label="Breadcrumb">
+                        <nav class="w-full sm:w-auto" aria-label="Breadcrumb">
                             <ol
                                 class="flex flex-wrap items-center gap-2 md:gap-3 text-xs sm:text-sm md:text-md">
                                 <li class="flex items-center">
@@ -73,6 +95,25 @@
                 </div>
             </main>
         </div>
-
+        {{-- <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script> --}}
+        <script>
+            $(document).ready(function () {
+                $('#myTable').DataTable({
+                    "responsive": true, // Aktifkan fitur responsif
+                    "autoWidth": false, // Hindari lebar otomatis agar lebih fleksibel
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Indonesian.json"
+                    },
+                    "paging": true,
+                    "searching": true,
+                    "info": true,
+                    "lengthMenu": [
+                        5, 10, 25, 50, 100
+                    ],
+                    "pageLength": 5,
+                    "ordering": false
+                });
+            });
+        </script>
     </body>
 </html>

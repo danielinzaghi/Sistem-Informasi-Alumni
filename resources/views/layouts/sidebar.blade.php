@@ -2,12 +2,12 @@
     id="logo-sidebar"
     class="fixed top-0 left-0 z-40 w-40 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
     aria-label="Sidebar">
-    <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
+    <div class="h-full px-3 pb-4 overflow-y-auto">
         <ul class="space-y-2 font-medium">
             <li>
                 <a
-                    class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('dashboard') }}"
-                    href="{{ route('dashboard') }}">
+                    class="flex items-center p-2 rounded-md shadow-md transition-all bg-white {{ setActive(Auth::user()->roles->first()->name . '.dashboard') }}"
+                    href="{{ route(Auth::user()->roles->first()->name . '.dashboard') }}">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -26,12 +26,12 @@
 
             <li>
                 <span class="text-xs font-semibold text-gray-500 ml-4">Data Master</span>
-            </li>
+            </li>   
             @role('admin')
                 <li>
                     <a
-                        class="flex items-center p-2 rounded-md shadow-md transition-all "
-                        href="">
+                        class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.user') }}"
+                        href="{{ route('admin.user') }}">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
