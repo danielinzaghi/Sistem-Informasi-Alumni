@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Alumni;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,14 +27,28 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = $request->user();
+
+        // Update data users (hanya username dan email)
+        $user->fill($request->only(['username', 'email']));
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        $user->save();
 
+        // Jika user adalah alumni, update data alumni
+        if ($user->hasRole('alumni')) {
+            $alumni = Alumni::whereHas('mahasiswa', function ($query) use ($user) {
+                $query->where('users_id', $user->id);
+            })->first();
+
+            if ($alumni) {
+                $alumni->update($request->only(['tahun_lulus', 'pekerjaan', 'instansi', 'npwp', 'nik']));
+            }
+        }
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
