@@ -21,4 +21,23 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/verify-email', [\App\Http\Controllers\Auth\EmailVerificationPromptController::class, '__invoke']);
 
-require __DIR__.'/auth.php';
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    });
+});
+
+Route::middleware(['auth', 'role:alumni'])->group(function () {
+    Route::get('/alumni/dashboard', function () {
+        return view('alumni.dashboard');
+    });
+});
+
+Route::middleware(['auth', 'role:dosen'])->group(function () {
+    Route::get('/dosen/dashboard', function () {
+        return view('dosen.dashboard');
+    });
+});
+
+
+require __DIR__ . '/auth.php';
