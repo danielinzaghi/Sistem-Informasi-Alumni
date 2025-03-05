@@ -107,8 +107,8 @@
             </li>
             <li>
                 <a
-                    class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.jurusan') }}"
-                    href="{{ route('admin.jurusan') }}">
+                    class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.jurusan.*') }}"
+                    href="{{ route('admin.jurusan.index') }}">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -124,7 +124,7 @@
                     <span class="ms-1 text-xs font-light">Jurusan</span>
                 </a>
             </li>
-            <li>
+            {{-- <li>
                 <a
                     class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.dosen') }}"
                     href="{{ route('admin.dosen') }}">
@@ -142,7 +142,7 @@
                     </svg>
                     <span class="ms-1 text-xs font-light">Dosen</span>
                 </a>
-            </li>
+            </li> --}}
             <li>
                 <a
                     class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.mahasiswa') }}"

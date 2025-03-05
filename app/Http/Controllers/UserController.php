@@ -13,8 +13,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all();
-        $role = Role::all();
+        $user = User::with('roles')->get(); // Pastikan user mengambil data role
+        $role = Role::all(); // Amb
+        
+
+        if ($role->isEmpty()) {
+            return redirect()->back()->with('error', 'Tidak ada role yang tersedia.');
+        }
 
         return view('users.index', compact('user', 'role'));
     }
@@ -71,7 +76,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $roles = Role::all();
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -79,14 +85,48 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        dd($request);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,',
+            'role_id' => 'required|exists:roles,id',
+        ]);
+    
+        // $user = User::findOrFail();
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+    
+        // Update role
+        $role = Role::findOrFail($request->role_id);
+        $user->syncRoles([$role->name]);
+    
+        return redirect()->route('admin.user.index')->with('success', 'User berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        // dd($user);
+
+        $user->delete();
+    
+        return response()->json(['success' => 'User berhasil dihapus!']);
     }
+
+    public function getUser($id)
+    {
+        $user = User::with('roles')->findOrFail($id);
+
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'role_id' => optional($user->roles->first())->id, // Ambil ID role pertama (jika ada)
+        ]);
+    }
+
 }

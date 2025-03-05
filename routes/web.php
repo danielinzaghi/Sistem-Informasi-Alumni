@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\ProgramStudiController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,9 +26,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         return view('dashboard');
     })->name('admin.dashboard');
     Route::resource('/admin/user', UserController::class)->names('admin.user');
-    Route::get('/admin/jurusan', function() {
-        return view('jurusan.index');
-    })->name('admin.jurusan');
+    Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('admin.user.get');
+
+    Route::resource('/admin/jurusan', JurusanController::class)->names('admin.jurusan');
+    Route::get('/get-program-studi/{id}', [ProgramStudiController::class, 'getByJurusan']);
+
     Route::get('/admin/dosen', function() {
         return view('dosen.index');
     })->name('admin.dosen');
