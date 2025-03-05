@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\CategoryController;
 
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('welcome');
 });
 
 Route::get('/dashboard', function () {
@@ -33,11 +34,20 @@ Route::middleware(['auth', 'role:alumni'])->group(function () {
     });
 });
 
-Route::middleware(['auth', 'role:dosen'])->group(function () {
-    Route::get('/dosen/dashboard', function () {
-        return view('dosen.dashboard');
-    });
+
+
+
+// route kategori article
+Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function() {
+    Route::resource('category', CategoryController::class)->names([
+        'index' => 'CategoryIndex',
+        'create' => 'CategoryCreate',
+        'store' => 'CategoryStore',
+        'show' => 'Category.show',  
+        'edit' => 'CategoryEdit',
+        'update' => 'CategoryUpdate',
+        'destroy' => 'CategoryDelete',
+    ]);
+    
 });
-
-
 require __DIR__ . '/auth.php';
