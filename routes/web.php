@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -42,8 +41,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['auth', 'role:alumni'])->group(function () {
     Route::get('/alumni/dashboard', function () {
-        return view('dashboard');
-    })->name('alumni.dashboard');
+        return view('alumni.dashboard');
+    });
 });
 
 Route::middleware(['auth', 'role:dosen'])->group(function () {
