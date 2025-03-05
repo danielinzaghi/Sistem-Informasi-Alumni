@@ -14,6 +14,6 @@ class Alumni extends Model
     
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id');
+        return $this->hasOne(Mahasiswa::class, 'mahasiswa_id');
     }
 }

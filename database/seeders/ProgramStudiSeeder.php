@@ -9,43 +9,43 @@ use App\Models\Dosen;
 
 class ProgramStudiSeeder extends Seeder
 {
-    /**
-     * Jalankan seeder database.
-     */
     public function run(): void
     {
-        // Data program studi dalam bentuk array
+        $kaprodiDosen = Dosen::skip(3)->take(13)->pluck('id')->toArray(); // Ambil 13 dosen untuk Kaprodi
+
         $programStudiData = [
-            ['nama_prodi' => 'D3 Teknik Informatika', 'jurusan' => 'Komputer dan Bisnis', 'nidn_kaprodi' => '1234567890'],
-            ['nama_prodi' => 'D4 Rekayasa Keamanan Siber', 'jurusan' => 'Komputer dan Bisnis', 'nidn_kaprodi' => '1234567890'],
-            ['nama_prodi' => 'D4 Akuntansi Lembaga Keuangan Syariah', 'jurusan' => 'Komputer dan Bisnis', 'nidn_kaprodi' => '1234567890'],
-            ['nama_prodi' => 'D4 Teknologi Rekayasa Multimedia', 'jurusan' => 'Komputer dan Bisnis', 'nidn_kaprodi' => '1234567890'],
-            ['nama_prodi' => 'D4 Rekayasa Perangkat Lunak', 'jurusan' => 'Komputer dan Bisnis', 'nidn_kaprodi' => '1234567890'],
-
-            
-            ['nama_prodi' => 'D3 Teknik Mesin', 'jurusan' => 'Rekayasa Mesin dan Industri Pertanian', 'nidn_kaprodi' => '0987654321'],
-            ['nama_prodi' => 'D4 Teknik Pengendalian Pencemaran Lingkungan', 'jurusan' => 'Rekayasa Mesin dan Industri Pertanian', 'nidn_kaprodi' => '0987654321'],
-            ['nama_prodi' => 'D4 Pengembangan Produk Agroindustri', 'jurusan' => 'Rekayasa Mesin dan Industri Pertanian', 'nidn_kaprodi' => '0987654321'],
-            ['nama_prodi' => 'D4 Rekayasa Energi Terbarukan', 'jurusan' => 'Rekayasa Mesin dan Industri Pertanian', 'nidn_kaprodi' => '0987654321'],
-            ['nama_prodi' => 'D4 Teknologi Rekayasa Kimia Industri', 'jurusan' => 'Rekayasa Mesin dan Industri Pertanian', 'nidn_kaprodi' => '0987654321'],
-
-
-            ['nama_prodi' => 'D3 Teknik Elektronika', 'jurusan' => 'Rekayasa Elektro dan Mekatronika', 'nidn_kaprodi' => '3214567890'],
-            ['nama_prodi' => 'D3 Teknik Elektronika', 'jurusan' => 'Rekayasa Elektro dan Mekatronika', 'nidn_kaprodi' => '3214567890'],
-            ['nama_prodi' => 'D4 Teknologi Rekayasa Mekatronika', 'jurusan' => 'Rekayasa Elektro dan Mekatronika', 'nidn_kaprodi' => '3214567890'],
-
+            'Komputer dan Bisnis' => [
+                'D3 Teknik Informatika',
+                'D4 Rekayasa Keamanan Siber',
+                'D4 Akuntansi Lembaga Keuangan Syariah',
+                'D4 Teknologi Rekayasa Multimedia',
+                'D4 Rekayasa Perangkat Lunak',
+            ],
+            'Rekayasa Mesin dan Industri Pertanian' => [
+                'D3 Teknik Mesin',
+                'D4 Teknik Pengendalian Pencemaran Lingkungan',
+                'D4 Pengembangan Produk Agroindustri',
+                'D4 Rekayasa Energi Terbarukan',
+                'D4 Teknologi Rekayasa Kimia Industri',
+            ],
+            'Rekayasa Elektro dan Mekatronika' => [
+                'D3 Teknik Elektronika',
+                'D4 Teknologi Rekayasa Mekatronika',
+                'D3 Teknik Listrik',
+            ],
         ];
 
-        // Looping untuk insert data ke tabel program_studi
-        foreach ($programStudiData as $data) {
-            $jurusan = Jurusan::where('nama_jurusan', $data['jurusan'])->first();
-            $kaprodi = Dosen::where('nidn', $data['nidn_kaprodi'])->first();
+        $i = 0;
+        foreach ($programStudiData as $jurusanName => $prodiList) {
+            $jurusan = Jurusan::where('nama_jurusan', $jurusanName)->first();
 
-            ProgramStudi::create([
-                'nama_prodi' => $data['nama_prodi'],
-                'jurusan_id' => $jurusan->id ?? null, // Jika jurusan tidak ditemukan, set null
-                'id_kaprodi' => $kaprodi->id ?? null, // Jika kaprodi tidak ditemukan, set null
-            ]);
+            foreach ($prodiList as $namaProdi) {
+                ProgramStudi::create([
+                    'nama_prodi' => $namaProdi,
+                    'jurusan_id' => $jurusan->id,
+                    'id_kaprodi' => $kaprodiDosen[$i++] ?? null,
+                ]);
+            }
         }
     }
 }

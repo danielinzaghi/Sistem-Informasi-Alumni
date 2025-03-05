@@ -36,6 +36,8 @@ Route::middleware(['auth', 'role:dosen'])->group(function () {
     Route::get('/dosen/dashboard', function () {
         return view('dashboard');
     })->name('dosen.dashboard');
+    Route::patch('/dosen/{id}', [ProfileController::class, 'update'])->name('dosen.update');
+
 });
 
 

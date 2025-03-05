@@ -32,4 +32,10 @@ class ProgramStudi extends Model
     {
         return $this->belongsTo(Dosen::class, 'id_kaprodi');
     }
+
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'prodi_id');
+    }
 }
