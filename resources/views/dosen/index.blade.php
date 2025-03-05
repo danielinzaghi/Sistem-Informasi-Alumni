@@ -1,7 +1,5 @@
 <x-app-layout>
-
     @section('content')
-        You're logged in!
+        Halaman dosen
     @endsection
-
 </x-app-layout>

@@ -1,7 +1,5 @@
 <x-app-layout>
-
     @section('content')
-        You're logged in!
+        Jurusan
     @endsection
-
 </x-app-layout>

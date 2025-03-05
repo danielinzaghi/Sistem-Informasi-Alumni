@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TracerStudyController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,8 +21,24 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    });
+        return view('dashboard');
+    })->name('admin.dashboard');
+    Route::resource('/admin/user', UserController::class)->names('admin.user');
+    Route::get('/admin/jurusan', function() {
+        return view('jurusan.index');
+    })->name('admin.jurusan');
+    Route::get('/admin/dosen', function() {
+        return view('dosen.index');
+    })->name('admin.dosen');
+    Route::get('/admin/mahasiswa', function() {
+        return view('mahasiswa.index');
+    })->name('admin.mahasiswa');
+    Route::get('/admin/alumni', function() {
+        return view('alumni.index');
+    })->name('admin.alumni');
+    Route::get('/admin/broadcast', function() {
+        return view('broadcast.index');
+    })->name('admin.broadcast');
 });
 
 Route::middleware(['auth', 'role:alumni'])->group(function () {
@@ -29,12 +46,14 @@ Route::middleware(['auth', 'role:alumni'])->group(function () {
         return view('alumni.dashboard');
     });
     Route::resource('tracer_study', TracerStudyController::class);     
+        return view('dashboard');
+    })->name('alumni.dashboard');
 });
 
 Route::middleware(['auth', 'role:dosen'])->group(function () {
     Route::get('/dosen/dashboard', function () {
-        return view('dosen.dashboard');
-    });
+        return view('dashboard');
+    })->name('dosen.dashboard');
 });
 
 
