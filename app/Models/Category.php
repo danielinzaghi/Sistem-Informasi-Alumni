@@ -18,5 +18,9 @@ class Category extends Model
 
     // Opsi jika ingin menggunakan timestamps (true secara default)
     public $timestamps = true;
+    public function Articles(): HasMany
+    {
+        return $this->hasMany(Article::class);
+    }
 
 }

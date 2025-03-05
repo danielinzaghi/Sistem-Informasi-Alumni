@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ArticleController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -24,14 +25,17 @@ Route::get('/verify-email', [\App\Http\Controllers\Auth\EmailVerificationPromptC
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    });
+        return view('dashboard');
+    })->name('admin.dashboard');
+    Route::get('/admin/user', function() {
+        return view('users.index');
+    })->name('admin.user');
 });
 
 Route::middleware(['auth', 'role:alumni'])->group(function () {
     Route::get('/alumni/dashboard', function () {
-        return view('alumni.dashboard');
-    });
+        return view('dashboard');
+    })->name('alumni.dashboard');
 });
 
 
@@ -48,6 +52,25 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
         'update' => 'CategoryUpdate',
         'destroy' => 'CategoryDelete',
     ]);
+});
+
+// route article
+Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function() {
+    Route::resource('article', ArticleController::class)->names([
+        'index' => 'ArticleIndex',
+        'create' => 'ArticleCreate',
+        'store' => 'ArticleStore',
+        'show' => 'ArticleShow',  
+        'edit' => 'ArticleEdit',
+        'update' => 'ArticleUpdate',
+        'destroy' => 'ArticleDelete',
+    ]);
+});
+
+
     
+Route::middleware(['auth', 'role:dosen'])->group(function () {
+    Route::get('/dosen/dashboard', function () {
+    })->name('dosen.dashboard');
 });
 require __DIR__ . '/auth.php';
