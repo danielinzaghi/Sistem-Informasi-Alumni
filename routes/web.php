@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TracerStudyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,6 +28,7 @@ Route::middleware(['auth', 'role:alumni'])->group(function () {
     Route::get('/alumni/dashboard', function () {
         return view('alumni.dashboard');
     });
+    Route::resource('tracer_study', TracerStudyController::class);     
 });
 
 Route::middleware(['auth', 'role:dosen'])->group(function () {

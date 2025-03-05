@@ -52,7 +52,7 @@
                 <li>
                     <a
                         class="flex items-center p-2 rounded-md shadow-md transition-all "
-                        href="">
+                        href="{{ route('tracer_study.index') }}">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
