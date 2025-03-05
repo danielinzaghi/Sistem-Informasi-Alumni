@@ -11,10 +11,19 @@ class Mahasiswa extends Model
 
     protected $table = 'mahasiswa';
 
-    protected $fillable = ['users_id', 'nim', 'nama', 'no_hp', 'angkatan', 'prodi', 'status'];
+    protected $fillable = ['users_id', 'id_prodi', 'nim', 'nama', 'no_hp', 'angkatan', 'prodi', 'status'];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'users_id');
     } 
+
+    public function programStudi()
+    {
+        return $this->hasMany(ProgramStudi::class, 'id_prodi');
+    }
+    public function alumni()
+    {
+        return $this->hasOne(Alumni::class, 'mahasiswa_id', 'id');
+    }
 }
