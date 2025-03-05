@@ -40,6 +40,11 @@
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
     </head>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
     <body class="font-sans antialiased">
 
         <div class="flex flex-col">
@@ -88,7 +93,7 @@
                     <!-- Container Hijau di Belakang -->
                     <div class="mt-4">
                         <!-- Container Putih di Depan -->
-                        <div class="bg-white shadow-lg rounded-lg border-t-4 p-4 border-[#00593b]">
+                        <div class="bg-white shadow-lg rounded-lg border-t-4 p-4 border-blue-800">
                             @yield('content')
                         </div>
                     </div>

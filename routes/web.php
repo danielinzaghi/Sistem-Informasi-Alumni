@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,9 +22,22 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('dashboard');
     })->name('admin.dashboard');
-    Route::get('/admin/user', function() {
-        return view('users.index');
-    })->name('admin.user');
+    Route::resource('/admin/user', UserController::class)->names('admin.user');
+    Route::get('/admin/jurusan', function() {
+        return view('jurusan.index');
+    })->name('admin.jurusan');
+    Route::get('/admin/dosen', function() {
+        return view('dosen.index');
+    })->name('admin.dosen');
+    Route::get('/admin/mahasiswa', function() {
+        return view('mahasiswa.index');
+    })->name('admin.mahasiswa');
+    Route::get('/admin/alumni', function() {
+        return view('alumni.index');
+    })->name('admin.alumni');
+    Route::get('/admin/broadcast', function() {
+        return view('broadcast.index');
+    })->name('admin.broadcast');
 });
 
 Route::middleware(['auth', 'role:alumni'])->group(function () {
