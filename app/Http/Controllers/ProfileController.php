@@ -17,9 +17,11 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $user = auth()->user();
+        $role = $user->roles->first()->name; // Ambil role pertama
+        $dosen = $user->dosen; // Ambil data dosen jika ada
+
+        return view('profile.edit', compact('user', 'role', 'dosen'));
     }
 
     /**
