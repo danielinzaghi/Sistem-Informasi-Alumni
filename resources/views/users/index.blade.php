@@ -1,7 +1,5 @@
 <x-app-layout>
-
     @section('content')
-        You're logged in!
+        ini halaman user
     @endsection
-
 </x-app-layout>
