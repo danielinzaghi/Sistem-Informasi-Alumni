@@ -58,6 +58,10 @@
             <p>{{ $tracerStudy->jumlah_lamaran ?? '-' }}</p>
         </div>
         <div>
+            <p class="font-semibold">Jumlah Wawancara:</p>
+            <p>{{ $tracerStudy->jumlah_wawancara ?? '-' }}</p>
+        </div>
+        <div>
             <p class="font-semibold">Alasan Ambil Pekerjaan:</p>
             <p>{{ $tracerStudy->alasan_ambil_pekerjaan ?? '-' }}</p>
         </div>
