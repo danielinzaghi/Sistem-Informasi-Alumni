@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('dosen', function (Blueprint $table) {
             $table->id();
             $table->foreignId('users_id')->constrained('users')->onDelete('cascade');
-            $table->string('nama');
+            // $table->string('nama');
             $table->string('nidn')->unique();
-            $table->string('email')->unique();
+            // $table->string('email')->unique();
             $table->timestamps();
         });
     }

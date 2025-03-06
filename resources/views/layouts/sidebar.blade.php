@@ -66,7 +66,7 @@
             @role('admin')
             <li>
                 <a
-                    class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.broadcast') }}"
+                    class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.broadcast.*') }}"
                     href="{{ route('admin.broadcast') }}">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -124,10 +124,10 @@
                     <span class="ms-1 text-xs font-light">Jurusan</span>
                 </a>
             </li>
-            {{-- <li>
+            <li>
                 <a
-                    class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.dosen') }}"
-                    href="{{ route('admin.dosen') }}">
+                    class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.dosen.*') }}"
+                    href="{{ route('admin.dosen.index') }}">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -142,10 +142,10 @@
                     </svg>
                     <span class="ms-1 text-xs font-light">Dosen</span>
                 </a>
-            </li> --}}
+            </li>
             <li>
                 <a
-                    class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.mahasiswa') }}"
+                    class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.mahasiswa.*') }}"
                     href="{{ route('admin.mahasiswa') }}">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +164,7 @@
             </li>
             <li>
                 <a
-                    class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.alumni') }}"
+                    class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.alumni.*') }}"
                     href="{{ route('admin.alumni') }}">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

@@ -48,12 +48,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Grafik Statistik Pekerjaan -->
-        <div class="mt-8 bg-white shadow-lg rounded-xl p-6">
-            <h3 class="text-lg font-semibold text-gray-700 mb-4">Status Pekerjaan Alumni</h3>
-            <canvas id="jobStatisticsChart"></canvas>
-        </div>
+            <!-- Grafik Statistik Pekerjaan -->
+            <div class="mt-8 {{-- bg-white shadow-lg rounded-xl --}} p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">Status Pekerjaan Alumni</h3>
+                <canvas id="jobStatisticsChart"></canvas>
+            </div>
+            </div>
         </div>
     </div>
 

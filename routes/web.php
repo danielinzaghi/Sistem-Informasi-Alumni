@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\TracerStudyController;
 
 Route::get('/', function () {
@@ -33,6 +34,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dosen', function() {
         return view('dosen.index');
     })->name('admin.dosen');
+
+    Route::resource('/admin/dosen', DosenController::class)->names('admin.dosen');
+
     Route::get('/admin/mahasiswa', function() {
         return view('mahasiswa.index');
     })->name('admin.mahasiswa');
@@ -46,8 +50,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['auth', 'role:alumni'])->group(function () {
     Route::get('/alumni/dashboard', function () {
-        return view('alumni.dashboard');
-    });
+        return view('dashboard');
+    })->name('alumni.dashboard');
 });
 Route::resource('/tracer-study', TracerStudyController::class)->names('tracer_study');
 
