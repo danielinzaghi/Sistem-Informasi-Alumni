@@ -26,8 +26,8 @@
 
             <li>
                 <a
-                    class="flex items-center p-2 rounded-md shadow-md transition-all hover:bg-gray-200"
-                    href="#">
+                    class="flex items-center p-2 rounded-md shadow-md transition-all hover:bg-gray-200 {{ setActive('tracer_study.*') }}"
+                    href="{{ route('tracer_study.index') }}">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

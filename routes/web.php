@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\ProgramStudiController;
-
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TracerStudyController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,9 +23,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admindashboard');
-    })->name('admin.dashboard');
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('/admin/user', UserController::class)->names('admin.user');
     Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('admin.user.get');
 
@@ -50,6 +49,7 @@ Route::middleware(['auth', 'role:alumni'])->group(function () {
         return view('alumni.dashboard');
     });
 });
+Route::resource('/tracer-study', TracerStudyController::class)->names('tracer_study');
 
 Route::middleware(['auth', 'role:dosen'])->group(function () {
     Route::get('/dosen/dashboard', function () {
