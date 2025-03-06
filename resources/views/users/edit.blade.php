@@ -1,5 +1,8 @@
 <x-app-layout>
     @section('content')
+    @section('main_folder', 'User')
+    @section('main_folder-link', route('admin.user.index'))
+    @section('sub_folder', 'Edit User')
         <div class="container mx-auto p-6">
             <h2 class="text-2xl font-bold text-gray-700 mb-4">Edit Data User</h2>
         
@@ -22,7 +25,7 @@
 
                 <div class="mb-5">
                     <label for="role_id" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
-                    <select name="role_id" id="role_id" class="select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5" required>
+                    <select @readonly($user->roles->first()->name == 'admin') name="role_id" id="role_id" class="select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5" required>
                         <option value="" disabled>Role</option>
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}" {{ $user->roles->first()->id == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>

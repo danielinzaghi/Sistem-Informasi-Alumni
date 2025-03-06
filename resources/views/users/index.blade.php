@@ -1,5 +1,7 @@
 <x-app-layout>
     @section('content')
+    @section('main_folder', 'User')
+    {{-- @section('main_folder-link', route('admin.user.index')) --}}
     <div class="flex justify-between items-center">
         <h1 class="font-semibold text-2xl mb-4">Data Pengguna</h1>
         <button
@@ -19,7 +21,7 @@
         </thead>
         <tbody>
             @foreach ($user as $data)
-            <tr class="bg-white border-b" style="cursor: pointer;">
+            <tr class="bg-white border-b">
                 <td class="px-2 text-center py-4 border">{{ $loop->iteration }}</td>
                 <td class="px-2 text-center py-4 border">{{ $data->name }}</td>
                 <td class="px-2 text-center py-4 border">{{ $data->email }}</td>
@@ -30,7 +32,10 @@
                         class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</a>
                     <a
                         href="#" data-id="{{ $data->id }}"
-                        class="delete-user-btn focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                        class="delete-user-btn focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                        @if ($data->roles->first()->name == 'admin')
+                            hidden
+                        @endif>
                         Hapus
                     </a>
                 </td>

@@ -70,7 +70,7 @@
                                 <li class="text-gray-400">/</li>
                                 @if (View::hasSection('main_folder'))
                                 <li class="flex items-center">
-                                    <a href="#" class="font-regular text-gray-700 hover:text-blue-600">
+                                    <a href="@yield('main_folder-link')" class="font-regular text-gray-700 hover:text-blue-600">
                                         @yield('main_folder')
                                     </a>
                                 </li>
