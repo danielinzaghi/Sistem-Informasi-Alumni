@@ -3,8 +3,6 @@
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TracerStudyController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JurusanController;
