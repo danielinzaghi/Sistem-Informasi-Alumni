@@ -23,7 +23,7 @@
                 </button>
                 <a href="{{ route('dashboard') }}" class="flex ms-2 md:me-24">
                     <span
-                        class="self-center text-sm font-semibold sm:text-xl whitespace-nowrap text-[#00593b]">E-ALUMNI</span>
+                        class="self-center text-sm font-semibold sm:text-xl whitespace-nowrap text-blue-800">E-ALUMNI</span>
                 </a>
             </div>
         </div>

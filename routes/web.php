@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
-        return view('dashboard');
+        return view('admindashboard');
     })->name('admin.dashboard');
     Route::get('/admin/user', function() {
         return view('users.index');
