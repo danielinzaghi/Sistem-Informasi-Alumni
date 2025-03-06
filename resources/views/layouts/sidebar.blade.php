@@ -64,7 +64,7 @@
             </li>
             
             @role('admin')
-            <li>
+            {{-- <li>
                 <a
                     class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.broadcast.*') }}"
                     href="{{ route('admin.broadcast.index') }}">
@@ -82,7 +82,7 @@
                     </svg>
                     <span class="ms-1 text-xs font-light">Broadcasts</span>
                 </a>
-            </li>
+            </li> --}}
             <li>
                 <span class="text-xs font-semibold text-gray-500 ml-4">Data Master</span>
             </li>   
@@ -162,7 +162,7 @@
                     <span class="ms-1 text-xs font-light">Mahasiswa</span>
                 </a>
             </li>
-            <li>
+            {{-- <li>
                 <a
                     class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.alumni.*') }}"
                     href="{{ route('admin.alumni.index') }}">
@@ -180,7 +180,7 @@
                     </svg>
                     <span class="ms-1 text-xs font-light">Alumni</span>
                 </a>
-            </li>
+            </li> --}}
             @endrole
             @role('alumni')
                 <li>

@@ -37,6 +37,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('/admin/user', UserController::class)->names('admin.user');
     Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('admin.user.get');
+
     Route::resource('admin/broadcast', BroadcastController::class)->names('admin.broadcast');
     Route::get('admin/broadcast/create', [BroadcastController::class, 'create'])->name('admin.broadcast.create');
     Route::post('admin/broadcast/send', [BroadcastController::class, 'sendMessage'])->name('admin.broadcast.send');
@@ -49,13 +50,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     })->name('admin.dosen');
 
     Route::resource('/admin/dosen', DosenController::class)->names('admin.dosen');
-
-    // Route::get('/admin/mahasiswa', function() {
-    //     return view('mahasiswa.index');
-    // })->name('admin.mahasiswa');
-    // Route::get('/admin/alumni', function() {
-    //     return view('alumni.index');
-    // })->name('admin.alumni');
 
     Route::resource('/admin/mahasiswa', MahasiswaController::class)->names('admin.mahasiswa');
     // Route::resource('/admin/alumni', AlumniController::class)->names('admin.alumni');
