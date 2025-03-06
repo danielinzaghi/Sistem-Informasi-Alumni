@@ -47,7 +47,7 @@ class ProfileController extends Controller
 
         // If user has alumni role, check if alumni data exists
         if ($user->hasRole('alumni')) {
-            $alumni = Mahasiswa::firstOrNew(['mahasiswa_id' => $user->id]);
+            $alumni = Alumni::firstOrNew(['mahasiswa_id' => $user->id]);
 
             // Update only if there's new input, otherwise keep existing data
             $alumni->tahun_lulus = $request->filled('tahun_lulus')
@@ -71,7 +71,7 @@ class ProfileController extends Controller
                 : $alumni->nik;
 
             // Ensure users_id is set
-            $alumni->users_id = $user->id;
+            // $alumni->users_id = $user->id;
 
             $alumni->save();
         }
