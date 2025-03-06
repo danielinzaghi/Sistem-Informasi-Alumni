@@ -15,6 +15,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- jQuery (Wajib, sebelum DataTables) -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -40,6 +41,11 @@
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
     </head>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
     <body class="font-sans antialiased">
 
         <div class="flex flex-col">
@@ -88,7 +94,7 @@
                     <!-- Container Biru di Belakang -->
                     <div class="mt-4">
                         <!-- Container Putih di Depan -->
-                        <div class="bg-white shadow-lg rounded-lg border-t-4 p-4 border-[#1e40af]">
+                        <div class="bg-white shadow-lg rounded-lg border-t-4 p-4 border-blue-800">
                             @yield('content')
                         </div>
                     </div>

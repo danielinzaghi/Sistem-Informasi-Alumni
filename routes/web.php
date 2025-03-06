@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\ProgramStudiController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,15 +25,30 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admindashboard');
     })->name('admin.dashboard');
-    Route::get('/admin/user', function() {
-        return view('users.index');
-    })->name('admin.user');
+    Route::resource('/admin/user', UserController::class)->names('admin.user');
+    Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('admin.user.get');
+
+    Route::resource('/admin/jurusan', JurusanController::class)->names('admin.jurusan');
+    Route::get('/get-program-studi/{id}', [ProgramStudiController::class, 'getByJurusan']);
+
+    Route::get('/admin/dosen', function() {
+        return view('dosen.index');
+    })->name('admin.dosen');
+    Route::get('/admin/mahasiswa', function() {
+        return view('mahasiswa.index');
+    })->name('admin.mahasiswa');
+    Route::get('/admin/alumni', function() {
+        return view('alumni.index');
+    })->name('admin.alumni');
+    Route::get('/admin/broadcast', function() {
+        return view('broadcast.index');
+    })->name('admin.broadcast');
 });
 
 Route::middleware(['auth', 'role:alumni'])->group(function () {
     Route::get('/alumni/dashboard', function () {
-        return view('dashboard');
-    })->name('alumni.dashboard');
+        return view('alumni.dashboard');
+    });
 });
 
 Route::middleware(['auth', 'role:dosen'])->group(function () {
