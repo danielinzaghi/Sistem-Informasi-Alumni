@@ -15,11 +15,13 @@ class AlumniController extends Controller
 
     public function index()
     {
-        $alumnis = Alumni::whereHas('mahasiswa.user', function ($query) {
+        $alumnis1 = Alumni::whereHas('mahasiswa.user', function ($query) {
             $query->where('id', Auth::user()->id);
         })->get();
 
-        //dd($alumnis);
+        $alumnis = Alumni::all();
+
+        // dd($alumnis);
         
         return view('alumni.index', compact('alumnis'));
         

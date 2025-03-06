@@ -45,23 +45,21 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/admin/jurusan', JurusanController::class)->names('admin.jurusan');
     Route::get('/get-program-studi/{id}', [ProgramStudiController::class, 'getByJurusan']);
 
-    Route::get('/admin/dosen', function() {
-        return view('dosen.index');
-    })->name('admin.dosen');
+    // Route::get('/admin/dosen', function() {
+    //     return view('dosen.index');
+    // })->name('admin.dosen');
 
     Route::resource('/admin/dosen', DosenController::class)->names('admin.dosen');
 
     Route::resource('/admin/mahasiswa', MahasiswaController::class)->names('admin.mahasiswa');
-    // Route::resource('/admin/alumni', AlumniController::class)->names('admin.alumni');
-    Route::get('/admin/broadcast', function() {
-        return view('broadcast.index');
-    })->name('admin.broadcast');
-    Route::get('/admin/mahasiswa', function() {
-        return view('mahasiswa.index');
-    })->name('admin.mahasiswa');
-    Route::get('/admin/alumni', function() {
-        return view('alumni.index');
-    })->name('admin.alumni');
+    Route::resource('/admin/alumni', AlumniController::class)->names('admin.alumni');
+
+    // Route::get('/admin/mahasiswa', function() {
+    //     return view('mahasiswa.index');
+    // })->name('admin.mahasiswa');
+    // Route::get('/admin/alumni', function() {
+    //     return view('alumni.index');
+    // })->name('admin.alumni');
     // Route::get('/admin/broadcast', function() {
         
     //     return view('broadcast.index');
@@ -70,9 +68,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Route untuk Alumni
 Route::middleware(['auth', 'role:alumni'])->group(function () {
-    Route::get('/alumni/dashboard', function () {
-        return view('dashboard');
-    })->name('alumni.dashboard');
+    // Route::get('/alumni/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('alumni.dashboard');
+    Route::get('/alumni/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
 
     Route::resource('tracer_study', TracerStudyController::class);
 });
@@ -80,10 +79,9 @@ Route::resource('/tracer-study', TracerStudyController::class)->names('tracer_st
 
 // Route untuk Dosen
 Route::middleware(['auth', 'role:dosen'])->group(function () {
-    Route::get('/dosen/dashboard', function () {
-        return view('dashboard');
-    })->name('dosen.dashboard');
+    Route::get('/dosen/dashboard', [DashboardController::class, 'index'])->name('dosen.dashboard');
     Route::patch('/dosen/{id}', [ProfileController::class, 'update'])->name('dosen.update');
+    Route::resource('/admin/dosen', DosenController::class)->names('admin.dosen');
 
 });
 

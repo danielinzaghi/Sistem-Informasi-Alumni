@@ -94,42 +94,46 @@
             </ul>
         </div>
         
-        <table class="min-w-full border border-gray-300 mt-4" id="alumniTable">
-            <thead class="bg-gray-200">
-             <tr>
-                    <th class="border border-gray-300 px-4 py-2">Pilih</th>
-                    <th class="border border-gray-300 px-4 py-2">Nama</th>
-                    <th class="border border-gray-300 px-4 py-2">No HP</th>
-                    <th class="border border-gray-300 px-4 py-2">NIM</th>
-                    <th class="border border-gray-300 px-4 py-2">Angkatan/Tahun Lulus</th>
-                    <th class="border border-gray-300 px-4 py-2">Prodi</th>
-                    <th class="border border-gray-300 px-4 py-2">Status</th>
-                    <th class="border border-gray-300 px-4 py-2">Pekerjaan</th>
-                    <th class="border border-gray-300 px-4 py-2">Instansi</th>
-                    <th class="border border-gray-300 px-4 py-2">Status Saat Ini</th>
+        <table class="w-100 sm:min-w-full text-[9px] sm:text-[15px] text-gray-500 border border-gray-300 shadow-md rounded-lg" id="alumniTable">
+            <thead class="text-gray-700 bg-white">
+                <tr>
+                    <th class="px-2 text-center py-3 border w-[40px]">Pilih</th>
+                    <th class="px-2 text-center py-3 border w-[20%]">Nama</th>
+                    <th class="px-2 text-center py-3 border w-[15%]">No HP</th>
+                    <th class="px-2 text-center py-3 border w-[15%]">NIM</th>
+                    <th class="px-2 text-center py-3 border w-[15%]">Angkatan/Tahun Lulus</th>
+                    <th class="px-2 text-center py-3 border w-[15%]">Prodi</th>
+                    <th class="px-2 text-center py-3 border w-[10%]">Status</th>
+                    <th class="px-2 text-center py-3 border w-[15%]">Pekerjaan</th>
+                    <th class="px-2 text-center py-3 border w-[15%]">Instansi</th>
+                    <th class="px-2 text-center py-3 border w-[15%]">Status Saat Ini</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($alumnis as $alumni)
                     @if ($alumni->mahasiswa)
-                        <tr class="hover:bg-gray-100 alumni-row" data-status="{{ $alumni->tracerStudy->status_saat_ini ?? 'Tidak Diketahui' }}" data-year="{{ $alumni->mahasiswa->angkatan }}" data-prodi="{{ $alumni->mahasiswa->prodi }}">
-                            <td class="border border-gray-300 px-4 py-2">
+                        <tr class="bg-white border-b hover:bg-gray-100 alumni-row"
+                            data-status="{{ $alumni->tracerStudy->status_saat_ini ?? 'Tidak Diketahui' }}"
+                            data-year="{{ $alumni->mahasiswa->angkatan }}"
+                            data-prodi="{{ $alumni->mahasiswa->prodi }}">
+                            <td class="px-2 text-center py-4 border">
                                 <input type="checkbox" name="targets[]" value="{{ $alumni->id }}|{{ $alumni->mahasiswa->no_hp }}|{{ $alumni->mahasiswa->nama }}" class="individual-checkbox">
                             </td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->nama }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->no_hp }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->nim }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->angkatan }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->prodi }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->status }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $alumni->pekerjaan }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $alumni->instansi }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $alumni->tracerStudy->status_saat_ini ?? 'Tidak Diketahui' }}</td>
+                            <td class="px-2 text-center py-4 border">{{ $alumni->mahasiswa->nama }}</td>
+                            <td class="px-2 text-center py-4 border">{{ $alumni->mahasiswa->no_hp }}</td>
+                            <td class="px-2 text-center py-4 border">{{ $alumni->mahasiswa->nim }}</td>
+                            <td class="px-2 text-center py-4 border">{{ $alumni->mahasiswa->angkatan }}</td>
+                            <td class="px-2 text-center py-4 border">{{ $alumni->mahasiswa->prodi->nama_prodi }}</td>
+                            <td class="px-2 text-center py-4 border">{{ $alumni->mahasiswa->status }}</td>
+                            <td class="px-2 text-center py-4 border">{{ $alumni->pekerjaan }}</td>
+                            <td class="px-2 text-center py-4 border">{{ $alumni->instansi }}</td>
+                            <td class="px-2 text-center py-4 border">{{ $alumni->tracerStudy->status_saat_ini ?? 'Tidak Diketahui' }}</td>
                         </tr>
                     @endif
                 @endforeach
             </tbody>
         </table>
+        
         <button type="submit" class="mt-4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600">Kirim Pesan</button>
     </form>
     <script>
