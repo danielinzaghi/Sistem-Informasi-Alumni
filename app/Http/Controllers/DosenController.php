@@ -51,7 +51,7 @@ class DosenController extends Controller
      */
     public function edit(Dosen $dosen)
     {
-        //
+        return view('dosen.edit', compact('dosen'));
     }
 
     /**
