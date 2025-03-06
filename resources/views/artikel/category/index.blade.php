@@ -47,7 +47,7 @@
                                     
                                             <!-- Dropdown Menu -->
                                             <div x-show="open" @click.away="open = false" class="absolute left-0 mt-2 w-32 bg-white border rounded shadow-md z-10">
-                                                <button class="block w-full text-left px-4 py-2 text-blue-500 hover:bg-gray-100" 
+                                                <button class="block w-full text-left px-4 py-2 text-blue-500 hover:bg-yellow-200" 
                                                     onclick="toggleModal('modalUpdate{{ $item->id }}')">
                                                     Edit
                                                 </button>

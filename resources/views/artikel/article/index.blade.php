@@ -43,8 +43,8 @@
                                     </span>
                                 </td>
                             <td class="py-2 px-4 border-b">
-                                <a href="{{ route('admin.ArticleShow', $berita->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded transition duration-200">detail</a>
-                                <a href="{{ route('admin.ArticleEdit', $berita->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded transition duration-200">Edit</a>
+                                <a href="{{ route('admin.ArticleShow', $berita->id) }}" class="bg-orange-400 hover:bg-orange-600 text-white px-3 py-1 rounded transition duration-200">Detail</a>
+<a href="{{ route('admin.ArticleEdit', $berita->id) }}" class="bg-yellow-500 hover:bg-yellow-200 text-white px-3 py-1 rounded transition duration-200">Edit</a>
                                 <form action="{{ route('admin.ArticleDelete', $berita->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus artikel ini?')">
                                     @csrf
                                     @method('DELETE')
