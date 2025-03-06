@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAlumniRequest;
 use App\Http\Requests\UpdateAlumniRequest;
 use App\Models\Alumni;
 use App\Models\Mahasiswa;
+use App\Models\TracerStudy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -45,6 +46,11 @@ class AlumniController extends Controller
             $alumni->npwp = $request->npwp;
             $alumni->nik = $request->nik;
             $alumni->save();
+
+             // Simpan data ke tabel Tracer Study dengan alumni_id
+            $tracerStudy = new TracerStudy();
+            $tracerStudy->alumni_id = $alumni->id; // Simpan ID alumni
+            $tracerStudy->save();
         });
 
         
