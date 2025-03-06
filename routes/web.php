@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
-        return view('dashboard');
+        return view('admindashboard');
     })->name('admin.dashboard');
     Route::resource('/admin/user', UserController::class)->names('admin.user');
     Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('admin.user.get');

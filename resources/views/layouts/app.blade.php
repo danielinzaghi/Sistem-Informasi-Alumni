@@ -91,10 +91,10 @@
                         @endif
 
                     </div>
-                    <!-- Container Hijau di Belakang -->
+                    <!-- Container Biru di Belakang -->
                     <div class="mt-4">
                         <!-- Container Putih di Depan -->
-                        <div class="bg-white shadow-lg rounded-lg border-t-4 p-4 border-blue-800">
+                        <div class="bg-white shadow-lg rounded-lg border-t-4 p-4 border-[#1e40af]">
                             @yield('content')
                         </div>
                     </div>

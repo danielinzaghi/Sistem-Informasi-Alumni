@@ -21,7 +21,7 @@
 
     <!-- Bagian Informasi -->
     <div
-        class="flex flex-col items-center justify-center p-4 w-full lg:w-[70%] text-white border-gray-500 bg-[#047857] lg:border-l-[16px] hidden lg:flex">
+        class="flex flex-col items-center justify-center p-4 w-full lg:w-[70%] text-white border-gray-500 bg-[#1e40af] lg:border-l-[16px] hidden lg:flex">
         <div class="flex flex-col text-center lg:text-left">
             <div class="flex items-center">
                 <span class="self-center text-3xl font-bold text-white whitespace-nowrap">E-ALUMNI</span>
@@ -39,8 +39,8 @@
     <div class="flex flex-col items-center justify-center min-h-screen w-full lg:w-[30%] px-6 py-8 lg:py-0">
         <div class="max-w-md w-full">
             <div class="text-center mb-6">
-                <span class="self-center text-3xl font-bold text-[#047857] whitespace-nowrap">E-ALUMNI</span>
-                <p class="text-md text-[#047857]">Jembatan Koneksi Alumni</p>
+                <span class="self-center text-3xl font-bold text-[#1e40af] whitespace-nowrap">E-ALUMNI</span>
+                <p class="text-md text-[#1e40af]">Jembatan Koneksi Alumni</p>
                 <hr class="border-gray-300 my-2 mx-24">
             </div>
             {{ $slot }}
