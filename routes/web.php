@@ -4,6 +4,7 @@ use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BroadcastController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\ProgramStudiController;
@@ -14,6 +15,13 @@ use App\Http\Controllers\TracerStudyController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/broadcast', function () {
+    return view('broadcast');
+});
+
+// Route::get('/broadcast', [BroadcastController::class, 'showForm'])->name('broadcast.form');
+Route::post('/broadcast', [BroadcastController::class, 'handleForm'])->name('broadcast.handle');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,7 +37,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('/admin/user', UserController::class)->names('admin.user');
     Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('admin.user.get');
-
+    Route::resource('admin/broadcast', BroadcastController::class)->names('admin.broadcast');
+    Route::get('admin/broadcast/create', [BroadcastController::class, 'create'])->name('admin.broadcast.create');
+    Route::post('admin/broadcast/send', [BroadcastController::class, 'sendMessage'])->name('admin.broadcast.send');
+    
     Route::resource('/admin/jurusan', JurusanController::class)->names('admin.jurusan');
     Route::get('/get-program-studi/{id}', [ProgramStudiController::class, 'getByJurusan']);
 
@@ -51,6 +62,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/broadcast', function() {
         return view('broadcast.index');
     })->name('admin.broadcast');
+    Route::get('/admin/mahasiswa', function() {
+        return view('mahasiswa.index');
+    })->name('admin.mahasiswa');
+    Route::get('/admin/alumni', function() {
+        return view('alumni.index');
+    })->name('admin.alumni');
+    // Route::get('/admin/broadcast', function() {
+        
+    //     return view('broadcast.index');
+    // })->name('admin.broadcast');
 });
 
 // Route untuk Alumni

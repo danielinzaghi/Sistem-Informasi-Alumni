@@ -10,8 +10,9 @@ class Alumni extends Model
     use HasFactory;
 
     protected $table = 'alumni';
+
     protected $fillable = ['mahasiswa_id', 'tahun_lulus', 'pekerjaan', 'instansi', 'npwp', 'nik'];
-    
+
     public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id', 'id');
