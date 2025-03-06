@@ -38,7 +38,7 @@
 
             <div class="mt-4">
                 <label for="desc" class="block font-semibold">Deskripsi</label>
-                <textarea name="deskripsi" id="myeditor" class="w-full border p-2 rounded">{{ old('deskripsi', $article->deskripsi ?? '') }}</textarea>
+                <textarea name="deskripsi" id="" class="w-full border p-2 rounded">{!! old('deskripsi', $article->deskripsi ?? '') !!}</textarea>
             </div>
             
             <div class="mt-4">
@@ -85,26 +85,10 @@
         }
     </script>
 
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#myeditor'))
-            .then(editor => {
-                console.log('CKEditor siap!', editor);
-            })
-            .catch(error => {
-                console.error('Terjadi kesalahan:', error);
-            });
-    </script>
 
 
 
     @endsection
 
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#myeditor'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
+   
 </x-app-layout>
