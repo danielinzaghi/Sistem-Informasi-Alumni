@@ -24,11 +24,11 @@
             </div>    
             <div>
                 <label class="block text-sm font-medium text-gray-700">NIM</label>
-                <input type="text" name="nim" value="{{ $mahasiswa->nim }}" class="mt-1 p-2 block w-full border border-gray-300 rounded-lg shadow-sm" placeholder="NIM" required>
+                <input type="number" name="nim" value="{{ $mahasiswa->nim }}" class="mt-1 p-2 block w-full border border-gray-300 rounded-lg shadow-sm" placeholder="NIM" required>
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700">No HP</label>
-                <input type="text" name="no_hp" value="{{ $mahasiswa->no_hp }}" class="mt-1 p-2 block w-full border border-gray-300 rounded-lg shadow-sm" placeholder="No HP">
+                <input type="number" name="no_hp" value="{{ $mahasiswa->no_hp }}" class="mt-1 p-2 block w-full border border-gray-300 rounded-lg shadow-sm" placeholder="No HP">
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700">Angkatan</label>

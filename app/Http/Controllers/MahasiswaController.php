@@ -15,12 +15,15 @@ class MahasiswaController extends Controller
     public function index() {
         $users = User::all();
         $mahasiswas = Mahasiswa::with('alumni')->get(); // Tambahkan eager loading alumni
+        
         return view('mahasiswa.index', compact('mahasiswas', 'users'));
     }
     
 
     public function create() {
-        $users = User::all();
+        $users = User::whereHas('roles', function($query) {
+            $query->where('name', 'alumni');
+        })->get();
         $prodis = ProgramStudi::all();
         return view('mahasiswa.create', compact('prodis', 'users'));
     }

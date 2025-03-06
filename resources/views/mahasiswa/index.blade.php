@@ -62,7 +62,7 @@
                 <tr class="hover:bg-gray-50">
                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                     <td class="px-4 py-2">{{ $mahasiswa->user->name}}</td>
-                    <td class="px-4 py-2">{{ $mahasiswa->prodi->nama_prodi}}</td>
+                    <td class="px-4 py-2">{{ $mahasiswa->prodi->nama_prodi ?? ''}}</td>
                     <td class="px-4 py-2">{{ $mahasiswa->nim}}</td>
                     <td class="px-4 py-2">{{ $mahasiswa->no_hp}}</td>
                     <td class="px-4 py-2">{{ $mahasiswa->angkatan}}</td>
