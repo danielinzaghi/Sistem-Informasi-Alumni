@@ -1,19 +1,22 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Mengambil data dari form
-    $title = $_POST['name'];
-    $phoneNumber = $_POST['phone_number'];
-    $date = $_POST['date'];
-    $category = $_POST['category'];
-    $description = $_POST['description'];
+namespace App\Models;
 
-    // Format data menjadi "title|phone_number|date|category|desc"
-    $formattedData = "$title|$phoneNumber|$date|$category|$description";
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-    // Tampilkan data yang diformat
-    echo "<h2>Data Broadcast:</h2>";
-    echo "<p>$formattedData</p>";
-} else {
-    // Jika bukan metode POST, redirect kembali ke form
-    header("Location: form.html"); // Ganti dengan nama file form Anda
+class Broadcast extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'alumni_id',
+        'api_id',
+        'detail',
+        'message',
+        'target',
+    ];
+    public function alumni()
+    {
+        return $this->belongsTo(Alumni::class, 'alumni_id');
+    }
 }

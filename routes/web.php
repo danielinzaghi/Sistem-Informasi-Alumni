@@ -35,7 +35,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('/admin/user', UserController::class)->names('admin.user');
     Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('admin.user.get');
-
+    Route::resource('admin/broadcast', BroadcastController::class)->names('admin.broadcast');
+    Route::get('admin/broadcast/create', [BroadcastController::class, 'create'])->name('admin.broadcast.create');
+    Route::post('admin/broadcast/send', [BroadcastController::class, 'sendMessage'])->name('admin.broadcast.send');
+    
     Route::resource('/admin/jurusan', JurusanController::class)->names('admin.jurusan');
     Route::get('/get-program-studi/{id}', [ProgramStudiController::class, 'getByJurusan']);
 
@@ -51,9 +54,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/alumni', function() {
         return view('alumni.index');
     })->name('admin.alumni');
-    Route::get('/admin/broadcast', function() {
-        return view('broadcast.index');
-    })->name('admin.broadcast');
+    // Route::get('/admin/broadcast', function() {
+        
+    //     return view('broadcast.index');
+    // })->name('admin.broadcast');
 });
 
 Route::middleware(['auth', 'role:alumni'])->group(function () {

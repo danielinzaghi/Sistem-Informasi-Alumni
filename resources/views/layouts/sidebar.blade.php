@@ -67,7 +67,7 @@
             <li>
                 <a
                     class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.broadcast.*') }}"
-                    href="{{ route('admin.broadcast') }}">
+                    href="{{ route('admin.broadcast.index') }}">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
