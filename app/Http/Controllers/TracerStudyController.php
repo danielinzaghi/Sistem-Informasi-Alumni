@@ -8,12 +8,13 @@ use App\Models\Alumni;
 use App\Models\TracerStudy;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class TracerStudyController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
         $tracerStudies = TracerStudy::with('alumni.mahasiswa.user')->get();
         return view('tracer_study.index', compact('tracerStudies'));
     }
@@ -21,7 +22,12 @@ class TracerStudyController extends Controller
     public function create()
     {
         $alumnis = Alumni::all();
-        return view('tracer_study.create', compact('alumnis'));
+
+        // Ambil data alumni yang sedang login berdasarkan user_id
+        $loggedInAlumni = Alumni::whereHas('mahasiswa.user', function ($query) {
+            $query->where('id', Auth::user()->id);
+        })->first();
+        return view('tracer_study.create', compact('alumnis', 'loggedInAlumni'));
     }
 
     public function store(StoreTracerStudyRequest $request) {

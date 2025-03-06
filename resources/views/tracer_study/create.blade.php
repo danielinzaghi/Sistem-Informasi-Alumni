@@ -20,10 +20,13 @@
             <select name="alumni_id" id="alumni_id" class="select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                 <option value="" disabled selected>-- Pilih Nama Alumni --</option>
                 @foreach ($alumnis as $alumni)
-                    <option value="{{ $alumni->id }}">{{ $alumni->mahasiswa->user->name ?? $alumni->nik }}</option>
+                    <option value="{{ $alumni->id }}" 
+                        {{ isset($loggedInAlumni) && $loggedInAlumni->id == $alumni->id ? 'selected' : '' }}>
+                        {{ $alumni->mahasiswa->user->name ?? $alumni->nik }}
+                    </option>
                 @endforeach
             </select>
-        </div>        
+        </div>          
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 $('#alumni_id').select2({
@@ -325,6 +328,14 @@
             <div class="mb-4">
                 <label for="aktif_mencari_kerja" class="block text-gray-700">Apakah Anda aktif mencari kerja saat ini?</label>
                 <select name="aktif_mencari_kerja" id="aktif_mencari_kerja" class="w-full p-2 border border-gray-300 rounded-lg">
+                    <option value="">-- Pilih --</option>
+                    <option value="Ya">Ya</option>
+                    <option value="Tidak">Tidak</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="bekerja_di_luar_bidang" class="block text-gray-700">Apakah Anda bersedia bekerja di luar bidang studi?</label>
+                <select name="bekerja_di_luar_bidang" id="bekerja_di_luar_bidang" class="w-full p-2 border border-gray-300 rounded-lg">
                     <option value="">-- Pilih --</option>
                     <option value="Ya">Ya</option>
                     <option value="Tidak">Tidak</option>

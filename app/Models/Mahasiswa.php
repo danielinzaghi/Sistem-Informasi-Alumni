@@ -11,19 +11,22 @@ class Mahasiswa extends Model
 
     protected $table = 'mahasiswa';
 
-    protected $fillable = ['users_id', 'id_prodi', 'nim', 'nama', 'no_hp', 'angkatan', 'prodi', 'status'];
+    protected $fillable = ['users_id', 'id_prodi', 'nim',  'no_hp', 'angkatan', 'status'];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id');
-    } 
-
-    public function programStudi()
-    {
-        return $this->hasMany(ProgramStudi::class, 'id_prodi');
+        return $this->belongsTo(User::class, 'users_id', 'id'); // Sesuaikan dengan nama kolom di DB
     }
+
+
+    public function prodi() 
+    {
+        return $this->belongsTo(ProgramStudi::class, 'id_prodi');
+    }
+
     public function alumni()
     {
-        return $this->hasOne(Alumni::class, 'mahasiswa_id', 'id');
+        return $this->hasOne(Alumni::class, 'mahasiswa_id', 'id'); // Sesuaikan nama kolom FK dan PK
     }
+
 }

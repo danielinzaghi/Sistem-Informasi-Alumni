@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\AlumniController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TracerStudyController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JurusanController;
@@ -37,24 +41,31 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::resource('/admin/dosen', DosenController::class)->names('admin.dosen');
 
-    Route::get('/admin/mahasiswa', function() {
-        return view('mahasiswa.index');
-    })->name('admin.mahasiswa');
-    Route::get('/admin/alumni', function() {
-        return view('alumni.index');
-    })->name('admin.alumni');
+    // Route::get('/admin/mahasiswa', function() {
+    //     return view('mahasiswa.index');
+    // })->name('admin.mahasiswa');
+    // Route::get('/admin/alumni', function() {
+    //     return view('alumni.index');
+    // })->name('admin.alumni');
+
+    Route::resource('/admin/mahasiswa', MahasiswaController::class)->names('admin.mahasiswa');
+    Route::resource('/admin/alumni', AlumniController::class)->names('admin.alumni');
     Route::get('/admin/broadcast', function() {
         return view('broadcast.index');
     })->name('admin.broadcast');
 });
 
+// Route untuk Alumni
 Route::middleware(['auth', 'role:alumni'])->group(function () {
     Route::get('/alumni/dashboard', function () {
         return view('dashboard');
     })->name('alumni.dashboard');
+
+    Route::resource('tracer_study', TracerStudyController::class);
 });
 Route::resource('/tracer-study', TracerStudyController::class)->names('tracer_study');
 
+// Route untuk Dosen
 Route::middleware(['auth', 'role:dosen'])->group(function () {
     Route::get('/dosen/dashboard', function () {
         return view('dashboard');
@@ -62,6 +73,7 @@ Route::middleware(['auth', 'role:dosen'])->group(function () {
     Route::patch('/dosen/{id}', [ProfileController::class, 'update'])->name('dosen.update');
 
 });
+
 
 
 require __DIR__ . '/auth.php';
