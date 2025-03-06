@@ -22,5 +22,11 @@ class Alumni extends Model
         return $this->hasOneThrough(User::class, Mahasiswa::class, 'id', 'id', 'mahasiswa_id', 'users_id');
     }
 
+    public function tracerStudy()
+    {
+        return $this->hasOne(TracerStudy::class);
+    }
+
+
 
 }
