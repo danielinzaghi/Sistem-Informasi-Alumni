@@ -58,7 +58,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // })->name('admin.alumni');
 
     Route::resource('/admin/mahasiswa', MahasiswaController::class)->names('admin.mahasiswa');
-    Route::resource('/admin/alumni', AlumniController::class)->names('admin.alumni');
+    // Route::resource('/admin/alumni', AlumniController::class)->names('admin.alumni');
     Route::get('/admin/broadcast', function() {
         return view('broadcast.index');
     })->name('admin.broadcast');
