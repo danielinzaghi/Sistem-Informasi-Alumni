@@ -1,6 +1,6 @@
 <section>
     <header>
-        <h2 class="text-lg font-semibold text-[#00593b]">
+        <h2 class="text-lg font-semibold text-[#1e40af]">
             {{ __('Update Password') }}
         </h2>
     </header>
@@ -16,7 +16,7 @@
         <!-- Tombol Edit -->
         <div class="mt-4">
             <x-primary-button @click="editMode = true"
-                class="bg-[#00593b] text-white hover:bg-[#00432e] focus:ring-[#00593b]">
+                class="bg-[#1e40af] text-white hover:bg-[#5079ff] focus:ring-[#1e40af]">
                 {{ __('Edit Password') }}
             </x-primary-button>
         </div>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <x-primary-button class="bg-[#00593b] text-white hover:bg-[#00432e] focus:ring-[#00593b]">
+                <x-primary-button class="bg-[#1e40af] text-white hover:bg-[#5079ff] focus:ring-[#1e40af]">
                     {{ __('Save') }}
                 </x-primary-button>
 

@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\Alumni;
 use App\Models\Dosen;
+use App\Models\Alumni;
 use App\Models\Mahasiswa;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -76,42 +79,92 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-    public function updatedosen(Request $request, Alumni $alumni)
+    // public function updateAlumni(Request $request): RedirectResponse
+    // {
+    //     $user = $request->user();
+
+    //     if (!$user->hasRole('alumni')) {
+    //         return Redirect::route('profile.edit')->with('error', 'Anda bukan alumni.');
+    //     }
+
+    //     $request->validate([
+    //         'tahun_lulus' => 'nullable|integer',
+    //         'pekerjaan' => 'nullable|string|max:255',
+    //         'instansi' => 'nullable|string|max:255',
+    //         'npwp' => 'nullable|string|max:20',
+    //         'nik' => 'nullable|string|max:16',
+    //     ]);
+
+    //     $alumni = Mahasiswa::firstOrNew(['mahasiswa_id' => $user->id]);
+
+    //     $alumni->tahun_lulus = $request->input('tahun_lulus', $alumni->tahun_lulus);
+    //     $alumni->pekerjaan = $request->input('pekerjaan', $alumni->pekerjaan);
+    //     $alumni->instansi = $request->input('instansi', $alumni->instansi);
+    //     $alumni->npwp = $request->input('npwp', $alumni->npwp);
+    //     $alumni->nik = $request->input('nik', $alumni->nik);
+    //     $alumni->users_id = $user->id;
+
+    //     $alumni->save();
+
+    //     return Redirect::route('profile.edit')->with('status', 'alumni-profile-updated');
+    // }
+
+    public function updatedosen(Request $request, $id)
     {
+        // Ambil dosen dengan ID yang diberikan
+        $dosen = Dosen::findOrFail($id);
+
+        // Validasi input
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'tahun_lulus' => 'required|integer',
-            'pekerjaan' => 'required|string|max:255',
-            'instansi' => 'required|string|max:255',
-            'nik' => 'required|string|max:16',
-            'npwp' => 'required|string|max:20',
+            'nidn' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('dosen', 'nidn')->ignore($dosen->id),
+            ],
         ]);
 
-        $alumni->update($validated);
+        // Update user terkait jika ada
+        if ($dosen->user) {
+            $userUpdateResult = $dosen->user->update([
+                'name' => $validated['name'],
+            ]);
+        }
 
-        return redirect()->route('profile.edit')->with('status', 'profile-updated');
-    }
+        // Update dosen dengan query builder
+        $updateResult = DB::table('dosen')
+            ->where('id', $dosen->id)
+            ->update([
+                'nama' => $validated['name'],
+                'nidn' => $validated['nidn']
+            ]);
 
-
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        if ($updateResult) {
+            return redirect()->route('profile.edit')->with('status', 'profile-updated');
+        } else {
+            return back()->withErrors(['update' => 'Gagal menyimpan data dosen'])->withInput();
+        }
     }
 }
+
+    // /**
+    //  * Delete the user's account.
+    //  */
+    // public function destroy(Request $request): RedirectResponse
+    // {
+    //     $request->validateWithBag('userDeletion', [
+    //         'password' => ['required', 'current_password'],
+    //     ]);
+
+    //     $user = $request->user();
+
+    //     Auth::logout();
+
+    //     $user->delete();
+
+    //     $request->session()->invalidate();
+    //     $request->session()->regenerateToken();
+
+    //     return Redirect::to('/');
+    // }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('no_hp', 20)->nullable();
             $table->integer('angkatan');
             $table->string('prodi', 50);
-            $table->enum('status', ['aktif', 'non-aktif', 'lulus'])->nullable();
+            $table->string('status', 50)->nullable();
             $table->timestamps();
         });
     }

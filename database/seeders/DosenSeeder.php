@@ -50,7 +50,6 @@ class DosenSeeder extends Seeder
                 'users_id' => $userDosen->id,
                 'nama' => $userDosen->name,
                 'nidn' => $data['nidn'],
-                'email' => $userDosen->email,
             ]);
         }
     }

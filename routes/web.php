@@ -47,15 +47,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['auth', 'role:alumni'])->group(function () {
     Route::get('/alumni/dashboard', function () {
-        return view('alumni.dashboard');
-    });
+        return view('dashboard');
+    })->name('alumni.dashboard');
+    Route::patch('/alumni/{id}', [ProfileController::class, 'update'])->name('alumni.update');
 });
 
 Route::middleware(['auth', 'role:dosen'])->group(function () {
     Route::get('/dosen/dashboard', function () {
         return view('dashboard');
     })->name('dosen.dashboard');
-    Route::patch('/dosen/{id}', [ProfileController::class, 'update'])->name('dosen.update');
+    Route::patch('/dosen/{id}', [ProfileController::class, 'updatedosen'])->name('dosen.update');
 
 });
 

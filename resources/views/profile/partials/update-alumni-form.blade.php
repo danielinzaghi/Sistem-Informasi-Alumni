@@ -1,6 +1,6 @@
 <section>
     <header>
-        <h2 class="text-lg font-semibold text-[#00593b]">
+        <h2 class="text-lg font-semibold text-[#1e40af]">
             {{ __('Alumni Profile') }}
         </h2>
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -11,8 +11,10 @@
     <div x-data="{ editMode: false }">
         <!-- Tampilan Informasi Alumni -->
         <div x-show="!editMode" class="mt-4 bg-gray-100 p-4 rounded-md">
+            <p class="text-sm text-gray-800"><strong>{{ __('Email') }}:</strong> {{ $user->email ?? '-' }}</p>
             <p class="text-sm text-gray-800"><strong>{{ __('Nama') }}:</strong> {{ $user->name ?? '-' }}</p>
-            <p class="text-sm text-gray-800"><strong>{{ __('Tahun Lulus') }}:</strong> {{ $alumni->tahun_lulus ?? '-' }}</p>
+            <p class="text-sm text-gray-800"><strong>{{ __('Tahun Lulus') }}:</strong> {{ $alumni->tahun_lulus ?? '-' }}
+            </p>
             <p class="text-sm text-gray-800"><strong>{{ __('Pekerjaan') }}:</strong> {{ $alumni->pekerjaan ?? '-' }}</p>
             <p class="text-sm text-gray-800"><strong>{{ __('Instansi') }}:</strong> {{ $alumni->instansi ?? '-' }}</p>
             <p class="text-sm text-gray-800"><strong>{{ __('NIK') }}:</strong> {{ $alumni->nik ?? '-' }}</p>
@@ -22,22 +24,29 @@
         <!-- Tombol Edit -->
         <div class="mt-4">
             <x-primary-button @click="editMode = true"
-                class="bg-[#00593b] text-white hover:bg-[#00432e] focus:ring-[#00593b]">
+                class="bg-[#1e40af] text-white hover:bg-[#5079ff] focus:ring-[#1e40af]">
                 {{ __('Edit Profile') }}
             </x-primary-button>
         </div>
 
         <!-- Form Edit Alumni -->
-        <form x-show="editMode" x-transition method="post" action="{{ route('profile.update', $alumni->id) }}"
+        <form x-show="editMode" x-transition method="post" action="{{ route('alumni.update', $alumni->id) }}"
             class="mt-6 space-y-6 bg-white p-6 rounded-lg shadow">
 
             @csrf
             @method('patch')
+            
+            <div>
+                <x-input-label for="email" :value="__('Email')" />
+                <x-text-input id="email" name="email" type="text" class="mt-1 block w-full" :value="old('email', $user->email)"
+                    required autocomplete="email" />
+                <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            </div>
 
             <div>
                 <x-input-label for="name" :value="__('Nama')" />
-                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" 
-                    :value="old('name', $user->name)" required autocomplete="name" />
+                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)"
+                    required autocomplete="name" />
                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
 
@@ -50,34 +59,34 @@
 
             <div>
                 <x-input-label for="pekerjaan" :value="__('Pekerjaan')" />
-                <x-text-input id="pekerjaan" name="pekerjaan" type="text" class="mt-1 block w-full" 
+                <x-text-input id="pekerjaan" name="pekerjaan" type="text" class="mt-1 block w-full"
                     :value="old('pekerjaan', $alumni->pekerjaan)" required autocomplete="pekerjaan" />
                 <x-input-error class="mt-2" :messages="$errors->get('pekerjaan')" />
             </div>
 
             <div>
                 <x-input-label for="instansi" :value="__('Instansi')" />
-                <x-text-input id="instansi" name="instansi" type="text" class="mt-1 block w-full" 
-                    :value="old('instansi', $alumni->instansi)" required autocomplete="instansi" />
+                <x-text-input id="instansi" name="instansi" type="text" class="mt-1 block w-full" :value="old('instansi', $alumni->instansi)"
+                    required autocomplete="instansi" />
                 <x-input-error class="mt-2" :messages="$errors->get('instansi')" />
             </div>
 
             <div>
                 <x-input-label for="nik" :value="__('NIK')" />
-                <x-text-input id="nik" name="nik" type="number" class="mt-1 block w-full"
-                    :value="old('nik', $alumni->nik)" required autocomplete="nik" />
+                <x-text-input id="nik" name="nik" type="number" class="mt-1 block w-full" :value="old('nik', $alumni->nik)"
+                    required autocomplete="nik" />
                 <x-input-error class="mt-2" :messages="$errors->get('nik')" />
             </div>
 
             <div>
                 <x-input-label for="npwp" :value="__('NPWP')" />
-                <x-text-input id="npwp" name="npwp" type="number" class="mt-1 block w-full"
-                    :value="old('npwp', $alumni->npwp)" required autocomplete="npwp" />
+                <x-text-input id="npwp" name="npwp" type="number" class="mt-1 block w-full" :value="old('npwp', $alumni->npwp)"
+                    required autocomplete="npwp" />
                 <x-input-error class="mt-2" :messages="$errors->get('npwp')" />
             </div>
 
             <div class="flex items-center gap-4">
-                <x-primary-button class="bg-[#00593b] text-white hover:bg-[#00432e] focus:ring-[#00593b]">
+                <x-primary-button class="bg-[#1e40af] text-white hover:bg-[#5079ff] focus:ring-[#1e40af]">
                     {{ __('Save') }}
                 </x-primary-button>
 
@@ -97,7 +106,8 @@
                         <svg class="fill-current h-6 w-6 text-green-500" role="button"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                             <title>Close</title>
-                            <path d="M14.348 5.652a1 1 0 010 1.414L11.414 10l2.934 2.934a1 1 0 01-1.414 1.414L10 11.414l-2.934 2.934a1 1 0 01-1.414-1.414L8.586 10 5.652 7.066a1 1 0 111.414-1.414L10 8.586l2.934-2.934a1 1 0 011.414 0z" />
+                            <path
+                                d="M14.348 5.652a1 1 0 010 1.414L11.414 10l2.934 2.934a1 1 0 01-1.414 1.414L10 11.414l-2.934 2.934a1 1 0 01-1.414-1.414L8.586 10 5.652 7.066a1 1 0 111.414-1.414L10 8.586l2.934-2.934a1 1 0 011.414 0z" />
                         </svg>
                     </button>
                 </div>
