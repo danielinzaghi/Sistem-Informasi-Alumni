@@ -7,11 +7,15 @@ use App\Models\User;
 use App\Models\Mahasiswa;
 use App\Models\ProgramStudi;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
 
 class MahasiswaSeeder extends Seeder
 {
     public function run(): void
     {
+        $faker = Faker::create('id_ID'); // Gunakan locale Indonesia
+
         // Pastikan role "alumni" sudah ada
         $alumniRole = Role::firstOrCreate(['name' => 'alumni']);
 
@@ -21,9 +25,12 @@ class MahasiswaSeeder extends Seeder
         // Simpan NIM yang sudah dibuat untuk memastikan unik
         $usedNIMs = [];
 
+        // Tahun saat ini
+        $currentYear = now()->year;
+
         // Tambahkan 30 alumni
         for ($i = 1; $i <= 30; $i++) {
-            $angkatan = rand(2018, 2022);
+            $angkatan = rand(2008, $currentYear);
 
             // Pastikan NIM unik
             do {
@@ -33,13 +40,18 @@ class MahasiswaSeeder extends Seeder
 
             // Pilih prodi secara acak
             $randomProdiId = $prodiList[array_rand($prodiList)];
-            $randomProdi = ProgramStudi::find($randomProdiId);
+
+            // Tentukan status kelulusan berdasarkan angkatan
+            $status = ($angkatan < $currentYear) ? 'lulus' : 'belum lulus';
+
+            // Generate nama acak
+            $randomName = $faker->name;
 
             // Buat user
             $userAlumni = User::create([
-                'name' => "Alumni $i",
-                'email' => "alumni$i@gmail.com",
-                'password' => bcrypt('password123'),
+                'name' => $randomName,
+                'email' => strtolower(str_replace(' ', '', $randomName)) . "@gmail.com",
+                'password' => Hash::make('password123'),
             ]);
             $userAlumni->assignRole($alumniRole);
 
@@ -48,11 +60,9 @@ class MahasiswaSeeder extends Seeder
                 'users_id' => $userAlumni->id,
                 'id_prodi' => $randomProdiId,
                 'nim' => $nim,
-                'nama' => $userAlumni->name,
                 'angkatan' => $angkatan,
-                'prodi' => $randomProdi->nama_prodi ?? 'Tidak Diketahui',
                 'no_hp' => "08" . rand(1000000000, 9999999999),
-                'status' => 'lulus',
+                'status' => $status, // Status akan menyesuaikan dengan tahun real-time
             ]);
         }
     }

@@ -21,7 +21,7 @@
 
     <!-- Bagian Informasi -->
     <div
-        class="flex flex-col items-center justify-center p-4 w-full lg:w-[70%] text-white border-gray-500 bg-[#1e40af] lg:border-l-[16px] hidden lg:flex">
+        class="flex flex-col items-center justify-center p-4 w-full lg:w-[70%] text-white border-yellow-500 bg-[#1e40af] lg:border-l-[16px] hidden lg:flex">
         <div class="flex flex-col text-center lg:text-left">
             <div class="flex items-center">
                 <span class="self-center text-3xl font-bold text-white whitespace-nowrap">E-ALUMNI</span>

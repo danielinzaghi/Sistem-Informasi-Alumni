@@ -10,10 +10,23 @@ class Alumni extends Model
     use HasFactory;
 
     protected $table = 'alumni';
+
     protected $fillable = ['mahasiswa_id', 'tahun_lulus', 'pekerjaan', 'instansi', 'npwp', 'nik'];
-    
+
     public function mahasiswa()
     {
-        return $this->hasOne(Mahasiswa::class, 'mahasiswa_id');
+        return $this->belongsTo(Mahasiswa::class, 'mahasiswa_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->hasOneThrough(User::class, Mahasiswa::class, 'id', 'id', 'mahasiswa_id', 'users_id');
+    }
+
+    public function tracerStudy()
+    {
+        return $this->hasOne(TracerStudy::class, 'alumni_id', 'id');
+    }
+
+
 }

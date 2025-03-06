@@ -48,7 +48,7 @@
             <thead class="bg-gray-100">
                 <tr>
                     <th class="px-4 py-2 text-left">No</th>
-                    <th class="px-4 py-2 text-left">Alumni ID</th>
+                    <th class="px-4 py-2 text-left">Nama Alumni</th>
                     <th class="px-4 py-2 text-left">Status</th>
                     <th class="px-4 py-2 text-left">Aksi</th>
                 </tr>
@@ -57,7 +57,7 @@
                 @foreach ($tracerStudies as $tracer)
                 <tr class="hover:bg-gray-50">
                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                    <td class="px-4 py-2">{{ $tracer->alumni->mahasiswa->user->name ?? 'Nama Tidak Ditemukan' }}</td>
+                    <td class="px-4 py-2">{{ $tracer->alumni->mahasiswa->user->name }}</td>
                     <td class="px-4 py-2">{{ $tracer->status_saat_ini }}</td>
                     <td class="px-4 py-2">
                         @if(auth()->user()->alumni_id === $tracer->alumni_id)

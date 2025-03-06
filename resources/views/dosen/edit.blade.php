@@ -1,12 +1,12 @@
 <x-app-layout>
     @section('content')
-    @section('main_folder', 'User')
-    @section('main_folder-link', route('admin.user.index'))
-    @section('sub_folder', 'Edit User')
+    @section('main_folder', 'Dosen')
+    @section('main_folder-link', route('admin.dosen.index'))
+    @section('sub_folder', 'Edit Dosen')
         <div class="container mx-auto p-6">
-            <h2 class="text-2xl font-bold text-gray-700 mb-4">Edit Data User</h2>
+            <h2 class="text-2xl font-bold text-gray-700 mb-4">Edit Data Dosen</h2>
         
-            <form action="{{ route('admin.user.update', $user->id) }}" method="POST" class="bg-white p-6 rounded-lg shadow-md">
+            <form action="{{ route('admin.dosen.update', $dosen->id) }}" method="POST" class="bg-white p-6 rounded-lg shadow-md">
                 @csrf
                 @method('PUT')
         
@@ -20,7 +20,7 @@
         
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700">Nama</label>
-                    <input type="text" name="name" id="name" value="{{ $user->name }}" class="w-full p-2 border border-gray-300 rounded-lg">
+                    <input type="text" name="nama" id="nama" value="{{ $dosen->nama }}" class="w-full p-2 border border-gray-300 rounded-lg">
                 </div>
 
                 <div class="mb-5">

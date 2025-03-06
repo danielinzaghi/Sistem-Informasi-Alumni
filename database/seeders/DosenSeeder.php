@@ -48,8 +48,9 @@ class DosenSeeder extends Seeder
 
             Dosen::create([
                 'users_id' => $userDosen->id,
-                'nama' => $userDosen->name,
+                // 'nama' => $userDosen->name,
                 'nidn' => $data['nidn'],
+                // 'email' => $userDosen->email,
             ]);
         }
     }

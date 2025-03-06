@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Dosen;
 use App\Models\Alumni;
-use App\Models\Mahasiswa;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -34,10 +33,11 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+
         $user = $request->user();
 
-        // Update data users (only username and email)
-        $user->fill($request->only(['name', 'email']));
+        // Update data users (hanya username dan email)
+        $user->fill($request->only(['username', 'email']));
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
@@ -45,7 +45,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        // If user has alumni role, check if alumni data exists
+        // Jika user adalah alumni, update data alumni
         if ($user->hasRole('alumni')) {
             $alumni = Alumni::firstOrNew(['mahasiswa_id' => $user->id]);
 

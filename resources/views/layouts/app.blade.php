@@ -8,6 +8,8 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
+        <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link
             href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"
@@ -15,7 +17,15 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Select2 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+        <!-- Select2 JS -->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
         <!-- jQuery (Wajib, sebelum DataTables) -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -70,7 +80,7 @@
                                 <li class="text-gray-400">/</li>
                                 @if (View::hasSection('main_folder'))
                                 <li class="flex items-center">
-                                    <a href="#" class="font-regular text-gray-700 hover:text-blue-600">
+                                    <a href="@yield('main_folder-link')" class="font-regular text-gray-700 hover:text-blue-600">
                                         @yield('main_folder')
                                     </a>
                                 </li>
@@ -94,7 +104,7 @@
                     <!-- Container Biru di Belakang -->
                     <div class="mt-4">
                         <!-- Container Putih di Depan -->
-                        <div class="bg-white shadow-lg rounded-lg border-t-4 p-4 border-blue-800">
+                        <div class="bg-white shadow-lg rounded-lg border-t-4 p-4 border-[#1e40af]">
                             @yield('content')
                         </div>
                     </div>
