@@ -3,6 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BroadcastController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\ProgramStudiController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DosenController;
+use App\Http\Controllers\TracerStudyController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,4 +31,45 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::resource('/admin/user', UserController::class)->names('admin.user');
+    Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('admin.user.get');
+
+    Route::resource('/admin/jurusan', JurusanController::class)->names('admin.jurusan');
+    Route::get('/get-program-studi/{id}', [ProgramStudiController::class, 'getByJurusan']);
+
+    Route::get('/admin/dosen', function() {
+        return view('dosen.index');
+    })->name('admin.dosen');
+
+    Route::resource('/admin/dosen', DosenController::class)->names('admin.dosen');
+
+    Route::get('/admin/mahasiswa', function() {
+        return view('mahasiswa.index');
+    })->name('admin.mahasiswa');
+    Route::get('/admin/alumni', function() {
+        return view('alumni.index');
+    })->name('admin.alumni');
+    Route::get('/admin/broadcast', function() {
+        return view('broadcast.index');
+    })->name('admin.broadcast');
+});
+
+Route::middleware(['auth', 'role:alumni'])->group(function () {
+    Route::get('/alumni/dashboard', function () {
+        return view('dashboard');
+    })->name('alumni.dashboard');
+});
+Route::resource('/tracer-study', TracerStudyController::class)->names('tracer_study');
+
+Route::middleware(['auth', 'role:dosen'])->group(function () {
+    Route::get('/dosen/dashboard', function () {
+        return view('dashboard');
+    })->name('dosen.dashboard');
+    Route::patch('/dosen/{id}', [ProfileController::class, 'update'])->name('dosen.update');
+
+});
+
+
+require __DIR__ . '/auth.php';

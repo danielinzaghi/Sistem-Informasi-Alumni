@@ -8,7 +8,12 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
-    
+    safelist: [
+        'text-white',
+        'bg-blue-800', // Pastikan Tailwind tidak menghapus warna ini
+        'hover:bg-gray-200'
+      ],
+
     theme: {
         extend: {
             fontFamily: {
