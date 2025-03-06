@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
             }
 
             // Jika role tidak ditemukan, fallback ke halaman default
-            return redirect()->route('dashboard'); // Ganti dengan halaman default jika perlu
+            return redirect()->route($role.'.dashboard'); // Ganti dengan halaman default jika perlu
         }
 
     /**

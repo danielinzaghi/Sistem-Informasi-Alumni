@@ -18,8 +18,10 @@ class AlumniController extends Controller
         $alumnis = Alumni::whereHas('mahasiswa.user', function ($query) {
             $query->where('id', Auth::user()->id);
         })->get();
+
+        //dd($alumnis);
         
-        return view('nama_view', compact('alumnis'));
+        return view('alumni.index', compact('alumnis'));
         
     }    
 
@@ -42,6 +44,8 @@ class AlumniController extends Controller
             $alumni->nik = $request->nik;
             $alumni->save();
         });
+
+        
 
         return redirect()->route('admin.alumni.index')->with('success', 'Alumni berhasil dibuat.');
     }

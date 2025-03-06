@@ -48,9 +48,9 @@ class MahasiswaSeeder extends Seeder
                 'users_id' => $userAlumni->id,
                 'id_prodi' => $randomProdiId,
                 'nim' => $nim,
-                'nama' => $userAlumni->name,
+                // 'nama' => $userAlumni->name,
                 'angkatan' => $angkatan,
-                'prodi' => $randomProdi->nama_prodi ?? 'Tidak Diketahui',
+                // 'prodi' => $randomProdi->nama_prodi ?? 'Tidak Diketahui',
                 'no_hp' => "08" . rand(1000000000, 9999999999),
                 'status' => 'lulus',
             ]);
