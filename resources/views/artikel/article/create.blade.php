@@ -1,10 +1,7 @@
 <x-app-layout>
-    <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/markdown/ckeditor.js"></script>
+    
 
     @section('content')
-      
-
-
 
 
 
@@ -45,7 +42,7 @@
 
         <div class="mt-4">
             <label for="desc" class="block font-semibold">Deskripsi</label>
-    <textarea name="deskripsi" id="myeditor" class="w-full border p-2 rounded"></textarea>
+         <textarea name="deskripsi" id="myeditor" class="w-full border p-2 rounded"></textarea>
         </div>
         
         <div class="mt-4">
@@ -117,4 +114,7 @@
 </script>
 
 @endsection
+
+
+<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/markdown/ckeditor.js"></script>
 </x-app-layout>

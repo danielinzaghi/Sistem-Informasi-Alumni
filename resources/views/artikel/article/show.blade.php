@@ -4,7 +4,6 @@
     <div class="container mx-auto p-6">
         <h1 class="text-2xl font-bold mb-6">Detail Artikel</h1>
 
-        <a href="{{ route('admin.ArticleIndex') }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block transition">Kembali</a>
 
         <div class="bg-white p-6 rounded-lg shadow-md">
             <table class="w-full border-collapse border border-gray-300">

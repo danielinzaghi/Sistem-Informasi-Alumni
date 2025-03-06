@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -76,19 +77,32 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Article $article)
+    public function edit($id)
     {
-        //
+        $article = Article::findOrFail($id);
+        $categories = Category::all();
+        return view('artikel.article.update', compact('article', 'categories'));
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+    public function update(UpdateArticleRequest  $request, $id)
     {
-        //
-    }
+        $article = Article::findOrFail($id);
+        
+        // Menyiapkan data yang akan diupdate
+        $data = $request->validated();
+        
+        // Jika ada gambar baru, hapus yang lama dan simpan yang baru
+        if ($request->hasFile('img')) {
+            Storage::delete($article->img);
+            $data['img'] = $request->file('img')->store('uploads/articles');
+        }
+        
+        $article->update($data);
 
+        return redirect()->route('admin.ArticleIndex')->with('success', 'Artikel berhasil diperbarui!');
+    }
     /**
      * Remove the specified resource from storage.
      */
