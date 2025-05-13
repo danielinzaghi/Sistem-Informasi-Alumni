@@ -10,7 +10,7 @@ class Dosen extends Model
     use HasFactory;
 
     protected $table = 'dosen';
-    protected $fillable = ['users_id', 'nama', 'nidn', 'email', 'created_at', 'updated_at'];
+    protected $fillable = ['users_id', 'nidn', 'email', 'created_at', 'updated_at'];
 
     public function user()
     {

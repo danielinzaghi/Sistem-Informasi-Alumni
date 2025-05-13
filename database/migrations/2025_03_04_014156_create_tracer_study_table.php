@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('alumni_id')->constrained('alumni')->onDelete('cascade');
             $table->enum('status_saat_ini', ['Bekerja', 'Belum bekerja', 'Wiraswasta', 'Melanjutkan Pendidikan', 'Mencari kerja']);
             $table->integer('waktu_dapat_kerja')->nullable();
-            $table->decimal('gaji_bulanan', 10, 2)->nullable();
+            $table->bigInteger('gaji_bulanan')->nullable();
             $table->string('lokasi_provinsi', 100)->nullable();
             $table->string('lokasi_kota', 100)->nullable();
             $table->enum('jenis_perusahaan', ['Instansi Pemerintah', 'Organisasi non-profit', 'Perusahaan Swasta', 'Wiraswasta', 'Lainnya'])->nullable();

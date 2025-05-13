@@ -21,7 +21,7 @@
             @foreach ($dosen as $data)
             <tr class="bg-white border-b" style="cursor: pointer;">
                 <td class="px-2 text-center py-4 border">{{ $loop->iteration }}</td>
-                <td class="px-2 text-center py-4 border">{{ $data->nama }}</td>
+                <td class="px-2 text-center py-4 border">{{ $data->user->name }}</td>
                 <td class="px-2 text-center py-4 border">{{ $data->user->email }}</td>
                 <td class="px-2 text-center py-4 border">{{ $data->nidn }}</td>
                 <td class="px-2 text-center py-4 border">
@@ -110,36 +110,6 @@
             $("#closeCreateModal").click(function () {
                 $("#createModal").addClass("hidden");
             })
-            // $(".edit-user-btn").click(function () {
-            //     let userId = $(this).data("id"); // Ambil ID user
-
-            //     $.ajax({
-            //         url: "/admin/user/" + userId, // Endpoint backend untuk ambil data user
-            //         type: "GET",
-            //         success: function (response) {
-            //             $("#userIdInput").val(response.id);
-            //             $("#userName").val(response.name);
-            //             $("#userEmail").val(response.email);
-            //             $("#userRole")
-            //                 .val(response.role_id)
-            //                 .change(); // Pilih role sesuai ID
-
-            //             // Set action form sesuai dengan route update
-            //             let updateUrl = "{{ route('admin.user.update', ':id') }}".replace(
-            //                 ':id',
-            //                 response.id
-            //             );
-            //             $("#editUserForm").attr("action", updateUrl);
-
-            //             // Tampilkan modal
-            //             $("#editModal").removeClass("hidden");
-            //         }
-            //     });
-            // });
-
-            // $("#closeEditModal").click(function () {
-            //     $("#editModal").addClass("hidden");
-            // });
         })
     </script>
     <script>

@@ -119,7 +119,7 @@
                             <td class="px-2 text-center py-4 border">
                                 <input type="checkbox" name="targets[]" value="{{ $alumni->id }}|{{ $alumni->mahasiswa->no_hp }}|{{ $alumni->mahasiswa->nama }}" class="individual-checkbox">
                             </td>
-                            <td class="px-2 text-center py-4 border">{{ $alumni->mahasiswa->nama }}</td>
+                            <td class="px-2 text-center py-4 border">{{ $alumni->mahasiswa->user->name }}</td>
                             <td class="px-2 text-center py-4 border">{{ $alumni->mahasiswa->no_hp }}</td>
                             <td class="px-2 text-center py-4 border">{{ $alumni->mahasiswa->nim }}</td>
                             <td class="px-2 text-center py-4 border">{{ $alumni->mahasiswa->angkatan }}</td>

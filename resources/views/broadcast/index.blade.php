@@ -59,7 +59,7 @@
             <thead class="bg-gray-200">
                 <tr>
                     <th class="border border-gray-300 px-4 py-2">Id</th>
-                    <th class="border border-gray-300 px-4 py-2">Nama Mahasiswa</th> <!-- Menambahkan kolom untuk nama mahasiswa -->
+                    <th class="border border-gray-300 px-4 py-2">Nama Penerima</th> <!-- Menambahkan kolom untuk nama mahasiswa -->
                     <th class="border border-gray-300 px-4 py-2">Target</th>
                     <th class="border border-gray-300 px-4 py-2">Message</th>
                     <th class="border border-gray-300 px-4 py-2">Status</th>
@@ -69,7 +69,7 @@
                 @foreach($broadcasts as $broadcast)
                     <tr>
                         <td class="border border-gray-300 px-4 py-2">{{ $broadcast->id }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ $broadcast->alumni->mahasiswa->nama ?? 'N/A' }}</td> <!-- Menampilkan nama mahasiswa -->
+                        <td class="border border-gray-300 px-4 py-2">{{ $broadcast->alumni->mahasiswa->user->name ?? 'N/A' }}</td> <!-- Menampilkan nama mahasiswa -->
                         <td class="border border-gray-300 px-4 py-2">{{ $broadcast->target }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $broadcast->message }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ $broadcast->detail }}</td>
