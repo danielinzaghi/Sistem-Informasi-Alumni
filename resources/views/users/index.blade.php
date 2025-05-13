@@ -4,7 +4,7 @@
         <h1 class="font-semibold text-2xl mb-4">Data Pengguna</h1>
         <button
             type="button"
-            class="create-user-btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Tambah</button>  
+            class="create-user-btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none">Tambah</button>  
     </div>
     <table
         class="w-100 sm:min-w-full text-[9px] sm:text-[15px] text-gray-500 border border-gray-300 shadow-md rounded-lg">
@@ -29,7 +29,7 @@
                     <button
                         id="dropdownDefaultButton"
                         data-dropdown-toggle="dropdown"
-                        class="text-white  text-sm bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        class="text-white  text-sm bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center inline-flex items-center"
                         type="button">Pilih Aksi
                         <svg
                             class="w-2.5 h-2.5 ms-3"
@@ -72,118 +72,108 @@
         </tbody>
     </table>
 
-    {{-- Modal Tambah User --}}
-    <div id="createModal" class=" hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg w-1/3">
-            <h2 class="text-xl font-semibold">Tambah User</h2>
-            
-            <form method="POST" action="{{ route('admin.user.store') }}">
-                @csrf
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                    <div class="col-span-2">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Isikan nama pengguna" required="">
-                    </div>
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="jake@gmail.com" required="">
-                    </div>
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
-                        <select id="role_id" name="role_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option selected disabled>Pilih role</option>
-                            @foreach ($role as $role)
-                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="flex justify-end mt-4">
-                    <button type="button" id="closeCreateModal" class="px-4 py-2 bg-gray-400 text-white rounded">Batal</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded ml-2">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-    {{-- Modal Edit User --}}
-    <div id="editModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg w-1/3">
-            <h2 class="text-xl font-semibold">Edit User</h2>
-            
-            <form method="POST" id="editUserForm">
-                @csrf
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                    <div class="col-span-2">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <input type="text" name="name" id="userName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Isikan nama pengguna" required="">
-                    </div>
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" name="email" id="userEmail" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="jake@gmail.com" required="">
-                    </div>
-                    
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
-                        <select id="userRole" name="role_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option selected disabled>Pilih role</option>
-                            {{-- <option value="1">admin</option>
-                            <option value="2">dosen</option>
-                            <option value="3">alumni</option> --}}
-                            {{-- @foreach ($role as $r)
-                                <option value="{{ $r->id }}">
-                                    {{ $r->name }}
-                                </option>
-                            @endforeach --}}
-                        </select>
-                    </div>
-                </div>
-
-                <div class="flex justify-end mt-4">
-                    <button type="button" id="closeEditModal" class="px-4 py-2 bg-gray-400 text-white rounded">Batal</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded ml-2">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    @include('users.modal.user-form')
     
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            $(".create-user-btn").click(function() {
-                $("#createModal").removeClass("hidden");
+            function resetModal() {
+                $('#extraFields').addClass('hidden');
+                $('#modalTitle, #user_id, #name, #email, #role, #student_class_id, #nim, #student_phone_number, #student_address, #nidn, #nip, #lecturer_phone_number, #lecturer_address').val('');
+                // $('#role').prop("readonly", false);
+            }
+
+            $('.create-user-btn').click(function() {
+                resetModal();
+                // $('#roleInput')
+                $('#saveUser').text('Simpan');
+                $('#modalTitle').text('Tambah User');
+                $('#userForm')
+                    .attr('action', "{{ route('admin.user.store') }}")
+                    .find('input[name="_method"]').remove();
+                $('#role').removeClass('hidden');
+
+                $('#role').change(function () {
+                    var roleSelected = $(this).val();
+
+                    if (roleSelected === "admin" || roleSelected === "") {
+                        $('#mahasiswaFields').addClass('hidden');
+                        $('#dosenFields').addClass('hidden');
+                        $('#extraFields').addClass('hidden');
+                    } else if (roleSelected === "mahasiswa") {
+                        $('#mahasiswaFields').removeClass('hidden');
+                        $('#dosenFields').addClass('hidden');
+                        $('#extraFields').removeClass('hidden');
+                    } else if (roleSelected === "dosen") {
+                        $('#mahasiswaFields').addClass('hidden');
+                        $('#dosenFields').removeClass('hidden');
+                        $('#extraFields').removeClass('hidden');
+                    }
+                });
+                openModal('userModal');
             });
 
-            $(".edit-user-btn").click(function() {
-                let userId = $(this).data("id");
-                let userName = $(this).data("name");
-                let userEmail = $(this).data("email");
-                let userRole = $(this).data("role");
+            $(document).on('click', '.edit-user-btn', function() {
+                resetModal();
+                let userId = $(this).data('id');
+                $('#saveUser').text('Ubah');
+                $('#role').addClass('hidden');
+                $('#role-label').addClass('hidden');
+                // Pastikan hanya ada satu input _method untuk update
+                if ($('#userForm').find('input[name="_method"]').length === 0) {
+                    $('#userForm').append('<input type="hidden" name="_method" value="PUT">');
+                }
 
-                // Isi form modal dengan data dari tombol Edit
-                // $("#userIdInput").val(userId);
-                $("#userName").val(userName);
-                $("#userEmail").val(userEmail);
-                $("#userRole").val(userRole).change(); // Pilih role yang sesuai
+                // Gunakan route update (PUT)
+                $('#userForm').attr('action', `/admin/user/${userId}`);
 
-                // Set action form sesuai dengan route resource update
-                let updateUrl = "{{ route('admin.user.update', ':id') }}".replace(':id', userId);
-                $("#editUserForm").attr("action", updateUrl);
+                $.ajax({
+                    url: `/admin/user/${userId}/edit`, // route edit
+                    type: 'GET',
+                    success: function(response) {
+                        $('#user_id').val(response.user_id);
+                        $('#name').val(response.name);
+                        $('#email').val(response.email);
+                        // $('#role').attr("readonly", true);
 
-                // Tampilkan modal
-                $("#editModal").removeClass("hidden");
+                        if (response.roles.length > 0) {
+                            let roleName = response.roles[0].name;
+                            
+                            // Ubah roleName agar tampil lebih baik
+                            let formattedRole = roleName
+                                .replace(/([a-z])([A-Z])/g, '$1 $2') // Tambahkan spasi sebelum huruf kapital
+                                .replace(/\b\w/g, char => char.toUpperCase()); // Kapitalisasi setiap kata
+
+                            $('#modalTitle').text('Edit ' + formattedRole);
+
+                            $('#role').val(roleName).prop("readonly", true);
+
+                            $('#extraFields').removeClass('hidden');
+                            $('#mahasiswaFields, #dosenFields').addClass('hidden');
+
+                            if (roleName === 'mahasiswa') {
+                                $('#mahasiswaFields').removeClass('hidden');
+                                $('#student_class_id').val(response.student.student_class_id);
+                                $('#nim').val(response.student.nim);
+                                $('#student_phone_number').val(response.student.student_phone_number);
+                                $('#student_address').val(response.student.student_address);
+                            } else if (['dosenWali', 'kajur', 'kaprodi'].includes(roleName)) {
+                                $('#dosenFields').removeClass('hidden');
+                                $('#nidn').val(response.lecturer.nidn);
+                                $('#nip').val(response.lecturer.nip);
+                                $('#lecturer_phone_number').val(response.lecturer.lecturer_phone_number);
+                                $('#lecturer_address').val(response.lecturer.lecturer_address);
+                            }
+                        }
+                        openModal('userModal');
+                    },
+                    error: function(error) {
+                        console.error("Terjadi kesalahan saat mengambil data user", error);
+                    }
+                });
             });
-            $("#closeEditModal").click(function() {
-                $("#editModal").addClass("hidden");
-            })
-            
-            $("#closeCreateModal").click(function() {
-                $("#createModal").addClass("hidden");
-            })
-        })
+        });
+
     </script>
     @endsection
 </x-app-layout>

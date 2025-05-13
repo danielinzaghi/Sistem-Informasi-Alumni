@@ -128,6 +128,39 @@
                     "ordering": false
                 });
             });
+
+            function openModal(modalId) {
+                const modal = $("#" + modalId);
+                modal.removeClass('hidden');
+                modal.find('.modal-content').scrollTop(0);
+            }
+
+            // Fungsi untuk menutup modal berdasarkan ID modal yang dikirim
+            function closeModal(modalId) {
+                $("#" + modalId).addClass("hidden");
+
+                // Tutup modal
+                // modal.addClass("hidden");
+
+                // Reset semua input, select, textarea di dalam modal
+                // modal.find('input, select, textarea').each(function () {
+                //     var type = $(this).attr('type');
+
+                //     if (type === 'checkbox' || type === 'radio') {
+                //         $(this).prop('checked', false);
+                //     } else if (type === 'file') {
+                //         $(this).val(''); // Untuk file input
+                //     } else {
+                //         $(this).val(''); // Untuk text, email, number, etc
+                //     }
+                // });
+
+                // // Reset semua elemen dengan class .modal-title (kalau kamu pakai title modal)
+                // modal.find('.modalTitle').text('');
+
+                // Kalau mau sekalian bersihkan validation error, bisa tambahkan ini:
+                // modal.find('.error-message').text('');
+            }
         </script>
     </body>
 </html>

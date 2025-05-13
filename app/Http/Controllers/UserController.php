@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProgramStudi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -15,8 +16,10 @@ class UserController extends Controller
     {
         $user = User::all();
         $role = Role::all();
+        $prodi = ProgramStudi::all();
+        // dd($role);
 
-        return view('users.index', compact('user', 'role'));
+        return view('users.index', compact('user', 'role', 'prodi'));
     }
 
     /**
