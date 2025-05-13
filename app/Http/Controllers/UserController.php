@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProgramStudi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -13,15 +14,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::with('roles')->get(); // Pastikan user mengambil data role
-        $role = Role::all(); // Amb
-        
+        $user = User::all();
+        $role = Role::all();
+        $prodi = ProgramStudi::all();
+        // dd($role);
 
-        if ($role->isEmpty()) {
-            return redirect()->back()->with('error', 'Tidak ada role yang tersedia.');
-        }
-
-        return view('users.index', compact('user', 'role'));
+        return view('users.index', compact('user', 'role', 'prodi'));
     }
 
     /**
