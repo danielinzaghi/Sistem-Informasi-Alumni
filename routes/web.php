@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('/admin/user', UserController::class)->names('admin.user');
-    Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('admin.user.get');
+    // Route::get('/admin/user/{id}', [UserController::class, 'getUser'])->name('admin.user.get');
 
     Route::resource('admin/broadcast', BroadcastController::class)->names('admin.broadcast');
     Route::get('admin/broadcast/create', [BroadcastController::class, 'create'])->name('admin.broadcast.create');
@@ -71,7 +71,7 @@ Route::middleware(['auth', 'role:alumni'])->group(function () {
     // Route::get('/alumni/dashboard', function () {
     //     return view('dashboard');
     // })->name('alumni.dashboard');
-    Route::get('/alumni/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
+    // Route::get('/alumni/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
 
     // Route::resource('tracer_study', TracerStudyController::class);
 });
@@ -79,7 +79,7 @@ Route::resource('/tracer-study', TracerStudyController::class)->names('tracer_st
 
 // Route untuk Dosen
 Route::middleware(['auth', 'role:dosen'])->group(function () {
-    Route::get('/dosen/dashboard', [DashboardController::class, 'index'])->name('dosen.dashboard');
+    // Route::get('/dosen/dashboard', [DashboardController::class, 'index'])->name('dosen.dashboard');
     Route::patch('/dosen/{id}', [ProfileController::class, 'update'])->name('dosen.update');
     // Route::resource('/admin/dosen', DosenController::class)->names('admin.dosen');
 

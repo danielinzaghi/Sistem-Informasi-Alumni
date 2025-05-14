@@ -59,6 +59,8 @@
                         <th class="border px-4 py-2">Tahun Lulus</th>
                         <th class="border px-4 py-2">Pekerjaan</th>
                         <th class="border px-4 py-2">Instansi</th>
+                        <th class="border px-4 py-2">NPWP</th>
+                        <th class="border px-4 py-2">NIk</th>
                         <th class="border px-4 py-2">Aksi</th>
                     </tr>
                 </thead>
@@ -70,6 +72,8 @@
                         <td class="border px-4 py-2">{{ $alumni->tahun_lulus }}</td>
                         <td class="border px-4 py-2">{{ $alumni->pekerjaan }}</td>
                         <td class="border px-4 py-2">{{ $alumni->instansi }}</td>
+                        <td class="border px-4 py-2">{{ $alumni->npwp }}</td>
+                        <td class="border px-4 py-2">{{ $alumni->nik }}</td>
                         <td class="border px-4 py-2">
                             <a href="{{ route('admin.alumni.edit', $alumni->id) }}" class="text-blue-500 hover:underline">Edit</a>
                             <button type="button" onclick="confirmDelete('{{ route('admin.alumni.destroy', $alumni->id) }}')" 

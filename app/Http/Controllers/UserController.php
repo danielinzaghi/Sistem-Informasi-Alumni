@@ -72,10 +72,16 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        $roles = Role::all();
-        return view('users.edit', compact('user', 'roles'));
+        $user = User::with('mahasiswa', 'dosen', 'alumni')->findOrFail($id);
+        // $roles = Role::all();
+        // $user->role = $user->roles->first()->name ?? null; // Ambil nama role pertama
+        $user->load('roles');
+        // $dosen = $user->dosen;
+        // $mahasiswa = $user->mahasiswa;
+        return response()->json($user);
+        // return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -115,16 +121,16 @@ class UserController extends Controller
         return response()->json(['success' => 'User berhasil dihapus!']);
     }
 
-    public function getUser($id)
-    {
-        $user = User::with('roles')->findOrFail($id);
+    // public function getUser($id)
+    // {
+    //     $user = User::with('roles')->findOrFail($id);
 
-        return response()->json([
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'role_id' => optional($user->roles->first())->id, // Ambil ID role pertama (jika ada)
-        ]);
-    }
+    //     return response()->json([
+    //         'id' => $user->id,
+    //         'name' => $user->name,
+    //         'email' => $user->email,
+    //         'role_id' => optional($user->roles->first())->id, // Ambil ID role pertama (jika ada)
+    //     ]);
+    // }
 
 }

@@ -53,6 +53,19 @@ class User extends Authenticatable
     }
     public function dosen()
     {
-        return $this->hasOne(User::class, 'id');
+        return $this->hasOne(Dosen::class, 'users_id', 'id');
+    }
+
+    
+    public function alumni()
+    {
+        return $this->hasOneThrough(
+            Alumni::class,
+            Mahasiswa::class,
+            'users_id',     // foreign key di Mahasiswa
+            'mahasiswa_id', // foreign key di Alumni
+            'id',           // local key di User
+            'id'            // local key di Mahasiswa
+        );
     }
 }
