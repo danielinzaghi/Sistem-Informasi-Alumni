@@ -41,7 +41,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('admin/broadcast', BroadcastController::class)->names('admin.broadcast');
     Route::get('admin/broadcast/create', [BroadcastController::class, 'create'])->name('admin.broadcast.create');
     Route::post('admin/broadcast/send', [BroadcastController::class, 'sendMessage'])->name('admin.broadcast.send');
-    
+    Route::resource('admin/tracer-study', TracerStudyController::class)->names('admin.tracer_study');
     Route::resource('/admin/jurusan', JurusanController::class)->names('admin.jurusan');
     Route::get('/get-program-studi/{id}', [ProgramStudiController::class, 'getByJurusan']);
 
@@ -71,11 +71,11 @@ Route::middleware(['auth', 'role:alumni'])->group(function () {
     // Route::get('/alumni/dashboard', function () {
     //     return view('dashboard');
     // })->name('alumni.dashboard');
-    // Route::get('/alumni/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
+    Route::get('/alumni/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
 
     // Route::resource('tracer_study', TracerStudyController::class);
+    Route::resource('/alumni/tracer-study', TracerStudyController::class)->names('alumni.tracer_study');
 });
-Route::resource('/tracer-study', TracerStudyController::class)->names('tracer_study');
 
 // Route untuk Dosen
 Route::middleware(['auth', 'role:dosen'])->group(function () {

@@ -20,11 +20,19 @@ class TracerStudyController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $tracerStudies = TracerStudy::with('alumni.mahasiswa.user')
-            ->whereHas('alumni.mahasiswa.user', function ($query) use ($user) {
-                $query->where('id', $user->id);
-            })
-            ->get();
+
+        // Jika user punya role admin atau dosen
+        if ($user->roles->first()->name == 'admin' || $user->roles->first()->name == 'dosen') {
+            // Tampilkan semua data tracer study
+            $tracerStudies = TracerStudy::with('alumni.mahasiswa.user')->get();
+        } else {
+            // Untuk alumni, hanya tampilkan data miliknya
+            $tracerStudies = TracerStudy::with('alumni.mahasiswa.user')
+                ->whereHas('alumni.mahasiswa.user', function ($query) use ($user) {
+                    $query->where('id', $user->id);
+                })
+                ->get();
+        }
 
         return view('tracer_study.index', compact('tracerStudies'));
     }
@@ -119,7 +127,7 @@ class TracerStudyController extends Controller
         }
     });
 
-        return redirect()->route('tracer_study.index')->with('success', 'tracer study berhasil dibuat.');
+        return redirect()->back()->with('success', 'tracer study berhasil dibuat.');
         
     }
 
@@ -230,7 +238,7 @@ class TracerStudyController extends Controller
             }
         });
     
-        return redirect()->route('tracer_study.index')->with('success-edit', 'Data tracer study anda berhasil diperbarui.');
+        return redirect()->back()->with('success-edit', 'Data tracer study anda berhasil diperbarui.');
     }
     
     
@@ -242,11 +250,11 @@ class TracerStudyController extends Controller
         try{
             $tracerStudy->delete();
             DB::commit();
-            return redirect()->route('tracer_study.index');
+            return redirect()->back();
         }
         catch (\Exception $e){
             DB::rollBack();
-            return redirect()->route('tracer_study.index');
+            return redirect()->back();
         }
     }
 }

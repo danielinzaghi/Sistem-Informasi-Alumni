@@ -26,7 +26,7 @@
                 <td class="px-2 text-center py-4 border">{{ $data->name }}</td>
                 <td class="px-2 text-center py-4 border">{{ $data->email }}</td>
                 <td class="px-2 text-center py-4 border">{{ $data->roles->first()->name }}</td>
-                <td class="px-2 text-center py-4 border">
+                <td class="px-2 text-center py-4 flex justify-center items-center">
                     {{-- <a class="cursor-pointer edit-user-btn" data-id ="{{ $data->id }}">Edit</a> --}}
                     <button data-id ="{{ $data->id }}" type="button" class="edit-user-btn text-yellow-400 border border-yellow-400 hover:bg-yellow-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center me-2">
                         <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -35,6 +35,17 @@
                         </svg>                                                    
                         <span class="sr-only">Icon description</span>
                     </button>
+                    @if (!$data->roles->contains('name', 'admin'))
+                        <form action="{{ route('admin.user.destroy', $data->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-600 border border-red-600 hover:bg-red-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center me-2">
+                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
+                                </svg>          
+                            </button>
+                        </form>
+                    @endif
                 </td>
             </tr>
             @endforeach

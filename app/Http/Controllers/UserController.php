@@ -6,6 +6,7 @@ use App\Models\ProgramStudi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Models\TracerStudy;
 
 class UserController extends Controller
 {
@@ -37,25 +38,56 @@ class UserController extends Controller
     {
         //dd($request);
         try {
+        $validated = $request->validate([
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|unique:users,email',
+            'role'      => 'required|in:admin,mahasiswa,dosen,alumni',
+            'password'  => 'nullable|string|min:6',
+        ]);
 
-            $validated = $request->validate([
-                'name'=> 'required|string|max:255',
-                'email'=> 'required|email|unique:users,email',
-                'role_id' => 'required|exists:roles,id',
+        // Default password jika tidak diisi
+        $password = $request->input('password') ?? 'password123';
+
+        // Buat user
+        $user = User::create([
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
+            'password' => bcrypt($password),
+        ]);
+
+        $user->assignRole($validated['role']);
+
+        // Tambahan berdasarkan role
+        if ($validated['role'] === 'mahasiswa' || $validated['role'] === 'alumni') {
+            $mahasiswa = $user->mahasiswa()->create([
+                'prodi_id' => $request->prodi,
+                'nim'      => $request->nim,
+                'angkatan' => $request->angkatan,
+                'no_hp'    => $request->no_hp,
+                'status'   => $validated['role'] === 'alumni' ? 'lulus' : $request->status,
             ]);
 
-        //Buat User Baru
-
-            $user = User::create([
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'password' => bcrypt('password123'),
+            // Jika role adalah alumni, buat data alumni terpisah
+            if ($validated['role'] === 'alumni') {
+                $alumni = $mahasiswa->alumni()->create([
+                    'tahun_lulus' => $request->tahun_lulus,
+                    'pekerjaan'   => $request->pekerjaan,
+                    'instansi'    => $request->instansi,
+                    'npwp'        => $request->npwp,
+                    'nik'         => $request->nik,
+                ]);
+                
+                $tracerStudy = new TracerStudy();
+                $tracerStudy->alumni_id = $alumni->id; // Simpan ID alumni
+                $tracerStudy->save();
+            }
+        } elseif ($validated['role'] === 'dosen') {
+            $user->dosen()->create([
+                'nidn' => $request->nidn,
             ]);
-
-            $user->assignRole(Role::find($validated['role_id'])->name);
+        }
 
             return redirect()->route('admin.user.index')->with('success', 'user berhasil dibuat');
-
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('User gagal dibuat : ' . $e->getMessage());
         }

@@ -177,7 +177,7 @@
         @endif
     </div>
     <div class="mt-6 text-center">
-        <a href="{{ route('tracer_study.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <a href="{{ route(Auth::user()->roles->first()->name . '.tracer_study.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Kembali
         </a>
     </div>
