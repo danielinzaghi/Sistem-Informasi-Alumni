@@ -100,18 +100,6 @@
                 </select>
             </div>
             <div class="mb-4">
-                <label for="metode_cari_kerja" class="block text-gray-700">Metode Cari Kerja</label>
-                <textarea name="metode_cari_kerja" id="metode_cari_kerja" class="w-full p-2 border border-gray-300 rounded-lg"></textarea>
-            </div>
-            <div class="mb-4">
-                <label for="jumlah_lamaran" class="block text-gray-700">Jumlah Lamaran</label>
-                <input type="number" name="jumlah_lamaran" id="jumlah_lamaran" class="w-full p-2 border border-gray-300 rounded-lg">
-            </div>
-            <div class="mb-4">
-                <label for="jumlah_wawancara" class="block text-gray-700">Jumlah Wawancara</label>
-                <input type="number" name="jumlah_wawancara" id="jumlah_wawancara" class="w-full p-2 border border-gray-300 rounded-lg">
-            </div>
-            <div class="mb-4">
                 <label for="alasan_ambil_pekerjaan" class="block text-gray-700">Alasan Ambil Pekerjaan</label>
                 <input type="text" name="alasan_ambil_pekerjaan" id="alasan_ambil_pekerjaan" class="w-full p-2 border border-gray-300 rounded-lg">
             </div>
@@ -334,14 +322,6 @@
                 </select>
             </div>
             <div class="mb-4">
-                <label for="bekerja_di_luar_bidang" class="block text-gray-700">Apakah Anda bersedia bekerja di luar bidang studi?</label>
-                <select name="bekerja_di_luar_bidang" id="bekerja_di_luar_bidang" class="w-full p-2 border border-gray-300 rounded-lg">
-                    <option value="">-- Pilih --</option>
-                    <option value="Ya">Ya</option>
-                    <option value="Tidak">Tidak</option>
-                </select>
-            </div>
-            <div class="mb-4">
                 <label for="mengikuti_pelatihan" class="block text-gray-700">Apakah Anda pernah mengikuti pelatihan atau kursus selama masa tunggu kerja?</label>
                 <select name="mengikuti_pelatihan" id="mengikuti_pelatihan" class="w-full p-2 border border-gray-300 rounded-lg">
                     <option value="">-- Pilih --</option>
@@ -414,6 +394,7 @@
         <div class="mb-6">
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Simpan</button>
         </div>
+        
     </form>
         
 

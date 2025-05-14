@@ -22,7 +22,7 @@ class StoreTracerStudyRequest extends FormRequest
     {
         return [
             'alumni_id' => 'required|exists:alumni,id',
-            'status_saat_ini' => 'required|string|max:255',
+            'status_saat_ini' => 'required|string|in:Bekerja,Belum bekerja,Wiraswasta,Melanjutkan Pendidikan,Mencari kerja',
             'waktu_dapat_kerja' => 'nullable|integer',
             'gaji_bulanan' => 'nullable|integer',
             'lokasi_provinsi' => 'nullable|string|max:255',

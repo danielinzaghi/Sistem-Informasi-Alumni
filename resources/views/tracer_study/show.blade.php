@@ -17,132 +17,163 @@
         @if($tracerStudy->status_saat_ini == 'Bekerja')
         <div>
             <p class="font-semibold">Waktu Dapat Kerja:</p>
-            <p>{{ $tracerStudy->waktu_dapat_kerja ?? '-' }}</p>
+            <p>{{ $tracerStudy->bekerja->waktu_dapat_kerja ?? '-' }}</p>
         </div>
         <div>
             <p class="font-semibold">Gaji Bulanan:</p>
-            <p>Rp {{ number_format($tracerStudy->gaji_bulanan, 2) }}</p>
+            <p>{{ $tracerStudy->bekerja->gaji_bulanan ?? '-' }}</p>
         </div>
         <div>
             <p class="font-semibold">Lokasi Provinsi:</p>
-            <p>{{ $tracerStudy->lokasi_provinsi ?? '-' }}</p>
+            <p>{{ $tracerStudy->bekerja->lokasi_provinsi ?? '-' }}</p>
         </div>
         <div>
             <p class="font-semibold">Lokasi Kota:</p>
-            <p>{{ $tracerStudy->lokasi_kota ?? '-' }}</p>
+            <p>{{ $tracerStudy->bekerja->lokasi_kota ?? '-' }}</p>
         </div>
         <div>
             <p class="font-semibold">Jenis Perusahaan:</p>
-            <p>{{ $tracerStudy->jenis_perusahaan ?? '-' }}</p>
+            <p>{{ $tracerStudy->bekerja->jenis_perusahaan ?? '-' }}</p>
         </div>
+        @if($tracerStudy->bekerja->jenis_perusahaan == 'Lainnya')
         <div>
-            <p class="font-semibold">Nama Perusahaan:</p>
-            <p>{{ $tracerStudy->nama_perusahaan ?? '-' }}</p>
-        </div>
-        @if($tracerStudy->nama_perusahaan == 'Lainnya')
-        <div>
-            <p class="font-semibold">Nama Perusahaan Liannya:</p>
-            <p>{{ $tracerStudy->nama_perusahaan_lainnya ?? '-' }}</p>
+            <p class="font-semibold">Jenis Perusahaan Liannya:</p>
+            <p>{{ $tracerStudy->bekerja->jenis_perusahaan_lainnya ?? '-' }}</p>
         </div>
         @endif
         <div>
+            <p class="font-semibold">Nama Perusahaan:</p>
+            <p>{{ $tracerStudy->bekerja->nama_perusahaan ?? '-' }}</p>
+        </div>
+        
+        <div>
             <p class="font-semibold">Tingkat Perusahaan:</p>
-            <p>{{ $tracerStudy->tingkat_perusahaan ?? '-' }}</p>
-        </div>
-        <div>
-            <p class="font-semibold">Metode Cari Kerja:</p>
-            <p>{{ $tracerStudy->metode_cari_kerja ?? '-' }}</p>
-        </div>
-        <div>
-            <p class="font-semibold">Jumlah Lamaran:</p>
-            <p>{{ $tracerStudy->jumlah_lamaran ?? '-' }}</p>
-        </div>
-        <div>
-            <p class="font-semibold">Jumlah Wawancara:</p>
-            <p>{{ $tracerStudy->jumlah_wawancara ?? '-' }}</p>
+            <p>{{ $tracerStudy->bekerja->tingkat_perusahaan ?? '-' }}</p>
         </div>
         <div>
             <p class="font-semibold">Alasan Ambil Pekerjaan:</p>
-            <p>{{ $tracerStudy->alasan_ambil_pekerjaan ?? '-' }}</p>
+            <p>{{ $tracerStudy->bekerja->alasan_ambil_pekerjaan ?? '-' }}</p>
         </div>
         <div>
-            <p class="font-semibold">Tingkat Pendidikan Perusahaan:</p>
-            <p>{{ $tracerStudy->tingkat_pendidikan_perusahaan ?? '-' }}</p>
+            <p class="font-semibold">Tingkat Pendidikan Pekerjaan:</p>
+            <p>{{ $tracerStudy->bekerja->tingkat_pendidikan_pekerjaan ?? '-' }}</p>
         </div>
         @elseif($tracerStudy->status_saat_ini == 'Melanjutkan Pendidikan')
         <div>
             <p class="font-semibold">Universitas Lanjut:</p>
-            <p>{{ $tracerStudy->universitas_lanjut ?? '-' }}</p>
+            <p>{{ $tracerStudy->pendidikanLanjut->universitas_lanjut ?? '-' }}</p>
         </div>
         <div>
             <p class="font-semibold">Sumber Biaya Studi:</p>
-            <p>{{ $tracerStudy->sumber_biaya_studi ?? '-' }}</p>
+            <p>{{ $tracerStudy->pendidikanLanjut->sumber_biaya_studi ?? '-' }}</p>
         </div>
         <div>
             <p class="font-semibold">Program Studi Lanjut:</p>
-            <p>{{ $tracerStudy->program_studi_lanjut ?? '-' }}</p>
+            <p>{{ $tracerStudy->pendidikanLanjut->program_studi_lanjut ?? '-' }}</p>
         </div>
         <div>
             <p class="font-semibold">Tanggal Masuk Lanjut:</p>
-            <p>{{ $tracerStudy->tanggal_masuk_lanjut ?? '-' }}</p>
+            <p>{{ $tracerStudy->pendidikanLanjut->tanggal_masuk_lanjut ?? '-' }}</p>
         </div>
         <div>
             <p class="font-semibold">Hubungan Studi Pekerjaan:</p>
-            <p>{{ $tracerStudy->hubungan_studi_pekerjaan ?? '-' }}</p>
+            <p>{{ $tracerStudy->pendidikanLanjut->hubungan_studi_pekerjaan ?? '-' }}</p>
         </div>
         @elseif($tracerStudy->status_saat_ini == 'Wiraswasta')
         <div>
             <p class="font-semibold">Posisi Wirausaha:</p>
-            <p>{{ $tracerStudy->posisi_wirausaha ?? '-' }}</p>
+            <p>{{ $tracerStudy->wirausaha->posisi_wirausaha ?? '-' }}</p>
         </div>
-        @elseif($tracerStudy->status_saat_ini == 'Belum bekerja'||'Mencari Kerja')
+        <div>
+            <p class="font-semibold">Nama Usaha:</p>
+            <p>{{ $tracerStudy->wirausaha->nama_usaha ?? '-' }}</p>
+        </div>
+        <div>
+            <p class="font-semibold">Bidang Usaha:</p>
+            <p>{{ $tracerStudy->wirausaha->bidang_usaha ?? '-' }}</p>
+        </div>
+        <div>
+            <p class="font-semibold">Tahun Berdiri:</p>
+            <p>{{ $tracerStudy->wirausaha->tahun_berdiri ?? '-' }}</p>
+        </div>
+        <div>
+            <p class="font-semibold">Jumlah Karyawan:</p>
+            <p>{{ $tracerStudy->wirausaha->jumlah_karyawan ?? '-' }}</p>
+        </div>
+        <div>
+            <p class="font-semibold">Omset Per Bulan:</p>
+            <p>{{ $tracerStudy->wirausaha->omzet_per_bulan ?? '-' }}</p>
+        </div>
+        <div>
+            <p class="font-semibold">Bentuk Usaha:</p>
+            <p>{{ $tracerStudy->wirausaha->bentuk_usaha ?? '-' }}</p>
+        </div>
+        <div>
+            <p class="font-semibold">NPWP Usaha:</p>
+            <p>{{ $tracerStudy->wirausaha->npwp_usaha ?? '-' }}</p>
+        </div>
+        @elseif($tracerStudy->status_saat_ini == 'Belum bekerja')
             <div>
                 <p class="font-semibold">Alasan Belum Bekerja:</p>
-                <p>{{ $tracerStudy->alasan_belum_bekerja ?? '-' }}</p>
+                <p>{{ $tracerStudy->belumBekerja->alasan_belum_bekerja ?? '-' }}</p>
             </div>
-            @if($tracerStudy->alasan_belum_bekerja == 'Lainnya')
+            @if($tracerStudy->belumBekerja->alasan_belum_bekerja == 'Lainnya')
             <div>
                 <p class="font-semibold">Alasan Lainnya:</p>
-                <p>{{ $tracerStudy->alasan_lainnya ?? '-' }}</p>
+                <p>{{ $tracerStudy->belumBekerja->alasan_lainnya ?? '-' }}</p>
             </div>
             @endif
-            
             <div>
                 <p class="font-semibold">Kendala Mendapatkan Pekerjaan:</p>
-                <p>{{ $tracerStudy->kendala_mendapat_pekerjaan ?? '-' }}</p>
+                <p>{{ $tracerStudy->belumBekerja->kendala_mendapat_pekerjaan ?? '-' }}</p>
             </div>
-            @if($tracerStudy->kendala_mendapat_pekerjaan == 'Lainnya')
+            @if($tracerStudy->belumBekerja->kendala_mendapat_pekerjaan == 'Lainnya')
             <div>
                 <p class="font-semibold">Kendala Lainnya:</p>
-                <p>{{ $tracerStudy->kendala_lainnya ?? '-' }}</p>
+                <p>{{ $tracerStudy->belumBekerja->kendala_lainnya ?? '-' }}</p>
             </div>
             @endif
             <div>
-                <p class="font-semibold">Bersedia bekerja di luar bidang studi Anda?</p>
-                <p>{{ $tracerStudy->bekerja_di_luar_bidang ?? '-' }}</p>
-            </div>
-            <div>
-                <p class="font-semibold">Aktif Mencari Kerja:</p>
-                <p>{{ $tracerStudy->aktif_mencari_kerja ?? '-' }}</p>
-            </div>
-            <div>
                 <p class="font-semibold">Mengikuti Pelatihan:</p>
-                <p>{{ $tracerStudy->mengikuti_pelatihan ?? '-' }}</p>
+                <p>{{ $tracerStudy->belumBekerja->mengikuti_pelatihan ?? '-' }}</p>
             </div>
-            @if($tracerStudy->mengikuti_pelatihan == 'Ya')
+            @if($tracerStudy->belumBekerja->mengikuti_pelatihan == 'Ya')
             <div>
                 <p class="font-semibold">Nama Pelatihan:</p>
-                <p>{{ $tracerStudy->nama_pelatihan ?? '-' }}</p>
+                <p>{{ $tracerStudy->belumBekerja->nama_pelatihan ?? '-' }}</p>
             </div>
             <div>
                 <p class="font-semibold">Durasi Pelatihan:</p>
-                <p>{{ $tracerStudy->durasi_pelatihan ?? '-' }}</p>
+                <p>{{ $tracerStudy->belumBekerja->durasi_pelatihan ?? '-' }}</p>
             </div>
             <div>
                 <p class="font-semibold">Sertifikasi Pelatihan:</p>
-                <p>{{ $tracerStudy->sertifikasi_pelatihan ?? '-' }}</p>
+                <p>{{ $tracerStudy->belumBekerja->sertifikasi_pelatihan ?? '-' }}</p>
             </div>
             @endif
+        @elseif($tracerStudy->status_saat_ini == 'Mencari kerja')
+            <div>
+                <p class="font-semibold">Apakah Anda aktif dalam mencari pekerjaan saat ini?:</p>
+                <p>{{ $tracerStudy->pencarianKerja->aktif_mencari_kerja ?? '-' }}</p>
+            </div>
+            <div>
+                <p class="font-semibold">Pernah Melamar Pekerjaan (6 bulan terakhir)?:</p>
+                <p>{{ $tracerStudy->pencarianKerja->melamar_pekerjaan ?? '-' }}</p>
+            </div>
+            @if($tracerStudy->pencarianKerja->melamar_pekerjaan == 'Ya')
+            <div>
+                <p class="font-semibold">Banyak Lamaran yang dikirimkan:</p>
+                <p>{{ $tracerStudy->pencarianKerja->jumlah_lamaran ?? '-' }}</p>
+            </div>
+            @endif
+            <div>
+                <p class="font-semibold">Berapa kali ikut wawancara?:</p>
+                <p>{{ $tracerStudy->pencarianKerja->jumlah_wawancara ?? '-' }}</p>
+            </div>
+            <div>
+                <p class="font-semibold">Metode cari kerja:</p>
+                <p>{{ $tracerStudy->pencarianKerja->metode_cari_kerja ?? '-' }}</p>
+            </div>
         @endif
     </div>
     <div class="mt-6 text-center">
