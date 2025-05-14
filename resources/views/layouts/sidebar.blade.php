@@ -164,7 +164,6 @@
                 </a>
             </li>
             @endrole
-            @role('alumni')
             <li>
                 <a
                     class="flex items-center p-2 rounded-md shadow-md transition-all hover:bg-gray-200"
@@ -184,7 +183,6 @@
                     <span class="ms-1 text-xs font-light">Tracer Study</span>
                 </a>
             </li>
-            @endrole
         </ul>
     </div>
 </aside>
