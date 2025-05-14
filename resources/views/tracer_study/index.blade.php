@@ -38,9 +38,9 @@
                     </button>
                 </div>
             @endif
-        <a href="{{ route('tracer_study.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        {{-- <a href="{{ route('tracer_study.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             Tambah Data
-        </a>
+        </a> --}}
     </div>
 
     <div class="overflow-x-auto">
@@ -59,20 +59,28 @@
                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                     <td class="px-4 py-2">{{ $tracer->alumni->mahasiswa->user->name }}</td>
                     <td class="px-4 py-2">{{ $tracer->status_saat_ini }}</td>
-                    <td class="px-4 py-2">
-                        @if(auth()->user()->alumni_id === $tracer->alumni_id)
-                            <a href="{{ route('tracer_study.edit', $tracer->id) }}" class="text-blue-500 hover:underline">
-                                Edit
+                    <td class="px-4 py-2 space-x-2">
+                        @if (!$tracer->sudahLengkap())
+                            {{-- Tombol Lengkapi Data --}}
+                            <a href="{{ route('tracer_study.edit', $tracer->id) }}" class="inline-flex items-center px-3 py-1 bg-yellow-500 text-white text-sm font-medium rounded hover:bg-yellow-600 transition">
+                                📝 Isi Data Tracer Studi
                             </a>
-                            |
-                            <button type="button" class="text-red-500 hover:underline" onclick="confirmDelete('{{ route('tracer_study.destroy', $tracer->id) }}')">
-                                Hapus
-                            </button>
                         @endif
-                        <a href="{{ route('tracer_study.show', $tracer->id) }}" class="text-blue-500 hover:underline">
-                            Show
+                        {{-- Tombol Edit --}}
+                        <a href="{{ route('tracer_study.edit', $tracer->id) }}" class="inline-flex items-center px-3 py-1 bg-blue-500 text-white text-sm font-medium rounded hover:bg-blue-600 transition">
+                            ✏️ Edit
                         </a>
-                    </td>                    
+                    
+                        {{-- Tombol Show --}}
+                        <a href="{{ route('tracer_study.show', $tracer->id) }}" class="inline-flex items-center px-3 py-1 bg-green-500 text-white text-sm font-medium rounded hover:bg-green-600 transition">
+                            👁️ Show
+                        </a>
+                    
+                        {{-- Tombol Hapus --}}
+                        <button type="button" onclick="confirmDelete('{{ route('tracer_study.destroy', $tracer->id) }}')" class="inline-flex items-center px-3 py-1 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 transition">
+                            🗑️ Hapus
+                        </button>
+                    </td>                                   
                 </tr>
                 @endforeach
             </tbody>
