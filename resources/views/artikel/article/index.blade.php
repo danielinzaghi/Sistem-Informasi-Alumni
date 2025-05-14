@@ -26,6 +26,7 @@
                             <th class="py-3 px-4 border-b text-left">Kategori</th>
                             <th class="py-3 px-4 border-b text-left">Tanggal</th>
                             <th class="py-3 px-4 border-b text-left">Status</th>
+                            <th class="py-3 px-4 border-b text-left">Penulis</th>
                             <th class="py-3 px-4 border-b text-left">Aksi</th>
                         </tr>
                     </thead>
@@ -42,6 +43,8 @@
                                         {{ $berita->status == 1 ? 'Published' : 'Private' }}
                                     </span>
                                 </td>
+
+                                <td class="py-2 px-4 border-b"> {{ $berita->user->name }}</td>
                             <td class="py-2 px-4 border-b">
                                 <a href="{{ route('admin.ArticleShow', $berita->id) }}" class="bg-orange-400 hover:bg-orange-600 text-white px-3 py-1 rounded transition duration-200">Detail</a>
 <a href="{{ route('admin.ArticleEdit', $berita->id) }}" class="bg-yellow-500 hover:bg-yellow-200 text-white px-3 py-1 rounded transition duration-200">Edit</a>

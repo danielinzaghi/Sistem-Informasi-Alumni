@@ -65,4 +65,40 @@
     </div>
 
     @endsection
+
+    <script>
+        function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById("imagePreview");
+    
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+    
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.classList.remove("hidden");
+            };
+    
+            reader.readAsDataURL(input.files[0]); // Baca file sebagai URL
+        } else {
+            preview.classList.add("hidden");
+        }
+    }
+    
+    </script>
+    
+    
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#myeditor'))
+            .then(editor => {
+                console.log('CKEditor siap!', editor);
+            })
+            .catch(error => {
+                console.error('Terjadi kesalahan:', error);
+            });
+    </script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/markdown/ckeditor.js"></script>
+
 </x-app-layout>

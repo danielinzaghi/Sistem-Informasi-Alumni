@@ -36,15 +36,26 @@
                 </div>
             </div>
 
-            <div class="mt-4">
-                <label for="desc" class="block font-semibold">Deskripsi</label>
-                <textarea name="deskripsi" id="" class="w-full border p-2 rounded">{!! old('deskripsi', $article->deskripsi ?? '') !!}</textarea>
-            </div>
-            
-            <div class="mt-4">
-                <label for="img" class="block font-semibold">Image (Max 2MB)</label>
-                <input type="file" name="img" id="img" class="w-full border p-2 rounded" accept="image/*" onchange="previewImage(event)">
-                <img src="{{ asset('storage/uploads/articles/'.$article->img) }}" alt="Image Preview" class="mt-2 w-64 h-64 object-cover rounded border border-gray-300 shadow-md" id="imagePreview">
+            {{-- Deskripsi dan Gambar --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div>
+                    <label for="desc" class="block font-semibold">Deskripsi</label>
+                    <textarea name="deskripsi" id="myeditor" class="w-full border p-2 rounded">{!! old('deskripsi', $article->deskripsi ?? '') !!}</textarea>
+                </div>
+
+                <div>
+                    <label for="img" class="block font-semibold">Image (Max 2MB)</label>
+                    <input type="file" name="img" id="img" class="w-full border p-2 rounded mb-2"
+                        accept="image/*" onchange="previewImage(event)">
+                    
+                    <img
+                        src="{{ asset('storage/uploads/articles/' . $article->img) }}"
+                        alt="Image Preview"
+                        id="imagePreview"
+                        class="w-24 h-24 object-cover rounded border border-gray-300 shadow-md"
+                    >
+                </div>
+                
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -68,27 +79,36 @@
         </form>
     </div>
 
+    {{-- Preview Image Script --}}
     <script>
         function previewImage(event) {
             const input = event.target;
             const preview = document.getElementById("imagePreview");
-    
+
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
-    
+
                 reader.onload = function (e) {
                     preview.src = e.target.result;
                 };
-    
+
                 reader.readAsDataURL(input.files[0]);
             }
         }
     </script>
 
-
-
+    {{-- TinyMCE Editor Script --}}
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#myeditor',
+            height: 300,
+            menubar: false,
+            plugins: 'lists link image code',
+            toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | code',
+            branding: false,
+        });
+    </script>
 
     @endsection
-
-   
 </x-app-layout>

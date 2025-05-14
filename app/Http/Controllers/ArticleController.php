@@ -7,7 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
-use Illuminate\Support\Str;
+use Illuminate\Support\Str;  
 use Illuminate\Support\Facades\Storage;
 
 
@@ -55,7 +55,7 @@ class ArticleController extends Controller
             $data['img'] = $fileName;
             
         }
-
+ 
         
     
         // Simpan data artikel ke database
