@@ -3,6 +3,14 @@
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\FrontArticleController;
+use App\Http\Controllers\FrontCategoryController;
+
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BroadcastController;
 use App\Http\Controllers\UserController;
@@ -12,9 +20,20 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\TracerStudyController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [LandingPageController::class, 'index'])->name('index');
+Route::get('/artikel', [LandingPageController::class, 'berita'])->name('berita');
+Route::get('/p/{slug}', [FrontArticleController::class, 'show']);
+Route::get('/articles', [FrontArticleController::class, 'index']);
+Route::get('/category/{slug}', [FrontCategoryController::class, 'index']);
+Route::get('/artikel/search', [LandingPageController::class, 'berita'])->name('search');
+
+
+
+
 
 Route::get('/broadcast', function () {
     return view('broadcast');
@@ -32,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/verify-email', [\App\Http\Controllers\Auth\EmailVerificationPromptController::class, '__invoke']);
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -64,6 +85,24 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         
     //     return view('broadcast.index');
     // })->name('admin.broadcast');
+    Route::resource('category', CategoryController::class)->names([
+        'index' => 'CategoryIndex',
+        'create' => 'CategoryCreate',
+        'store' => 'CategoryStore',
+        'show' => 'Category.show',  
+        'edit' => 'CategoryEdit',
+        'update' => 'CategoryUpdate',
+        'destroy' => 'CategoryDelete',
+    ]);
+    Route::resource('article', ArticleController::class)->names([
+        'index' => 'ArticleIndex',
+        'create' => 'ArticleCreate',
+        'store' => 'ArticleStore',
+        'show' => 'ArticleShow',  
+        'edit' => 'ArticleEdit',
+        'update' => 'ArticleUpdate',
+        'destroy' => 'ArticleDelete',
+    ]);
 });
 
 // Route untuk Alumni
@@ -87,4 +126,42 @@ Route::middleware(['auth', 'role:dosen'])->group(function () {
 
 
 
+
+
+
+// route kategori article
+Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function() {
+
+
+
+    Route::resource('category', CategoryController::class)->names([
+        'index' => 'CategoryIndex',
+        'create' => 'CategoryCreate',
+        'store' => 'CategoryStore',
+        'show' => 'Category.show',  
+        'edit' => 'CategoryEdit',
+        'update' => 'CategoryUpdate',
+        'destroy' => 'CategoryDelete',
+    ]);
+});
+
+// route article
+Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function() {
+    Route::resource('article', ArticleController::class)->names([
+        'index' => 'ArticleIndex',
+        'create' => 'ArticleCreate',
+        'store' => 'ArticleStore',
+        'show' => 'ArticleShow',  
+        'edit' => 'ArticleEdit',
+        'update' => 'ArticleUpdate',
+        'destroy' => 'ArticleDelete',
+    ]);
+});
+
+
+    
+Route::middleware(['auth', 'role:dosen'])->group(function () {
+    Route::get('/dosen/dashboard', function () {
+    })->name('dosen.dashboard');
+});
 require __DIR__ . '/auth.php';
