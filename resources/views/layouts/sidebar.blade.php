@@ -84,7 +84,7 @@
                         <span class="ms-1 text-xs font-light">Broadcasts</span>
                     </a>
                 </li>
-                li>
+                <li>
                     <a
                         class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.CategoryIndex') }}"
                         href="{{ route('admin.CategoryIndex') }}">
@@ -124,7 +124,7 @@
                       
                     </a>
                 </li>
-                <li>
+                {{-- <li>
                     <a
                         class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('index') }}"
                         href="{{ route('index') }}">
@@ -143,7 +143,7 @@
                         <span class="ms-1 text-xs font-light">Lihat Artikel</span>
                       
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a
                         class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.tracer_study.*') }}"

@@ -49,7 +49,7 @@
             background-color: #1e40af;
             color: white;
             padding: 8px 20px;
-            border-radius: 30px;
+            border-radius: 5px;
             font-size: 0.9rem;
             text-transform: uppercase;
             transition: background-color 0.3s ease;

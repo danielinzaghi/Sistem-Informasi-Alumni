@@ -9,7 +9,7 @@ use App\Http\Requests\ArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use Illuminate\Support\Str;  
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Auth;
 
 
 class ArticleController extends Controller
@@ -42,7 +42,7 @@ class ArticleController extends Controller
         $data = $request->validated();
 
         // Tambahkan user_id dari user yang login
-        $data['users_id'] = auth()->id(); // Sesuai dengan model
+        $data['users_id'] = Auth::user()->id; // Sesuai dengan model
 
         // Buat slug otomatis dari judul
         $data['slug'] = Str::slug($request->judul);
