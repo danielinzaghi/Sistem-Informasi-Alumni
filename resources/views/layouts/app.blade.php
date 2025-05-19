@@ -164,5 +164,6 @@
                 // modal.find('.error-message').text('');
             }
         </script>
+        @include('sweetalert::alert')
     </body>
 </html>

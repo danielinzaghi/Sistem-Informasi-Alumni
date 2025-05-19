@@ -39,7 +39,11 @@
                         <form action="{{ route('admin.user.destroy', $data->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="text-red-600 border border-red-600 hover:bg-red-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center me-2">
+                            <button type="submit"
+                                data-confirm-delete="true"
+                                data-title="Hapus Pengguna?"
+                                data-text="Yakin ingin menghapus data {{ $data->name }}?"
+                            class="text-red-600 border border-red-600 hover:bg-red-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center me-2">
                                 <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                     <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
                                 </svg>          
@@ -111,8 +115,8 @@
 
                 console.log("id user: ", userId);
                 $('#saveUser').text('Ubah');
-                $('#role').addClass('hidden');
-                $('#role-label').addClass('hidden');
+                $('#role').removeClass('hidden');
+                $('#role-label').removeClass('hidden');
                 // Pastikan hanya ada satu input _method untuk update
                 if ($('#userForm').find('input[name="_method"]').length === 0) {
                     $('#userForm').append('<input type="hidden" name="_method" value="PUT">');
@@ -128,6 +132,7 @@
                         $('#user_id').val(response.id);
                         $('#name').val(response.name);
                         $('#email').val(response.email);
+                        $('#role').val(response.roles[0].id);
                         // $('#role').attr("readonly", true);
                         // console.log(response.roles[0].name);
                         

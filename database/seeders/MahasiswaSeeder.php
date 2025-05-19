@@ -23,7 +23,7 @@ class MahasiswaSeeder extends Seeder
 
         // Tambahkan 30 alumni
         for ($i = 1; $i <= 30; $i++) {
-            $angkatan = rand(2018, 2022);
+            $angkatan = rand(2018, 2021);
 
             // Pastikan NIM unik
             do {
@@ -55,5 +55,23 @@ class MahasiswaSeeder extends Seeder
                 'status' => 'lulus',
             ]);
         }
+        $userMahasiswa = User::create([
+            'name' => "Mahasiswa",
+            'email' => "mhs@gmail.com",
+            'password' => bcrypt('password123'),
+        ]);
+        $userMahasiswa->assignRole('mahasiswa');
+
+        Mahasiswa::create([
+            'users_id' => $userMahasiswa->id,
+            'id_prodi' => 1,
+            'nim' => 2203102,
+            // 'nama' => $userAlumni->name,
+            'angkatan' => 2022,
+            // 'prodi' => $randomProdi->nama_prodi ?? 'Tidak Diketahui',
+            'no_hp' => "08" . rand(1000000000, 9999999999),
+            'status' => 'aktif',
+        ]);
+
     }
 }
