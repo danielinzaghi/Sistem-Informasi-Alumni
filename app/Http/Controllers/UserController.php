@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProgramStudi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use App\Models\TracerStudy;
 
 class UserController extends Controller
 {
@@ -13,15 +15,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::with('roles')->get(); // Pastikan user mengambil data role
-        $role = Role::all(); // Amb
-        
+        $user = User::all();
+        $role = Role::all();
+        $prodi = ProgramStudi::all();
+        // dd($role);
 
-        if ($role->isEmpty()) {
-            return redirect()->back()->with('error', 'Tidak ada role yang tersedia.');
-        }
-
-        return view('users.index', compact('user', 'role'));
+        return view('users.index', compact('user', 'role', 'prodi'));
     }
 
     /**
@@ -39,25 +38,56 @@ class UserController extends Controller
     {
         //dd($request);
         try {
+        $validated = $request->validate([
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|unique:users,email',
+            'role'      => 'required|in:admin,mahasiswa,dosen,alumni',
+            'password'  => 'nullable|string|min:6',
+        ]);
 
-            $validated = $request->validate([
-                'name'=> 'required|string|max:255',
-                'email'=> 'required|email|unique:users,email',
-                'role_id' => 'required|exists:roles,id',
+        // Default password jika tidak diisi
+        $password = $request->input('password') ?? 'password123';
+
+        // Buat user
+        $user = User::create([
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
+            'password' => bcrypt($password),
+        ]);
+
+        $user->assignRole($validated['role']);
+
+        // Tambahan berdasarkan role
+        if ($validated['role'] === 'mahasiswa' || $validated['role'] === 'alumni') {
+            $mahasiswa = $user->mahasiswa()->create([
+                'prodi_id' => $request->prodi,
+                'nim'      => $request->nim,
+                'angkatan' => $request->angkatan,
+                'no_hp'    => $request->no_hp,
+                'status'   => $validated['role'] === 'alumni' ? 'lulus' : $request->status,
             ]);
 
-        //Buat User Baru
-
-            $user = User::create([
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'password' => bcrypt('password123'),
+            // Jika role adalah alumni, buat data alumni terpisah
+            if ($validated['role'] === 'alumni') {
+                $alumni = $mahasiswa->alumni()->create([
+                    'tahun_lulus' => $request->tahun_lulus,
+                    'pekerjaan'   => $request->pekerjaan,
+                    'instansi'    => $request->instansi,
+                    'npwp'        => $request->npwp,
+                    'nik'         => $request->nik,
+                ]);
+                
+                $tracerStudy = new TracerStudy();
+                $tracerStudy->alumni_id = $alumni->id; // Simpan ID alumni
+                $tracerStudy->save();
+            }
+        } elseif ($validated['role'] === 'dosen') {
+            $user->dosen()->create([
+                'nidn' => $request->nidn,
             ]);
-
-            $user->assignRole(Role::find($validated['role_id'])->name);
+        }
 
             return redirect()->route('admin.user.index')->with('success', 'user berhasil dibuat');
-
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('User gagal dibuat : ' . $e->getMessage());
         }
@@ -74,10 +104,16 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        $roles = Role::all();
-        return view('users.edit', compact('user', 'roles'));
+        $user = User::with('mahasiswa', 'dosen', 'alumni')->findOrFail($id);
+        // $roles = Role::all();
+        // $user->role = $user->roles->first()->name ?? null; // Ambil nama role pertama
+        $user->load('roles');
+        // $dosen = $user->dosen;
+        // $mahasiswa = $user->mahasiswa;
+        return response()->json($user);
+        // return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -117,16 +153,16 @@ class UserController extends Controller
         return response()->json(['success' => 'User berhasil dihapus!']);
     }
 
-    public function getUser($id)
-    {
-        $user = User::with('roles')->findOrFail($id);
+    // public function getUser($id)
+    // {
+    //     $user = User::with('roles')->findOrFail($id);
 
-        return response()->json([
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-            'role_id' => optional($user->roles->first())->id, // Ambil ID role pertama (jika ada)
-        ]);
-    }
+    //     return response()->json([
+    //         'id' => $user->id,
+    //         'name' => $user->name,
+    //         'email' => $user->email,
+    //         'role_id' => optional($user->roles->first())->id, // Ambil ID role pertama (jika ada)
+    //     ]);
+    // }
 
 }

@@ -1,5 +1,4 @@
 <x-app-layout>
-
     @section('content')
         @role('admin')
         <div class="container mx-auto p-6">
@@ -84,5 +83,4 @@
     </script>
         @endrole
     @endsection
-
 </x-app-layout>

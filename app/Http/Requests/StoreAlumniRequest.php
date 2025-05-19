@@ -28,7 +28,6 @@ class StoreAlumniRequest extends FormRequest
             'instansi' => 'nullable|string|max:100',
             'npwp' => 'nullable|string|size:15|regex:/^\d{15}$/',
             'nik' => 'nullable|string|size:16|regex:/^\d{16}$/',
-
         ];
     }
 }
