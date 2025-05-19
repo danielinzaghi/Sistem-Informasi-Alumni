@@ -1,6 +1,6 @@
 <section>
     <header>
-        <h2 class="text-lg font-semibold text-[#00593b]">
+        <h2 class="text-lg font-semibold text-[#1e40af]">
             {{ __('Dosen Profile') }}
         </h2>
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -12,57 +12,49 @@
         <!-- Tampilan Informasi Dosen -->
         <div x-show="!editMode" class="mt-4 bg-gray-100 p-4 rounded-md">
             <p class="text-sm text-gray-800">
-                <strong>{{ __('Nama') }}:</strong> {{ $user->name ?? '-' }}
+                <strong>{{ __('Nama') }}:</strong> {{ $dosen->nama ?? '-' }}
             </p>
             <p class="text-sm text-gray-800">
                 <strong>{{ __('NIDN') }}:</strong> {{ $dosen->nidn ?? '-' }}
-            </p>
-            <p class="text-sm text-gray-800">
-                <strong>{{ __('Email') }}:</strong> {{ $dosen->email ?? '-' }}
             </p>
         </div>
 
         <!-- Tombol Edit -->
         <div class="mt-4">
             <x-primary-button @click="editMode = true"
-                class="bg-[#00593b] text-white hover:bg-[#00432e] focus:ring-[#00593b]">
+                class="bg-[#1e40af] text-white hover:bg-[#5079ff] focus:ring-[#1e40af]">
                 {{ __('Edit Profile') }}
             </x-primary-button>
         </div>
 
         <!-- Form Edit Dosen -->
-        <form x-show="editMode" x-transition method="post" action="{{ route('dosen.update', $dosen->id) }}"
-            class="mt-6 space-y-6 bg-white p-6 rounded-lg shadow">
+        <form x-show="editMode" x-transition id="dosenForm" method="post"
+            action="{{ route('dosen.update', $dosen->id) }}" class="mt-6 space-y-6 bg-white p-6 rounded-lg shadow">
 
             @csrf
             @method('patch')
 
             <div>
                 <x-input-label for="name" :value="__('Nama')" />
-                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)"
-                    required autofocus autocomplete="name" />
+                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $dosen->nama)"
+                    required autofocus />
                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
 
             <div>
                 <x-input-label for="nidn" :value="__('NIDN')" />
-                <x-text-input id="nidn" name="nidn" type="number" class="mt-1 block w-full" :value="old('nidn', $dosen->nidn)"
-                    required autocomplete="nidn" />
+                <x-text-input id="nidn" name="nidn" type="text" class="mt-1 block w-full" :value="old('nidn', $dosen->nidn)"
+                    required />
                 <x-input-error class="mt-2" :messages="$errors->get('nidn')" />
-            </div>
-            <div>
-                <x-input-label for="email" :value="__('Email')" />
-                <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $dosen->email)"
-                    required autocomplete="email" />
-                <x-input-error class="mt-2" :messages="$errors->get('email')" />
             </div>
 
             <div class="flex items-center gap-4">
-                <x-primary-button class="bg-[#00593b] text-white hover:bg-[#00432e] focus:ring-[#00593b]">
+                <x-primary-button type="submit"
+                    class="bg-[#1e40af] text-white hover:bg-[#5079ff] focus:ring-[#1e40af]">
                     {{ __('Save') }}
                 </x-primary-button>
 
-                <x-secondary-button @click="editMode = false"
+                <x-secondary-button type="button" @click="editMode = false"
                     class="text-gray-500 border border-gray-300 bg-white hover:bg-gray-100 hover:text-gray-700">
                     {{ __('Cancel') }}
                 </x-secondary-button>

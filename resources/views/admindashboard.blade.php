@@ -8,7 +8,7 @@
                 <div class="bg-white shadow-lg rounded-xl p-6 flex items-center justify-between">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700">Total Pengguna</h3>
-                        {{-- <p class="text-2xl font-bold text-green-800">{{ $totalPengguna }}</p> --}}
+                        <p class="text-2xl font-bold text-green-800">80</p>
                     </div>
                     <div class="p-3 bg-green-100 text-green-800 rounded-full">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
@@ -22,7 +22,7 @@
                 <div class="bg-white shadow-lg rounded-xl p-6 flex items-center justify-between">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700">Total Alumni</h3>
-                        {{-- <p class="text-2xl font-bold text-blue-800">{{ $totalAlumni }}</p> --}}
+                        <p class="text-2xl font-bold text-blue-800">60</p>
                     </div>
                     <div class="p-3 bg-blue-100 text-blue-800 rounded-full">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
@@ -36,7 +36,7 @@
                 <div class="bg-white shadow-lg rounded-xl p-6 flex items-center justify-between">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700">Total Dosen</h3>
-                        {{-- <p class="text-2xl font-bold text-yellow-600">{{ $totalDosen }}</p> --}}
+                        <p class="text-2xl font-bold text-yellow-600">20</p>
                     </div>
                     <div class="p-3 bg-yellow-100 text-yellow-600 rounded-full">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
@@ -45,7 +45,39 @@
                         </svg>
                     </div>
                 </div>
+
+                <!-- Grafik Statistik Pekerjaan -->
+            <div class="mt-8 bg-white shadow-lg rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">Status Pekerjaan Alumni</h3>
+                <canvas id="jobStatisticsChart"></canvas>
+            </div>
             </div>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('jobStatisticsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Bekerja', 'Belum Bekerja', 'Wiraswasta'],
+                datasets: [{
+                    label: 'Jumlah',
+                    data: [{{ '40' }}, {{ '20' }}, {{ '2' }}],
+                    backgroundColor: ['#10B981', '#EF4444', '#3B82F6'],
+                    borderColor: ['#047857', '#B91C1C', '#1E40AF'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
     @endsection
 </x-app-layout>

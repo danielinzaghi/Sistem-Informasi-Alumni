@@ -42,9 +42,9 @@ Route::get('/broadcast', function () {
 // Route::get('/broadcast', [BroadcastController::class, 'showForm'])->name('broadcast.form');
 Route::post('/broadcast', [BroadcastController::class, 'handleForm'])->name('broadcast.handle');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -107,9 +107,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // Route untuk Alumni
 Route::middleware(['auth', 'role:alumni'])->group(function () {
-    // Route::get('/alumni/dashboard', function () {
-    //     return view('dashboard');
-    // })->name('alumni.dashboard');
+    Route::get('/alumni/dashboard', function () {
+        return view('dashboard');
+    })->name('alumni.dashboard');
+    Route::patch('/alumni/{id}', [ProfileController::class, 'update'])->name('alumni.update');    
     Route::get('/alumni/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
 
     // Route::resource('tracer_study', TracerStudyController::class);
