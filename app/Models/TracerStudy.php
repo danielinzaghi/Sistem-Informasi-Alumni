@@ -12,16 +12,49 @@ class TracerStudy extends Model
     protected $table = 'tracer_study';
 
     protected $fillable = [
-        'alumni_id', 'status_saat_ini', 'waktu_dapat_kerja', 'gaji_bulanan', 'lokasi_provinsi',
-        'lokasi_kota', 'jenis_perusahaan', 'jenis_perusahaan_lainnya', 'nama_perusahaan',
-        'posisi_wirausaha', 'tingkat_perusahaan', 'sumber_biaya_studi', 'universitas_lanjut',
-        'program_studi_lanjut', 'tanggal_masuk_lanjut', 'hubungan_studi_pekerjaan',
-        'tingkat_pendidikan_pekerjaan', 'metode_cari_kerja', 'jumlah_lamaran', 'jumlah_wawancara',
-        'alasan_ambil_pekerjaan'
+        'alumni_id', 'status_saat_ini'
     ];
 
     public function alumni()
     {
-        return $this->belongsTo(Alumni::class, 'alumni_id');
+        return $this->belongsTo(Alumni::class, 'alumni_id', 'id');
     }
+
+    public function bekerja()
+    {
+        return $this->hasOne(Bekerja::class);
+    }
+
+    public function pendidikanLanjut()
+    {
+        return $this->hasOne(PendidikanLanjut::class);
+    }
+
+    public function wirausaha()
+    {
+        return $this->hasOne(Wirausaha::class);
+    }
+
+    public function pencarianKerja()
+    {
+        return $this->hasOne(PencarianKerja::class);
+    }
+
+    public function belumBekerja()
+    {
+        return $this->hasOne(BelumBekerja::class);
+    }
+
+    public function sudahLengkap()
+    {
+        return $this->status_saat_ini && (
+            $this->status_saat_ini === 'Bekerja' && $this->bekerja
+            || $this->status_saat_ini === 'Wiraswasta' && $this->wirausaha
+            || $this->status_saat_ini === 'Melanjutkan Pendidikan' && $this->pendidikanLanjut
+            || $this->status_saat_ini === 'Mencari kerja' && $this->pencarianKerja
+            || $this->status_saat_ini === 'Belum bekerja' && $this->belumBekerja
+        );
+    }
+
+
 }

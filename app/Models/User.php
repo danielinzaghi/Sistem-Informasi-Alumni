@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\CustomResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -47,5 +48,29 @@ class User extends Authenticatable
         ];
     }
 
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class, 'user_id', 'id');
+    }
+    public function dosen()
+    {
+        return $this->hasOne(Dosen::class, 'user_id', 'id');
+    }
 
+
+    public function alumni()
+    {
+        return $this->hasOneThrough(
+            Alumni::class,
+            Mahasiswa::class,
+            'user_id',     // foreign key di Mahasiswa
+            'mahasiswa_id', // foreign key di Alumni
+            'id',           // local key di User
+            'id'            // local key di Mahasiswa
+        );
+    }
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomResetPassword($token));
+    }
 }

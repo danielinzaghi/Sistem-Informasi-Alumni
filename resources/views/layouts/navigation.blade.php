@@ -21,15 +21,15 @@
                             d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                     </svg>
                 </button>
-                <a href="{{ route('dashboard') }}" class="flex ms-2 md:me-24">
+                <a href="{{ route(Auth::user()->roles->first()->name . '.dashboard') }}" class="flex ms-2 md:me-24">
                     <span
-                        class="self-center text-sm font-semibold sm:text-xl whitespace-nowrap text-[#00593b]">E-ALUMNI</span>
+                        class="self-center text-sm font-semibold sm:text-xl whitespace-nowrap text-blue-800">E-ALUMNI</span>
                 </a>
             </div>
         </div>
     </div>
     <!-- Settings Dropdown -->
-    <div class="hidden sm:flex sm:items-center sm:ms-6">
+    <div class="sm:flex sm:items-center sm:ms-6">
         <x-dropdown align="right" width="48">
             <x-slot name="trigger">
                 <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -74,7 +74,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route(Auth::user()->roles->first()->name . '.dashboard')" :active="request()->routeIs(Auth::user()->roles->first()->name . '.dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
