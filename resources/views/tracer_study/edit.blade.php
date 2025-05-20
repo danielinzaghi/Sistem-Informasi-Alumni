@@ -72,7 +72,7 @@
                     <label for="negara" class="block text-gray-700">Lokasi Negara</label>
                     <select name="lokasi_negara" id="lokasi_negara" class="w-full p-2 border border-gray-300 rounded-lg"></select>
                 </div>
-                <input type="text" hidden name="" id="old_lokasi_negara" value="{{ $tracerStudy->bekerja->lokasi_negara }}">
+                <input type="text" hidden name="" id="old_lokasi_negara" value="{{ $tracerStudy->bekerja->lokasi_negara ?? '' }}">
             </div>
 
             <!-- Lokasi Indonesia -->
@@ -82,14 +82,14 @@
                     <label for="lokasi_provinsi" class="block text-gray-700">Lokasi Provinsi</label>
                     <select name="lokasi_provinsi" id="provinsi" class="w-full p-2 border border-gray-300 rounded-lg"></select>
                 </div>
-                <input type="text" hidden name="" id="old_lokasi_provinsi" value="{{ $tracerStudy->bekerja->lokasi_provinsi }}">
+                <input type="text" hidden name="" id="old_lokasi_provinsi" value="{{ $tracerStudy->bekerja->lokasi_provinsi ?? '' }}">
 
                 <!-- 6. Lokasi Kota -->
                 <div class="mb-4">
                     <label for="lokasi_kota" class="block text-gray-700">Lokasi Kota</label>
                     <select name="lokasi_kota" id="kota" class="w-full p-2 border border-gray-300 rounded-lg"></select>
                 </div>
-                <input type="text" hidden name="" id="old_lokasi_kota" value="{{ $tracerStudy->bekerja->lokasi_kota }}">
+                <input type="text" hidden name="" id="old_lokasi_kota" value="{{ $tracerStudy->bekerja->lokasi_kota ?? '' }}">
             </div>
 
             <!-- 7. Waktu Dapat Kerja -->

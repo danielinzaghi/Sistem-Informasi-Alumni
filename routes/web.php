@@ -99,9 +99,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Route untuk Alumni
 Route::middleware(['auth', 'role:alumni'])->group(function () {
-    Route::get('/alumni/dashboard', function () {
-        return view('dashboard');
-    })->name('alumni.dashboard');
     Route::patch('/alumni/{id}', [ProfileController::class, 'update'])->name('alumni.update');    
     Route::get('/alumni/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
 
@@ -112,10 +109,9 @@ Route::middleware(['auth', 'role:alumni'])->group(function () {
 
 // Route untuk Dosen
 Route::middleware(['auth', 'role:dosen'])->group(function () {
-    // Route::get('/dosen/dashboard', [DashboardController::class, 'index'])->name('dosen.dashboard');
+    Route::get('/dosen/dashboard', [DashboardController::class, 'index'])->name('dosen.dashboard');
     Route::patch('/dosen/{id}', [ProfileController::class, 'update'])->name('dosen.update');
     // Route::resource('/admin/dosen', DosenController::class)->names('admin.dosen');
-
 });
 
 

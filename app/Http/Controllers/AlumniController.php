@@ -78,8 +78,8 @@ class AlumniController extends Controller
     public function destroy($id)
     {
         DB::beginTransaction();
+        $alumni = Alumni::findOrFail($id); // Ambil data berdasarkan id
         try {
-            $alumni = Alumni::findOrFail($id); // Ambil data berdasarkan id
             $alumni->delete(); // Hapus data
             DB::commit();
             return redirect()->route('admin.alumni.index')->with('success-delete', 'Data berhasil dihapus');
