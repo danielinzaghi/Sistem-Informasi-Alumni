@@ -37,7 +37,7 @@ class ProfileController extends Controller
         $user = $request->user();
 
         // Update data users (hanya username dan email)
-        $user->fill($request->only(['username', 'email']));
+        $user->fill($request->only(['name', 'email']));
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;

@@ -84,7 +84,6 @@
                         <span class="ms-1 text-xs font-light">Broadcasts</span>
                     </a>
                 </li>
-                li>
                     <a
                         class="flex items-center p-2 rounded-md shadow-md transition-all {{ setActive('admin.CategoryIndex') }}"
                         href="{{ route('admin.CategoryIndex') }}">
