@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dosen;
 use App\Models\Jurusan;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,11 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        $jurusan = Jurusan::all();
 
-        return view('jurusan.index', compact('jurusan'));
+        $jurusan = Jurusan::all();
+        $dosens = Dosen::with('user')->get();
+
+        return view('jurusan.index', compact('jurusan', 'dosens'));
     }
 
     /**
@@ -22,7 +25,12 @@ class JurusanController extends Controller
      */
     public function create()
     {
-        //
+        $jurusan = Jurusan::all();
+        $dosens = Dosen::with('user')->get();
+
+        toast('Jurusan berhasil ditambah.', 'success')->autoClose(2000);
+
+        return view('jurusan.create', compact('jurusan', 'dosens'));
     }
 
     /**
@@ -30,7 +38,18 @@ class JurusanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'nama_jurusan' => 'required|string|max:255',
+            'id_kajur' => 'nullable|exists:dosen,id',
+        ]);
+
+        Jurusan::create([
+            'nama_jurusan' => $request->nama_jurusan,
+            'id_kajur' => $request->id_kajur,
+        ]);
+
+        return redirect()->back()->with('success', 'Jurusan berhasil ditambahkan.');
     }
 
     /**
@@ -52,9 +71,24 @@ class JurusanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Jurusan $jurusan)
+    public function update(Request $request, $id)
     {
-        //
+        // Validasi input
+        $request->validate([
+            'nama_jurusan' => 'required|string|max:255',
+        ]);
+
+        // Cari jurusan berdasarkan ID
+        $jurusan = Jurusan::findOrFail($id);
+
+        // Update data jurusan
+        $jurusan->update([
+            'nama_jurusan' => $request->nama_jurusan,
+        ]);
+
+        toast('Jurusan berhasil diperbarui.', 'success')->autoClose(2000);
+        // Redirect kembali dengan pesan sukses
+        return redirect()->back()->with('success', 'Jurusan berhasil diperbarui.');
     }
 
     /**
@@ -63,5 +97,15 @@ class JurusanController extends Controller
     public function destroy(Jurusan $jurusan)
     {
         //
+        // Cari jurusan berdasarkan ID
+        // $jurusan = Jurusan::findOrFail($id);
+
+        // Hapus jurusan
+        $jurusan->delete();
+
+        toast('Jurusan berhasil dihapus.', 'success')->autoClose(2000);
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->back()->with('success', 'Jurusan berhasil dihapus.');
     }
 }
