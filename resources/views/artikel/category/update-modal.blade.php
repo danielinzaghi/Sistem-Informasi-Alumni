@@ -1,6 +1,6 @@
 
 
-<div id="modalUpdate{{ $item->id }}" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50">
+<div id="modalUpdate{{ $item->id }}" class="fixed inset-0 flex items-center justify-center hidden bg-gray-900 bg-opacity-50 z-50">
     <div class="bg-white p-6 rounded shadow-lg w-96">
         <h2 class="text-lg font-semibold mb-4">Edit Kategori</h2>
 

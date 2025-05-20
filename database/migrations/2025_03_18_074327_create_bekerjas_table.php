@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('gaji_bulanan', 10, 2)->nullable();
             $table->string('lokasi_provinsi', 100)->nullable();
             $table->string('lokasi_kota', 100)->nullable();
+            $table->string('lokasi_negara', 100)->nullable();
             $table->enum('jenis_perusahaan', ['Instansi Pemerintah', 'Organisasi non-profit', 'Perusahaan Swasta', 'Wiraswasta', 'Lainnya'])->nullable();
             $table->string('jenis_perusahaan_lainnya', 100)->nullable();
             $table->string('nama_perusahaan', 255)->nullable();

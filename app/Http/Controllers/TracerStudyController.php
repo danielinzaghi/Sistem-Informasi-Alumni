@@ -133,6 +133,11 @@ class TracerStudyController extends Controller
 
     public function show(TracerStudy $tracerStudy)
     {
+        // Jika role user adalah 'alumni', maka batasi akses hanya ke data miliknya sendiri
+        if (Auth::user()->roles->first()->name === 'alumni' && Auth::user()->alumni->id !== $tracerStudy->alumni_id) {
+            abort(403, 'Anda tidak diizinkan mengakses data tracer study ini.');
+        }
+
         $tracerStudy->load([
             'alumni.mahasiswa.user',
             'bekerja',
@@ -146,6 +151,11 @@ class TracerStudyController extends Controller
     
 
     public function edit(TracerStudy $tracerStudy) {
+        
+        // Jika role user adalah 'alumni', maka batasi akses hanya ke data miliknya sendiri
+        if (Auth::user()->roles->first()->name === 'alumni' && Auth::user()->alumni->id !== $tracerStudy->alumni_id) {
+            abort(403, 'Anda tidak diizinkan mengakses data tracer study ini.');
+        }
         $alumnis = Alumni::all();
         $tracerStudy->load([
             'bekerja',
@@ -177,11 +187,27 @@ class TracerStudyController extends Controller
     
             // Simpan ulang sesuai status
             if ($request->status_saat_ini == 'Bekerja') {
+
+                $lokasi_provinsi = null;
+                $lokasi_kota = null;
+                $lokasi_negara = null;
+                if($request->tingkat_perusahaan == 'Multinasional')
+                {
+                    $lokasi_provinsi = null;
+                    $lokasi_kota = null;
+                    $lokasi_negara = $request->lokasi_negara;
+                } else if($request->tingkat_perusahaan == 'Lokal' || $request->tingkat_perusahaan == 'Nasional')
+                {
+                    $lokasi_negara = null;
+                    $lokasi_provinsi = $request->lokasi_provinsi;
+                    $lokasi_kota = $request->lokasi_kota;
+                }
                 $tracerStudy->bekerja()->create([
                     'waktu_dapat_kerja' => $request->waktu_dapat_kerja,
                     'gaji_bulanan' => $request->gaji_bulanan,
-                    'lokasi_provinsi' => $request->lokasi_provinsi,
-                    'lokasi_kota' => $request->lokasi_kota,
+                    'lokasi_provinsi' => $lokasi_provinsi,
+                    'lokasi_negara' => $lokasi_negara,
+                    'lokasi_kota' => $lokasi_kota,
                     'jenis_perusahaan' => $request->jenis_perusahaan,
                     'nama_perusahaan' => $request->nama_perusahaan,
                     'tingkat_perusahaan' => $request->tingkat_perusahaan,
@@ -238,7 +264,13 @@ class TracerStudyController extends Controller
             }
         });
     
-        return redirect()->back()->with('success-edit', 'Data tracer study anda berhasil diperbarui.');
+        toast('Tracer Study berhasil diperbarui', 'success')->autoClose(2000);
+        
+        if(Auth::user()->roles->first()->name == 'alumni')
+        {
+            return redirect()->route('alumni.tracer_study.show', $tracerStudy->id);
+        }
+        return redirect()->route('alumni.tracer_study.index');
     }
     
     

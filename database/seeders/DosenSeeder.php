@@ -47,7 +47,7 @@ class DosenSeeder extends Seeder
             $userDosen->assignRole($dosenRole);
 
             Dosen::create([
-                'users_id' => $userDosen->id,
+                'user_id' => $userDosen->id,
                 // 'nama' => $userDosen->name,
                 'nidn' => $data['nidn'],
                 // 'email' => $userDosen->email,

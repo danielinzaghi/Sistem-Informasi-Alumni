@@ -14,7 +14,9 @@ class MahasiswaController extends Controller
 {
     public function index() {
         $users = User::all();
-        $mahasiswas = Mahasiswa::with('alumni')->get(); // Tambahkan eager loading alumni
+        $mahasiswas = Mahasiswa::with('alumni')
+                    ->orderBy('angkatan', 'desc')
+                    ->get(); // Tambahkan eager loading alumni
         
         return view('mahasiswa.index', compact('mahasiswas', 'users'));
     }

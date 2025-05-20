@@ -49,7 +49,7 @@
             background-color: #1e40af;
             color: white;
             padding: 8px 20px;
-            border-radius: 30px;
+            border-radius: 5px;
             font-size: 0.9rem;
             text-transform: uppercase;
             transition: background-color 0.3s ease;
@@ -78,7 +78,28 @@
                 </ul>
 
                 <div class="d-none d-lg-block">
-                    <a href="{{ route('login') }}" class="btn-login">Login</a>
+                    {{-- <a href="{{ route('login') }}" class="btn-login">Login</a> --}}
+                    
+                    @if (Route::has('login'))
+                        <nav class="flex items-center justify-end gap-4">
+                            @auth
+                                <a
+                                    href="{{ route(Auth::user()->roles->first()->name . '.dashboard') }}"
+                                    class="btn-login"
+                                >
+                                    Dashboard
+                                </a>
+                            @else
+                                <a
+                                    href="{{ route('login') }}"
+                                    class="btn-login"
+                                >
+                                    Log in
+                                </a>
+                            @endauth
+                        </nav>
+                    @endif
+                    
                 </div>
             </div>
         </div>
@@ -99,12 +120,6 @@
             {{-- <p class="text-center mt-4">Lorem ipsum dolor sit amet...</p> --}}
         </div>
     </section>
-
-
-
-    
-
-
    
     <section class="featured-section section-padding" style="border-radius: 0;">
         <div class="container">

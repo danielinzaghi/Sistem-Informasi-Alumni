@@ -59,7 +59,23 @@ class DosenController extends Controller
      */
     public function update(Request $request, Dosen $dosen)
     {
-        //
+        // dd($request);
+        $user = User::find($dosen->user_id);
+        try {
+            $user->update([
+                'name' => $request->name,
+                // 'email' => $request->email,
+            ]);
+            $dosen->update([
+                'nidn' => $request->nidn,
+            ]);
+
+            toast('Data berhasil diubah!', 'success')->autoClose(2000);
+            return redirect()->route('admin.dosen.index');
+        } catch (\Exception $e) {
+            Alert('Error','Terjadi kesalahan saat mengedit data!', 'error')->autoClose(2000);
+            return redirect()->route('admin.dosen.index');
+        }
     }
 
     /**
@@ -67,8 +83,11 @@ class DosenController extends Controller
      */
     public function destroy(Dosen $dosen)
     {
+        $user = User::where('id', $dosen->user_id)->first();
         $dosen->delete();
+        $user->delete();
     
-        return response()->json(['success' => 'User berhasil dihapus!']);
+        toast('Dosen berhasil dihapus!', 'success')->autoClose(2000);
+        return redirect()->route('admin.dosen.index');
     }
 }

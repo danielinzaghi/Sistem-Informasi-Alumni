@@ -14,6 +14,7 @@ class Bekerja extends Model
         'gaji_bulanan',
         'lokasi_provinsi',
         'lokasi_kota',
+        'lokasi_negara',
         'jenis_perusahaan',
         'jenis_perusahaan_lainnya',
         'nama_perusahaan',

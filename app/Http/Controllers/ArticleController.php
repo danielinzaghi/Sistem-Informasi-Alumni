@@ -9,7 +9,7 @@ use App\Http\Requests\ArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use Illuminate\Support\Str;  
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Auth;
 
 
 class ArticleController extends Controller
@@ -20,7 +20,12 @@ class ArticleController extends Controller
     public function index()
     {
         $beritas = Article::with('kategori', 'user')->latest()->get();
-        return view('artikel.article.index', compact('beritas'));
+        $user = Auth::user();
+        // dd($user->roles->first());
+        if($user->roles->first()->name == 'alumni') {
+            $beritas = Article::with('kategori', 'user')->where('user_id', $user->id)->latest()->get();
+        }
+        return view('artikel.article.index', compact('beritas', 'user'));
     }
 
     /**
@@ -42,7 +47,7 @@ class ArticleController extends Controller
         $data = $request->validated();
 
         // Tambahkan user_id dari user yang login
-        $data['users_id'] = auth()->id(); // Sesuai dengan model
+        $data['user_id'] = Auth::user()->id; // Sesuai dengan model
 
         // Buat slug otomatis dari judul
         $data['slug'] = Str::slug($request->judul);
@@ -55,14 +60,12 @@ class ArticleController extends Controller
             $data['img'] = $fileName;
             
         }
- 
-        
-    
+
         // Simpan data artikel ke database
         $article = Article::create($data);
-        
 
-        return redirect()->route('admin.ArticleIndex')->with('success', 'Artikel berhasil dibuat.');
+        toast('Artikel berhasil dibuat!')->autoClose(2000);
+        return redirect()->route(Auth::user()->roles->first()->name . '.article.index');
     }
 
     /**
@@ -101,7 +104,8 @@ class ArticleController extends Controller
         
         $article->update($data);
 
-        return redirect()->route('admin.ArticleIndex')->with('success', 'Artikel berhasil diperbarui!');
+        toast('Artikel berhasil diperbarui!', 'success')->autoClose(2000);
+        return redirect()->route(Auth::user()->roles->first()->name . '.article.index');
     }
     /**
      * Remove the specified resource from storage.
@@ -110,14 +114,19 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
     
-        // Hapus gambar dari storage jika ada
-        if ($article->img) {
-            Storage::delete('public/articles/' . $article->img);
+        try {
+            // Hapus gambar dari storage jika ada
+            if ($article->img) {
+                Storage::disk('public')->delete('uploads/articles/' . $article->img);
+            }
+        
+            $article->delete();
+            toast('Artikel berhasil dihapus!', 'success');
+            return redirect()->route(Auth::user()->roles->first()->name . '.article.index');
+        } catch (\Exception $e) {
+            Alert('Error',$e->getMessage(), 'error');
+            return redirect()->route(Auth::user()->roles->first()->name . '.article.index');
         }
-    
-        $article->delete();
-    
-        return redirect()->route('admin.ArticleIndex')->with('success', 'Artikel berhasil dihapus.');
     }
     
 }

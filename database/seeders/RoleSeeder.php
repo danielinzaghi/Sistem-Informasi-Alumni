@@ -14,11 +14,12 @@ class RoleSeeder extends Seeder
         Role::firstOrCreate(['name' => 'admin']);
         Role::firstOrCreate(['name' => 'dosen']);
         Role::firstOrCreate(['name' => 'alumni']);
+        Role::firstOrCreate(['name' => 'mahasiswa']);
 
         // Insert User Admin
         $userAdmin = User::create([
-            'name' => 'Admin Sistem',
-            'email' => 'admin@gmail.com',
+            'name' => 'Rehan',
+            'email' => 'afrizalfajri23@gmail.com',
             'password' => bcrypt('password123'),
         ]);
         $userAdmin->assignRole('admin');

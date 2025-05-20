@@ -63,14 +63,15 @@
                         @role('alumni')
                             @if (!$tracer->sudahLengkap())
                                 {{-- Tombol Lengkapi Data --}}
-                                <a href="{{ route('alumnni.tracer_study.edit', $tracer->id) }}" class="inline-flex items-center px-3 py-1 bg-yellow-500 text-white text-sm font-medium rounded hover:bg-yellow-600 transition">
+                                <a href="{{ route('alumni.tracer_study.edit', $tracer->id) }}" class="inline-flex items-center px-3 py-1 bg-yellow-500 text-white text-sm font-medium rounded hover:bg-yellow-600 transition">
                                     📝 Isi Data Tracer Studi
                                 </a>
+                            @else
+                                {{-- Tombol Edit --}}
+                                <a href="{{ route('alumni.tracer_study.edit', $tracer->id) }}" class="inline-flex items-center px-3 py-1 bg-blue-500 text-white text-sm font-medium rounded hover:bg-blue-600 transition">
+                                    ✏️ Edit
+                                </a>
                             @endif
-                            {{-- Tombol Edit --}}
-                            <a href="{{ route('alumni.tracer_study.edit', $tracer->id) }}" class="inline-flex items-center px-3 py-1 bg-blue-500 text-white text-sm font-medium rounded hover:bg-blue-600 transition">
-                                ✏️ Edit
-                            </a>
                         @endrole
                     
                         {{-- Tombol Show --}}
@@ -80,7 +81,11 @@
                     
                         @role('alumni')
                         {{-- Tombol Hapus --}}
-                        <button type="button" onclick="confirmDelete('{{ route('alumni.tracer_study.destroy', $tracer->id) }}')" class="inline-flex items-center px-3 py-1 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 transition">
+                        <button type="button"
+                        data-confirm-delete="true"
+                        data-title="Hapus Tracer Study?"
+                        data-text="Yakin ingin menghapus tracer study {{ $tracer->alumni->mahasiswa->user->name }}?"
+                        class="inline-flex items-center px-3 py-1 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 transition">
                             🗑️ Hapus
                         </button>
                         @endrole
