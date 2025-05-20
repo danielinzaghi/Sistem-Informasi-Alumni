@@ -17,17 +17,26 @@ use Illuminate\Support\Facades\Auth;
 
 class TracerStudyController extends Controller
 {
-    public function index()
-    {
-        $user = Auth::user();
+   public function index()
+{
+    $user = Auth::user();
+
+    // Jika user punya role admin atau dosen
+    if ($user->hasRole('admin') || $user->hasRole('dosen')) {
+        // Tampilkan semua data tracer study
+        $tracerStudies = TracerStudy::with('alumni.mahasiswa.user')->get();
+    } else {
+        // Untuk alumni, hanya tampilkan data miliknya
         $tracerStudies = TracerStudy::with('alumni.mahasiswa.user')
             ->whereHas('alumni.mahasiswa.user', function ($query) use ($user) {
                 $query->where('id', $user->id);
             })
             ->get();
-
-        return view('tracer_study.index', compact('tracerStudies'));
     }
+
+    return view('tracer_study.index', compact('tracerStudies'));
+}
+
 
     public function create()
     {
