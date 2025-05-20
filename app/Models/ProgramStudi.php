@@ -12,8 +12,9 @@ class ProgramStudi extends Model
     protected $table = 'program_studi';
 
     protected $fillable = [
-        'nama_prodi',
+        // 'id_prodi',
         'jurusan_id',
+        'nama_prodi',
         'id_kaprodi',
     ];
 
@@ -31,5 +32,11 @@ class ProgramStudi extends Model
     public function kaprodi()
     {
         return $this->belongsTo(Dosen::class, 'id_kaprodi');
+    }
+
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'id_prodi');
     }
 }

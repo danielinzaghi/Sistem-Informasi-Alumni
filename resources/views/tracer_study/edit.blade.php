@@ -4,7 +4,7 @@
 <div class="container mx-auto mt-10">
     <h2 class="text-2xl font-bold mb-6">Edit tracerStudy</h2>
 
-    <form method="POST" action="{{ route('tracer_study.update', $tracerStudy->id) }}">
+    <form method="POST" action="{{ route('alumni.tracer_study.update', $tracerStudy->id) }}">
         @csrf
         @method('PUT')
         
@@ -23,12 +23,83 @@
 
         {{-- posisi bekerja --}}
         <div id="bekerja_field" style="display: none;">
+
+            <!-- 1. Nama Perusahaan -->
+            <div class="mb-4">
+                <label for="nama_perusahaan" class="block text-gray-700">Nama Perusahaan</label>
+                <input type="text" name="nama_perusahaan" id="nama_perusahaan" class="w-full p-2 border border-gray-300 rounded-lg"
+                    value="{{ old('nama_perusahaan', optional($tracerStudy->bekerja)->nama_perusahaan) }}">
+            </div>
+
+            <!-- 2. Jenis Perusahaan -->
+            <div class="mb-4">
+                <label for="jenis_perusahaan" class="block text-gray-700">Jenis Perusahaan</label>
+                <select name="jenis_perusahaan" id="jenis_perusahaan" class="w-full p-2 border border-gray-300 rounded-lg">
+                    <option value="">-- Pilih Jenis Perusahaan --</option>
+                    @foreach (["Instansi Pemerintah", "Organisasi non-profit", "Perusahaan Swasta", "Wiraswasta", "Lainnya"] as $jenis)
+                        <option value="{{ $jenis }}" {{ old('jenis_perusahaan', optional($tracerStudy->bekerja)->jenis_perusahaan) == $jenis ? 'selected' : '' }}>
+                            {{ $jenis }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- 3. Jenis Perusahaan Lainnya -->
+            <div id="jenis_perusahaan_lainnya_field" style="display: none;">
+                <div class="mb-4">
+                    <label for="jenis_perusahaan_lainnya" class="block text-gray-700">Jenis Perusahaan Lainnya</label>
+                    <input type="text" name="jenis_perusahaan_lainnya" id="jenis_perusahaan_lainnya" class="w-full p-2 border border-gray-300 rounded-lg"
+                        value="{{ old('jenis_perusahaan_lainnya', optional($tracerStudy->bekerja)->jenis_perusahaan_lainnya) }}">
+                </div>
+            </div>
+
+            <!-- 4. Tingkat Perusahaan -->
+            <div class="mb-4">
+                <label for="tingkat_perusahaan" class="block text-gray-700">Tingkat Perusahaan</label>
+                <select name="tingkat_perusahaan" id="tingkat_perusahaan" class="w-full p-2 border border-gray-300 rounded-lg">
+                    <option disabled>-- Pilih Tingkat Perusahaan --</option>
+                    @foreach (["Lokal", "Nasional", "Multinasional"] as $tingkat)
+                        <option value="{{ $tingkat }}" {{ old('tingkat_perusahaan', optional($tracerStudy->bekerja)->tingkat_perusahaan) == $tingkat ? 'selected' : '' }}>
+                            {{ $tingkat }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div id="lokasi_luar_negeri" style="display:none">
+                <!-- 5. Lokasi Luar Negeri -->
+                <div class="mb-4">
+                    <label for="negara" class="block text-gray-700">Lokasi Negara</label>
+                    <select name="lokasi_negara" id="lokasi_negara" class="w-full p-2 border border-gray-300 rounded-lg"></select>
+                </div>
+                <input type="text" hidden name="" id="old_lokasi_negara" value="{{ $tracerStudy->bekerja->lokasi_negara }}">
+            </div>
+
+            <!-- Lokasi Indonesia -->
+            <div id="lokasi_indonesia" style="display:none">
+                <!-- 5. Lokasi Provinsi -->
+                <div class="mb-4">
+                    <label for="lokasi_provinsi" class="block text-gray-700">Lokasi Provinsi</label>
+                    <select name="lokasi_provinsi" id="provinsi" class="w-full p-2 border border-gray-300 rounded-lg"></select>
+                </div>
+                <input type="text" hidden name="" id="old_lokasi_provinsi" value="{{ $tracerStudy->bekerja->lokasi_provinsi }}">
+
+                <!-- 6. Lokasi Kota -->
+                <div class="mb-4">
+                    <label for="lokasi_kota" class="block text-gray-700">Lokasi Kota</label>
+                    <select name="lokasi_kota" id="kota" class="w-full p-2 border border-gray-300 rounded-lg"></select>
+                </div>
+                <input type="text" hidden name="" id="old_lokasi_kota" value="{{ $tracerStudy->bekerja->lokasi_kota }}">
+            </div>
+
+            <!-- 7. Waktu Dapat Kerja -->
             <div class="mb-4">
                 <label for="waktu_dapat_kerja" class="block text-gray-700">Waktu Dapat Kerja (bulan)</label>
                 <input type="number" name="waktu_dapat_kerja" id="waktu_dapat_kerja" class="w-full p-2 border border-gray-300 rounded-lg"
                     value="{{ old('waktu_dapat_kerja', optional($tracerStudy->bekerja)->waktu_dapat_kerja) }}">
             </div>
-        
+
+            <!-- 8. Gaji Bulanan -->
             <div class="mb-4">
                 <label for="gaji_bulanan" class="block text-gray-700">Gaji Bulanan</label>
                 <select name="gaji_bulanan" id="gaji_bulanan" class="w-full p-2 border border-gray-300 rounded-lg">
@@ -51,64 +122,16 @@
                 </select>
             </div>
 
-            <div class="mb-4">
-                <label for="lokasi_provinsi" class="block text-gray-700">Lokasi Provinsi</label>
-                <input type="text" name="lokasi_provinsi" id="lokasi_provinsi" class="w-full p-2 border border-gray-300 rounded-lg"
-                    value="{{ old('lokasi_provinsi', optional($tracerStudy->bekerja)->lokasi_provinsi) }}">
-            </div>
-        
-            <div class="mb-4">
-                <label for="lokasi_kota" class="block text-gray-700">Lokasi Kota</label>
-                <input type="text" name="lokasi_kota" id="lokasi_kota" class="w-full p-2 border border-gray-300 rounded-lg"
-                    value="{{ old('lokasi_kota', optional($tracerStudy->bekerja)->lokasi_kota) }}">
-            </div>
-        
-            <div class="mb-4">
-                <label for="jenis_perusahaan" class="block text-gray-700">Jenis Perusahaan</label>
-                <select name="jenis_perusahaan" id="jenis_perusahaan" class="w-full p-2 border border-gray-300 rounded-lg">
-                    <option value="">-- Pilih Jenis Perusahaan --</option>
-                    @foreach (["Instansi Pemerintah", "Organisasi non-profit", "Perusahaan Swasta", "Wiraswasta", "Lainnya"] as $jenis)
-                        <option value="{{ $jenis }}" {{ old('jenis_perusahaan', optional($tracerStudy->bekerja)->jenis_perusahaan) == $jenis ? 'selected' : '' }}>
-                            {{ $jenis }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-        
-            <div id="jenis_perusahaan_lainnya_field" style="display: none;">
-                <div class="mb-4">
-                    <label for="jenis_perusahaan_lainnya" class="block text-gray-700">Jenis Perusahaan Lainnya</label>
-                    <input type="text" name="jenis_perusahaan_lainnya" id="jenis_perusahaan_lainnya" class="w-full p-2 border border-gray-300 rounded-lg"
-                        value="{{ old('jenis_perusahaan_lainnya', optional($tracerStudy->bekerja)->jenis_perusahaan_lainnya) }}">
-                </div>
-            </div>
-        
-            <div class="mb-4">
-                <label for="nama_perusahaan" class="block text-gray-700">Nama Perusahaan</label>
-                <input type="text" name="nama_perusahaan" id="nama_perusahaan" class="w-full p-2 border border-gray-300 rounded-lg"
-                    value="{{ old('nama_perusahaan', optional($tracerStudy->bekerja)->nama_perusahaan) }}">
-            </div>
-        
-            <div class="mb-4">
-                <label for="tingkat_perusahaan" class="block text-gray-700">Tingkat Perusahaan</label>
-                <select name="tingkat_perusahaan" id="tingkat_perusahaan" class="w-full p-2 border border-gray-300 rounded-lg">
-                    <option disabled>-- Pilih Tingkat Perusahaan --</option>
-                    @foreach (["Lokal", "Nasional", "Multinasional"] as $tingkat)
-                        <option value="{{ $tingkat }}" {{ old('tingkat_perusahaan', optional($tracerStudy->bekerja)->tingkat_perusahaan) == $tingkat ? 'selected' : '' }}>
-                            {{ $tingkat }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-        
+            <!-- 9. Alasan Ambil Pekerjaan -->
             <div class="mb-4">
                 <label for="alasan_ambil_pekerjaan" class="block text-gray-700">Alasan Ambil Pekerjaan</label>
                 <input type="text" name="alasan_ambil_pekerjaan" id="alasan_ambil_pekerjaan" class="w-full p-2 border border-gray-300 rounded-lg"
                     value="{{ old('alasan_ambil_pekerjaan', optional($tracerStudy->bekerja)->alasan_ambil_pekerjaan) }}">
             </div>
-        
+
+            <!-- 10. Tingkat Pendidikan Pekerjaan -->
             <div class="mb-4">
-                <label for="tingkat_pendidikan_pekerjaan" class="block text-gray-700">Tingkat Pendidikan pekerjaan</label>
+                <label for="tingkat_pendidikan_pekerjaan" class="block text-gray-700">Tingkat Pendidikan Pekerjaan</label>
                 <select name="tingkat_pendidikan_pekerjaan" id="tingkat_pendidikan_pekerjaan" class="w-full p-2 border border-gray-300 rounded-lg">
                     <option disabled>-- Pilih Tingkat Pendidikan pekerjaan --</option>
                     @foreach (["Setingkat Lebih Tinggi", "Tingkat Yang Sama", "Setingkat Lebih Rendah", "Tidak Perlu Pendidikan Tinggi"] as $tingkat)
@@ -118,7 +141,9 @@
                     @endforeach
                 </select>
             </div>
+
         </div>
+
         
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -153,8 +178,99 @@
                     statusSelect.addEventListener('change', toggleBekerjaField);
                 }
                 jenisPerusahaan.addEventListener('change', toggleJenisPerusahaanLainnya);
+
+                //untuk lokasi perusahaan
+                const tingkatPerusahaan = document.getElementById('tingkat_perusahaan');
+                const lokasiIndonesia = document.getElementById('lokasi_indonesia');
+                const lokasiLuarNegeri = document.getElementById('lokasi_luar_negeri');
+                const provinsiSelect = document.getElementById('provinsi');
+                const kotaSelect = document.getElementById('kota');
+                const negaraSelect = document.getElementById('lokasi_negara');
+                const oldNegara = document.getElementById('old_lokasi_negara');
+                const oldProvinsi = document.getElementById('old_lokasi_provinsi');
+                const oldKota = document.getElementById('old_lokasi_kota');
+
+                console.log(oldNegara.value);
+
+                function showHideFields(tingkat) {
+                    if (tingkat === 'Multinasional') {
+                        lokasiIndonesia.style.display = 'none';
+                        lokasiLuarNegeri.style.display = 'block';
+                        loadNegara();
+                    } else if (tingkat === 'Lokal' || tingkat === 'Nasional') {
+                        lokasiIndonesia.style.display = 'block';
+                        lokasiLuarNegeri.style.display = 'none';
+                        loadProvinsi();
+                    } else {
+                        lokasiIndonesia.style.display = 'none';
+                        lokasiLuarNegeri.style.display = 'none';
+                    }
+                }
+
+                tingkatPerusahaan.addEventListener('change', function () {
+                    showHideFields(this.value);
+                });
+
+                showHideFields(this.value);
+                
+                // Tambahkan event listener saat provinsi dipilih untuk load kota
+                provinsiSelect.addEventListener('change', function () {
+                    const selected = this.options[this.selectedIndex];
+                    const provId = selected.getAttribute('data-id');
+                    if (provId) {
+                        loadKota(provId);
+                    }
+                });
+                function loadProvinsi() {
+                    fetch('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json')
+                        .then(res => res.json())
+                        .then(data => {
+                            provinsiSelect.innerHTML = '<option value="">-- Pilih Provinsi --</option>';
+                            data.forEach(prov => {
+                                provinsiSelect.innerHTML += `<option value="${prov.name}" data-id="${prov.id}" ${prov.name === oldProvinsi.value ? 'selected' : ''}>${prov.name}</option>`;
+                            });
+
+                            // Panggil loadKota jika ada provinsi lama (untuk edit)
+                            if (oldProvinsi.value) {
+                                const selected = Array.from(provinsiSelect.options).find(opt => opt.value === oldProvinsi.value);
+                                if (selected) {
+                                    const provId = selected.getAttribute('data-id');
+                                    loadKota(provId);
+                                }
+                            }
+                        });
+                }
+                
+
+                function loadKota(provId) {
+                    fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provId}.json`)
+                        .then(res => res.json())
+                        .then(data => {
+                            kotaSelect.innerHTML = '<option value="">-- Pilih Kota --</option>';
+                            data.forEach(kota => {
+                                kotaSelect.innerHTML += `<option value="${kota.name}" ${kota.name === oldKota.value ? 'selected' : ''}>${kota.name}</option>`;
+                            });
+                        });
+                }
+
+                function loadNegara() {
+                    fetch('https://restcountries.com/v3.1/all')
+                        .then(res => res.json())
+                        .then(data => {
+                            negaraSelect.innerHTML = '<option value="">-- Pilih Negara --</option>';
+                            data.sort((a, b) => a.name.common.localeCompare(b.name.common)).forEach(neg => {
+                                negaraSelect.innerHTML += `<option value="${neg.name.common}" ${neg.name.common === oldNegara.value ? 'selected' : ''}>${neg.name.common}</option>`;
+                            });
+                        });
+                }
+
+                // Trigger otomatis saat halaman pertama kali dibuka
+                if (tingkatPerusahaan.value) {
+                    showHideFields(tingkatPerusahaan.value);
+                }
             });
         </script>
+        
         {{-- end --}}
 
         {{-- wirausaha --}}
@@ -200,27 +316,27 @@
             </div>
         
             {{-- Omzet per Bulan --}}
-           <div class="mb-4">
-    <label for="omzet_per_bulan" class="block text-gray-700">Omzet per Bulan (dalam rupiah)</label>
-    <select name="omzet_per_bulan" id="omzet_per_bulan" class="w-full p-2 border border-gray-300 rounded-lg">
-        <option value="">-- Pilih Range Omzet --</option>
-        <option value="< 1 juta" {{ old('omzet_per_bulan', optional($tracerStudy->wirausaha)->omzet_per_bulan) == '< 1 juta' ? 'selected' : '' }}>
-            &lt; 1 juta
-        </option>
-        <option value="1 - 5 juta" {{ old('omzet_per_bulan', optional($tracerStudy->wirausaha)->omzet_per_bulan) == '1 - 5 juta' ? 'selected' : '' }}>
-            1 - 5 juta
-        </option>
-        <option value="5 - 10 juta" {{ old('omzet_per_bulan', optional($tracerStudy->wirausaha)->omzet_per_bulan) == '5 - 10 juta' ? 'selected' : '' }}>
-            5 - 10 juta
-        </option>
-        <option value="10 - 20 juta" {{ old('omzet_per_bulan', optional($tracerStudy->wirausaha)->omzet_per_bulan) == '10 - 20 juta' ? 'selected' : '' }}>
-            10 - 20 juta
-        </option>
-        <option value="> 20 juta" {{ old('omzet_per_bulan', optional($tracerStudy->wirausaha)->omzet_per_bulan) == '> 20 juta' ? 'selected' : '' }}>
-            &gt; 20 juta
-        </option>
-    </select>
-</div>
+            <div class="mb-4">
+                <label for="omzet_per_bulan" class="block text-gray-700">Omzet per Bulan (dalam rupiah)</label>
+                <select name="omzet_per_bulan" id="omzet_per_bulan" class="w-full p-2 border border-gray-300 rounded-lg">
+                    <option value="">-- Pilih Range Omzet --</option>
+                    <option value="< 1 juta" {{ old('omzet_per_bulan', optional($tracerStudy->wirausaha)->omzet_per_bulan) == '< 1 juta' ? 'selected' : '' }}>
+                        &lt; 1 juta
+                    </option>
+                    <option value="1 - 5 juta" {{ old('omzet_per_bulan', optional($tracerStudy->wirausaha)->omzet_per_bulan) == '1 - 5 juta' ? 'selected' : '' }}>
+                        1 - 5 juta
+                    </option>
+                    <option value="5 - 10 juta" {{ old('omzet_per_bulan', optional($tracerStudy->wirausaha)->omzet_per_bulan) == '5 - 10 juta' ? 'selected' : '' }}>
+                        5 - 10 juta
+                    </option>
+                    <option value="10 - 20 juta" {{ old('omzet_per_bulan', optional($tracerStudy->wirausaha)->omzet_per_bulan) == '10 - 20 juta' ? 'selected' : '' }}>
+                        10 - 20 juta
+                    </option>
+                    <option value="> 20 juta" {{ old('omzet_per_bulan', optional($tracerStudy->wirausaha)->omzet_per_bulan) == '> 20 juta' ? 'selected' : '' }}>
+                        &gt; 20 juta
+                    </option>
+                </select>
+            </div>
 
         
             {{-- Bentuk Usaha --}}

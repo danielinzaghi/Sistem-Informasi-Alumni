@@ -12,12 +12,21 @@ class BeritaSeeder extends Seeder
     public function run(): void
     {
         $berita = [
-            ['judul' => 'Teknologi AI di Indonesia', 'slug' => 'teknologi-ai', 'deskripsi' => 'Deskripsi berita AI...', 'kategori' => 'Teknologi', 'user' => 'admin'],
-            ['judul' => 'Pendidikan di Era Digital', 'slug' => 'pendidikan-digital', 'deskripsi' => 'Deskripsi berita pendidikan...', 'kategori' => 'Pendidikan', 'user' => 'admin'],
+            ['judul' => 'Teknologi AI di Indonesia', 'slug' => 'teknologi-ai', 'deskripsi' => 'Deskripsi berita AI...', 'kategori' => 'Teknologi'],
+            ['judul' => 'Pendidikan di Era Digital', 'slug' => 'pendidikan-digital', 'deskripsi' => 'Deskripsi berita pendidikan...', 'kategori' => 'Pendidikan'],
         ];
 
+        // Ambil semua user dengan role dosen dan alumni
+        $users = User::whereHas('roles', function ($query) {
+            $query->whereIn('name', ['dosen', 'alumni']);
+        })->pluck('id')->toArray();
+
+        // Jika tidak ada user yang ditemukan, hentikan proses
+        if (empty($users)) {
+            return;
+        }
+
         foreach ($berita as $data) {
-            $user = User::where('name', $data['user'])->first();
             $kategori = Kategori::where('nama', $data['kategori'])->first();
 
             Berita::create([
@@ -25,7 +34,7 @@ class BeritaSeeder extends Seeder
                 'slug' => $data['slug'],
                 'deskripsi' => $data['deskripsi'],
                 'kategori_id' => $kategori->id ?? null,
-                'users_id' => $user->id ?? null,
+                'user_id' => $users[array_rand($users)], // Pilih user dosen/alumni secara acak
                 'views' => 0,
                 'status' => 'Draft',
                 'tanggal' => now(),

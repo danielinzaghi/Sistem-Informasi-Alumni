@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('mahasiswa', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('id_prodi')->nullable()->constrained('program_studi')->onDelete('set null');
             $table->string('nim', 20)->unique();
             $table->string('nama', 100);
             $table->string('no_hp', 20)->nullable();
             $table->integer('angkatan');
             $table->string('prodi', 50);
-            $table->enum('status', ['aktif', 'non-aktif', 'lulus'])->nullable();
+            $table->string('status', 50)->nullable();
             $table->timestamps();
         });
     }

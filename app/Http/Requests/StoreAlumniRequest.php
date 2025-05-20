@@ -26,8 +26,8 @@ class StoreAlumniRequest extends FormRequest
             'tahun_lulus' => 'required|integer|min:2000|max:' . date('Y'),
             'pekerjaan' => 'nullable|string|max:100',
             'instansi' => 'nullable|string|max:100',
-            'npwp' => 'nullable|numeric|digits:15',
-            'nik' => 'nullable|numeric|digits:16',
+            'npwp' => 'nullable|string|size:15|regex:/^\d{15}$/',
+            'nik' => 'nullable|string|size:16|regex:/^\d{16}$/',
         ];
     }
 }

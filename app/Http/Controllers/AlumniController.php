@@ -16,7 +16,13 @@ class AlumniController extends Controller
 
     public function index()
     {
+        $alumnis1 = Alumni::whereHas('mahasiswa.user', function ($query) {
+            $query->where('id', Auth::user()->id);
+        })->get();
+
         $alumnis = Alumni::all();
+
+        // dd($alumnis);
         
         return view('alumni.index', compact('alumnis'));
         
@@ -46,6 +52,8 @@ class AlumniController extends Controller
             $tracerStudy->alumni_id = $alumni->id; // Simpan ID alumni
             $tracerStudy->save();
         });
+
+        
 
         return redirect()->route('admin.alumni.index')->with('success', 'Alumni berhasil dibuat.');
     }

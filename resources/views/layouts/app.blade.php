@@ -8,6 +8,8 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
+        <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link
             href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"
@@ -70,7 +72,7 @@
                                 class="flex flex-wrap items-center gap-2 md:gap-3 text-xs sm:text-sm md:text-md">
                                 <li class="flex items-center">
                                     <a
-                                        href="{{ route('dashboard') }}"
+                                        href="{{ route(Auth::user()->roles->first()->name . '.dashboard') }}"
                                         class="font-regular text-gray-700 hover:text-blue-600">
                                         Dashboard
                                     </a>
@@ -78,7 +80,7 @@
                                 <li class="text-gray-400">/</li>
                                 @if (View::hasSection('main_folder'))
                                 <li class="flex items-center">
-                                    <a href="#" class="font-regular text-gray-700 hover:text-blue-600">
+                                    <a href="@yield('main_folder-link')" class="font-regular text-gray-700 hover:text-blue-600">
                                         @yield('main_folder')
                                     </a>
                                 </li>
@@ -99,10 +101,10 @@
                         @endif
 
                     </div>
-                    <!-- Container Hijau di Belakang -->
+                    <!-- Container Biru di Belakang -->
                     <div class="mt-4">
                         <!-- Container Putih di Depan -->
-                        <div class="bg-white shadow-lg rounded-lg border-t-4 p-4 border-blue-800">
+                        <div class="bg-white shadow-lg rounded-lg border-t-4 p-4 border-[#1e40af]">
                             @yield('content')
                         </div>
                     </div>
@@ -126,6 +128,71 @@
                     ],
                     "pageLength": 5,
                     "ordering": false
+                });
+            });
+
+            function openModal(modalId) {
+                const modal = $("#" + modalId);
+                modal.removeClass('hidden');
+                modal.find('.modal-content').scrollTop(0);
+            }
+
+            // Fungsi untuk menutup modal berdasarkan ID modal yang dikirim
+            function closeModal(modalId) {
+                $("#" + modalId).addClass("hidden");
+
+                // Tutup modal
+                // modal.addClass("hidden");
+
+                // Reset semua input, select, textarea di dalam modal
+                // modal.find('input, select, textarea').each(function () {
+                //     var type = $(this).attr('type');
+
+                //     if (type === 'checkbox' || type === 'radio') {
+                //         $(this).prop('checked', false);
+                //     } else if (type === 'file') {
+                //         $(this).val(''); // Untuk file input
+                //     } else {
+                //         $(this).val(''); // Untuk text, email, number, etc
+                //     }
+                // });
+
+                // // Reset semua elemen dengan class .modal-title (kalau kamu pakai title modal)
+                // modal.find('.modalTitle').text('');
+
+                // Kalau mau sekalian bersihkan validation error, bisa tambahkan ini:
+                // modal.find('.error-message').text('');
+            }
+        </script>
+        @include('sweetalert::alert')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('click', function (e) {
+                    // Cek apakah yang diklik adalah tombol dengan atribut [data-confirm-delete]
+                    if (e.target.closest('button[data-confirm-delete]')) {
+                        e.preventDefault();
+
+                        const button = e.target.closest('button[data-confirm-delete]');
+                        const form = button.closest('form');
+                        const title = button.getAttribute('data-title') || 'Yakin ingin menghapus?';
+                        const text = button.getAttribute('data-text') || 'Data akan dihapus secara permanen.';
+
+                        Swal.fire({
+                            title: title,
+                            text: text,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Ya, hapus!',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    }
                 });
             });
         </script>
