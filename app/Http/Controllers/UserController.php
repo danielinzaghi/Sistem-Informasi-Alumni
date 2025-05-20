@@ -10,6 +10,7 @@ use App\Models\TracerStudy;
 use Illuminate\Support\Facades\DB;
 
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -18,7 +19,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all();
+        $user = User::with('roles', 'mahasiswa', 'dosen', 'alumni')
+        ->latest()
+        ->where('id', '!=', Auth::id())
+        ->get()
+        ->sortBy(function ($user) {
+            return $user->roles->first()->name ?? '';
+        });
+
         $role = Role::all();
         $prodi = ProgramStudi::all();
         // dd($role);
@@ -39,7 +47,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+        dd($request->prodi);
         try {
             $validated = $request->validate([
                 'name'      => 'required|string|max:255',
@@ -63,7 +71,7 @@ class UserController extends Controller
             // Tambahan berdasarkan role
             if ($validated['role'] === 'mahasiswa' || $validated['role'] === 'alumni') {
                 $mahasiswa = $user->mahasiswa()->create([
-                    'prodi_id' => $request->prodi,
+                    'id_prodi' => $request->prodi,
                     'nim'      => $request->nim,
                     'angkatan' => $request->angkatan,
                     'no_hp'    => $request->no_hp,
@@ -112,13 +120,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::with('mahasiswa', 'dosen', 'alumni')->findOrFail($id);
-        // $roles = Role::all();
-        // $user->role = $user->roles->first()->name ?? null; // Ambil nama role pertama
         $user->load('roles');
-        // $dosen = $user->dosen;
-        // $mahasiswa = $user->mahasiswa;
         return response()->json($user);
-        // return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -148,7 +151,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             alert('Error', $e->getMessage(), 'error');
-            return redirect()->back()->withErrors('User gagal diperbarui : ' . $e->getMessage());
+            return redirect()->route('admin.user.index');
         }
     }
 
@@ -161,9 +164,9 @@ class UserController extends Controller
             $user->delete();
 
             toast('Berhasil menghapus user!', 'success')->autoClose(2000);
-            return redirect()->route('admin.users.index');
+            return redirect()->route('admin.user.index');
         } catch (\Exception $e) {
-            toast('Gagal menghapus user!', 'error')->autoClose(2000);
+            toast($e->getMessage(), 'error')->autoClose(2000);
             return back();
         }
     }

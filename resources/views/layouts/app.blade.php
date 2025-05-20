@@ -72,7 +72,7 @@
                                 class="flex flex-wrap items-center gap-2 md:gap-3 text-xs sm:text-sm md:text-md">
                                 <li class="flex items-center">
                                     <a
-                                        href="{{ route('dashboard') }}"
+                                        href="{{ route(Auth::user()->roles->first()->name . '.dashboard') }}"
                                         class="font-regular text-gray-700 hover:text-blue-600">
                                         Dashboard
                                     </a>
@@ -165,5 +165,36 @@
             }
         </script>
         @include('sweetalert::alert')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('click', function (e) {
+                    // Cek apakah yang diklik adalah tombol dengan atribut [data-confirm-delete]
+                    if (e.target.closest('button[data-confirm-delete]')) {
+                        e.preventDefault();
+
+                        const button = e.target.closest('button[data-confirm-delete]');
+                        const form = button.closest('form');
+                        const title = button.getAttribute('data-title') || 'Yakin ingin menghapus?';
+                        const text = button.getAttribute('data-text') || 'Data akan dihapus secara permanen.';
+
+                        Swal.fire({
+                            title: title,
+                            text: text,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Ya, hapus!',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

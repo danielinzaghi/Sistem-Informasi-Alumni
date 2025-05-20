@@ -14,7 +14,7 @@
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-3xl font-semibold">Artikel</h3>
                     <a
-                        href="{{ route('admin.ArticleCreate') }}"
+                        href="{{ route($user->roles->first()->name . '.article.create') }}"
                         class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow-lg transition duration-200">
                         Tambah Artikel
                     </a>
@@ -51,22 +51,24 @@
                                 {{ $berita->user->name }}</td>
                             <td class="py-2 px-4 border-b">
                                 <a
-                                    href="{{ route('admin.ArticleShow', $berita->id) }}"
+                                    href="{{ route($user->roles->first()->name . '.article.show', $berita->id) }}"
                                     class="bg-orange-400 hover:bg-orange-600 text-white px-3 py-1 rounded transition duration-200">Detail</a>
                                 <a
-                                    href="{{ route('admin.ArticleEdit', $berita->id) }}"
+                                    href="{{ route($user->roles->first()->name . '.article.edit', $berita->id) }}"
                                     class="bg-yellow-500 hover:bg-yellow-200 text-white px-3 py-1 rounded transition duration-200">Edit</a>
                                 <form
-                                    action="{{ route('admin.ArticleDelete', $berita->id) }}"
+                                    action="{{ route($user->roles->first()->name . '.article.destroy', $berita->id) }}"
                                     method="POST"
                                     class="inline"
-                                    onsubmit="return confirm('Yakin ingin menghapus artikel ini?')">
+                                    {{-- onsubmit="return confirm('Yakin ingin menghapus artikel ini?')" --}}>
                                     @csrf @method('DELETE')
                                     <button
                                         type="submit"
+                                        data-confirm-delete="true"
+                                        data-title="Hapus Artikel?"
+                                        data-text="Yakin ingin menghapus data {{ $berita->judul }}?"
                                         class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition duration-200">Hapus</button>
                                 </form>
-
                             </td>
                         </tr>
                         @endforeach

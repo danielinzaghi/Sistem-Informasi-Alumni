@@ -34,7 +34,7 @@ class BeritaSeeder extends Seeder
                 'slug' => $data['slug'],
                 'deskripsi' => $data['deskripsi'],
                 'kategori_id' => $kategori->id ?? null,
-                'users_id' => $users[array_rand($users)], // Pilih user dosen/alumni secara acak
+                'user_id' => $users[array_rand($users)], // Pilih user dosen/alumni secara acak
                 'views' => 0,
                 'status' => 'Draft',
                 'tanggal' => now(),

@@ -1,46 +1,55 @@
-<x-app-layout>
-    @section('content')
-    @section('main_folder', 'Dosen')
-    @section('main_folder-link', route('admin.dosen.index'))
-    @section('sub_folder', 'Edit Dosen')
-        <div class="container mx-auto p-6">
-            <h2 class="text-2xl font-bold text-gray-700 mb-4">Edit Data Dosen</h2>
-        
-            <form action="{{ route('admin.dosen.update', $dosen->id) }}" method="POST" class="bg-white p-6 rounded-lg shadow-md">
-                @csrf
-                @method('PUT')
-        
-                @if($errors->any())
-                    @foreach($errors->all() as $error)
-                        <div class="py-3 w-full rounded-3xl bg-red-500 text-white mb-4">
-                            {{$error}}
-                        </div>
-                    @endforeach
-                @endif
-        
-                <div class="mb-4">
-                    <label for="name" class="block text-gray-700">Nama</label>
-                    <input type="text" name="nama" id="nama" value="{{ $dosen->nama }}" class="w-full p-2 border border-gray-300 rounded-lg">
-                </div>
+<div
+    id="editModal" tabindex="-1" aria-hidden="true"
+    class=" hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="bg-white p-6 rounded-lg w-1/3">
+        <h2 class="text-xl font-semibold">Edit Dosen</h2>
 
-                <div class="mb-5">
-                    <label for="role_id" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
-                    <select @readonly($user->roles->first()->name == 'admin') name="role_id" id="role_id" class="select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5" required>
-                        <option value="" disabled>Role</option>
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->id }}" {{ $user->roles->first()->id == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
-                        @endforeach
-                    </select>
+        <form id="dosenForm" method="POST" action="{{ route('admin.dosen.store') }}">
+            @csrf
+            <div class="grid gap-4 mb-4 grid-cols-2">
+                <div class="col-span-2">
+                    <label
+                        for="name"
+                        class="block mb-2 text-sm font-medium text-gray-900">Nama</label>
+                    <input
+                        type="text"
+                        name="name"
+                        id="edit-name"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        placeholder="Isikan nama pengguna"
+                        required=""></div>
+                <div class="col-span-2 sm:col-span-1">
+                    <label
+                        for="price"
+                        class="block mb-2 text-sm font-medium text-gray-900">NIDN</label>
+                    <input
+                        type="text"
+                        name="nidn"
+                        id="edit-nidn"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        placeholder=""
+                        required=""></div>
+                <div class="col-span-2 sm:col-span-1">
+                    <label
+                        for="category"
+                        class="block mb-2 text-sm font-medium text-gray-900">email</label>
+                    <input readonly
+                        type="email"
+                        name="email"
+                        id="edit-email"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        placeholder=""
+                        required="">
                 </div>
-        
-                <div class="mb-4">
-                    <label for="email" class="block text-gray-700">Email</label>
-                    <input type="text" step="0.01" name="email" id="email" value="{{ $user->email }}" class="w-full p-2 border border-gray-300 rounded-lg">
-                </div>
-                <div class="mb-6">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Update</button>
-                </div>
-            </form>
-        </div>
-    @endsection
-</x-app-layout>
+            </div>
+
+            <div class="flex justify-end mt-4">
+                <button
+                    type="button"
+                    id="closeCreateModal"
+                    class="px-4 py-2 bg-gray-400 text-white rounded">Batal</button>
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded ml-2">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>

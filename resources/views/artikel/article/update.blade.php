@@ -14,9 +14,9 @@
             </div>
         @endif
         
-        <a href="{{ route('admin.ArticleIndex') }}" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Kembali</a>
+        <a href="{{ route(Auth::user()->roles->first()->name . '.article.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block">Kembali</a>
         
-        <form action="{{ route('admin.ArticleUpdate', $article->id) }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow">
+        <form action="{{ route(Auth::user()->roles->first()->name . '.article.update', $article->id) }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow">
             @csrf
             @method('PUT')
             

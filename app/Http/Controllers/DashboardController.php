@@ -19,12 +19,67 @@ class DashboardController extends Controller
         $alumniCount = Alumni::count();
         $dosenCount = Dosen::count();
 
-        // $alumni_sudahBekerja;
-        // $alumni_belumBekerja;
-        // $alumni_wiraswasta;
+        $alumniSudahBekerjaCount = Alumni::whereHas('tracerStudy', function ($query) {
+            $query->where('status_saat_ini', 'Bekerja')
+                ->whereHas('bekerja');
+        })->count();
 
-        return view('dashboard', compact('userCount', 'alumniCount', 'dosenCount'));
+        $alumniBelumBekerjaCount = Alumni::whereHas('tracerStudy', function ($query) {
+            $query->where('status_saat_ini', 'Belum bekerja')
+                ->whereHas('belumBekerja');
+        })->count();
+
+        $alumniWiraswastaCount = Alumni::whereHas('tracerStudy', function ($query) {
+            $query->where('status_saat_ini', 'Wiraswasta')
+                ->whereHas('wirausaha');
+        })->count();
+
+        $alumniMelanjutkanPendidikanCount = Alumni::whereHas('tracerStudy', function ($query) {
+            $query->where('status_saat_ini', 'Melanjutkan Pendidikan')
+                ->whereHas('pendidikanLanjut');
+        })->count();
+
+        $alumniMencariKerjaCount = Alumni::whereHas('tracerStudy', function ($query) {
+            $query->where('status_saat_ini', 'Mencari kerja')
+                ->whereHas('pencarianKerja');
+        })->count();
+
+        // Total alumni dengan data tracer lengkap sesuai status
+        $alumniLengkapCount = Alumni::whereHas('tracerStudy', function ($query) {
+            $query->where(function ($q) {
+                $q->where('status_saat_ini', 'Bekerja')->whereHas('bekerja')
+                ->orWhere(function ($q) {
+                    $q->where('status_saat_ini', 'Wiraswasta')->whereHas('wirausaha');
+                })
+                ->orWhere(function ($q) {
+                    $q->where('status_saat_ini', 'Melanjutkan Pendidikan')->whereHas('pendidikanLanjut');
+                })
+                ->orWhere(function ($q) {
+                    $q->where('status_saat_ini', 'Mencari kerja')->whereHas('pencarianKerja');
+                })
+                ->orWhere(function ($q) {
+                    $q->where('status_saat_ini', 'Belum bekerja')->whereHas('belumBekerja');
+                });
+            });
+        })->count();
+        $alumniCount = Alumni::all()->count();
+
+        // dd($alumniCount);
+
+        return view('dashboard', [
+            'userCount' => $userCount,
+            'alumniCount' => $alumniCount,
+            'dosenCount' => $dosenCount,
+            'alumniSudahBekerjaCount' => $alumniSudahBekerjaCount,
+            'alumniBelumBekerjaCount' => $alumniBelumBekerjaCount,
+            'alumniWiraswastaCount' => $alumniWiraswastaCount,
+            'alumniMelanjutkanPendidikanCount' => $alumniMelanjutkanPendidikanCount,
+            'alumniMencariKerjaCount' => $alumniMencariKerjaCount,
+            'alumniLengkapCount' => $alumniLengkapCount,
+            'alumniCount' => $alumniCount
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

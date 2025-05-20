@@ -11,11 +11,11 @@ class Mahasiswa extends Model
 
     protected $table = 'mahasiswa';
 
-    protected $fillable = ['users_id', 'id_prodi', 'nim',  'no_hp', 'angkatan', 'status'];
+    protected $fillable = ['user_id', 'id_prodi', 'nim',  'no_hp', 'angkatan', 'status'];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id', 'id'); // Sesuaikan dengan nama kolom di DB
+        return $this->belongsTo(User::class, 'user_id', 'id'); // Sesuaikan dengan nama kolom di DB
     }
 
 

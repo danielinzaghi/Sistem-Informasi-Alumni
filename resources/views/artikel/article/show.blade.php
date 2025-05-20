@@ -59,7 +59,7 @@
             </table>
 
             <div class="mt-6 text-right">
-                <a href="{{ route('admin.ArticleIndex') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded transition">Kembali</a>
+                <a href="{{ route(Auth::user()->roles->first()->name . '.article.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded transition">Kembali</a>
             </div>
         </div>
     </div>

@@ -94,18 +94,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         'update' => 'CategoryUpdate',
         'destroy' => 'CategoryDelete',
     ]);
-    Route::resource('article', ArticleController::class)->names([
-        'index' => 'ArticleIndex',
-        'create' => 'ArticleCreate',
-        'store' => 'ArticleStore',
-        'show' => 'ArticleShow',  
-        'edit' => 'ArticleEdit',
-        'update' => 'ArticleUpdate',
-        'destroy' => 'ArticleDelete',
-    ]);
+    Route::resource('article', ArticleController::class)->names('admin.article');
 });
 
-// Route untuk Alumni
+    // Route untuk Alumni
 Route::middleware(['auth', 'role:alumni'])->group(function () {
     Route::get('/alumni/dashboard', function () {
         return view('dashboard');
@@ -115,6 +107,7 @@ Route::middleware(['auth', 'role:alumni'])->group(function () {
 
     // Route::resource('tracer_study', TracerStudyController::class);
     Route::resource('/alumni/tracer-study', TracerStudyController::class)->names('alumni.tracer_study');
+    Route::resource('/alumni/article', ArticleController::class)->names('alumni.article');
 });
 
 // Route untuk Dosen
@@ -132,8 +125,6 @@ Route::middleware(['auth', 'role:dosen'])->group(function () {
 
 // route kategori article
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function() {
-
-
 
     Route::resource('category', CategoryController::class)->names([
         'index' => 'CategoryIndex',

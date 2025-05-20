@@ -10,11 +10,11 @@ class Dosen extends Model
     use HasFactory;
 
     protected $table = 'dosen';
-    protected $fillable = ['users_id', 'nidn', 'email', 'created_at', 'updated_at'];
+    protected $fillable = ['user_id', 'nidn', 'email', 'created_at', 'updated_at'];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function programStudi()

@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('content')
-    <div class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md">
+    {{-- <div class="max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-md"> --}}
         <h2 class="text-2xl font-bold mb-4">Data Alumni</h2>
         @if(session('success'))
             <div id="alert-border-3" class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50 " role="alert">
@@ -129,6 +129,6 @@
     
             </script>  
         </div>
-    </div>
+    {{-- </div> --}}
     @endsection
 </x-app-layout>

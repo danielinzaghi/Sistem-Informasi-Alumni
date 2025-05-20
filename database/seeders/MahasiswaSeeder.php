@@ -30,7 +30,7 @@ class MahasiswaSeeder extends Seeder
 
         // Tambahkan 30 alumni
         for ($i = 1; $i <= 30; $i++) {
-            $angkatan = rand(2018, 2021);
+            $angkatan = rand(2008, 2024);
 
             // Pastikan NIM unik
             do {
@@ -42,7 +42,7 @@ class MahasiswaSeeder extends Seeder
             $randomProdiId = $prodiList[array_rand($prodiList)];
 
             // Tentukan status kelulusan berdasarkan angkatan
-            $status = ($angkatan < $currentYear) ? 'lulus' : 'belum lulus';
+            $status = ($angkatan < $currentYear) ? 'lulus' : 'aktif';
 
             // Generate nama acak
             $randomName = $faker->name;
@@ -57,7 +57,7 @@ class MahasiswaSeeder extends Seeder
 
             // Masukkan ke tabel mahasiswa
             Mahasiswa::create([
-                'users_id' => $userAlumni->id,
+                'user_id' => $userAlumni->id,
                 'id_prodi' => $randomProdiId,
                 'nim' => $nim,
                 'angkatan' => $angkatan,
@@ -73,7 +73,7 @@ class MahasiswaSeeder extends Seeder
         $userMahasiswa->assignRole('mahasiswa');
 
         Mahasiswa::create([
-            'users_id' => $userMahasiswa->id,
+            'user_id' => $userMahasiswa->id,
             'id_prodi' => 1,
             'nim' => 2203102,
             // 'nama' => $userAlumni->name,

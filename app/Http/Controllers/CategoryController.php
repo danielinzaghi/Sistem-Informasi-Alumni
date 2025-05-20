@@ -30,22 +30,23 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $data = $request->validate([
-        'nama' => 'required|min:3'
-    ]);
+    {
+        $data = $request->validate([
+            'nama' => 'required|min:3'
+        ]);
 
-    // Membuat slug dari nama kategori
-    $data['slug'] = Str::slug($data['nama']);
+        // Membuat slug dari nama kategori
+        $data['slug'] = Str::slug($data['nama']);
 
-    // Menyimpan ke dalam database
-    Category::create([
-        'nama' => $data['nama'],
-        'slug' => $data['slug']
-    ]);
+        // Menyimpan ke dalam database
+        Category::create([
+            'nama' => $data['nama'],
+            'slug' => $data['slug']
+        ]);
 
-    return back()->with('success', 'Kategori berhasil dibuat!');
-}
+        toast('Kategori berhasil dibuat!', 'success');
+        return back();
+    }
 
     /**
      * Display the specified resource.
@@ -79,7 +80,8 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return redirect()->route('admin.CategoryIndex')->with('success', 'Kategori berhasil diperbarui');
+        toast('Kategori berhasil diperbarui!', 'success');
+        return redirect()->route('admin.CategoryIndex');
     }
  
 
@@ -88,9 +90,15 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
+        try {
+            $category = Category::findOrFail($id);
+            $category->delete();
 
-        return redirect()->route('admin.CategoryIndex')->with('success', 'Kategori berhasil dihapus');
+            toast('Kategori berhasil dihapus!', 'success');
+            return redirect()->route('admin.CategoryIndex');
+        } catch (\Exception $e) {
+            alert('Error','Kategori gagal dihapus!'. $e->getMessage(), 'error');
+            return redirect()->route('admin.CategoryIndex');
+        }
     }
 }

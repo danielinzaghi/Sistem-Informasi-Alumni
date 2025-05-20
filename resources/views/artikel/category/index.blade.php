@@ -8,7 +8,7 @@
     </x-slot>
 
     <div class="py-12 px-6">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg ">
             <div class="p-6 text-gray-900">
 
                 <!-- Header & Button -->
@@ -32,38 +32,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $item)
+                            @forelse ($categories as $item)
                                 <tr class="hover:bg-gray-50">
                                     <td class="p-4 border">{{ $loop->iteration }}</td>
                                     <td class="p-4 border">{{ $item->nama }}</td>
                                     <td class="p-4 border">{{ $item->slug }}</td>
                                     <td class="p-4 border">{{ $item->created_at }}</td>
-                                    <td class="p-4 border relative">
-                                        <div x-data="{ open: false }" class="relative">
-                                            <!-- Tombol Actions -->
-                                            <button @click="open = !open" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none">
-                                                Actions ▼
+                                    <td class="p-4 flex justify-center items-center gap-2">
+                                        <button onclick="toggleModal('modalUpdate{{ $item->id }}')" class="inline-flex items-center px-3 py-1 bg-blue-500 text-white text-sm font-medium rounded hover:bg-blue-600 transition">
+                                            ✏️ Edit
+                                        </button>
+                                        <form action="{{ route('admin.CategoryDelete', $item->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                data-confirm-delete="true"
+                                                data-title="Hapus Kategori?"
+                                                data-text="Yakin ingin menghapus data {{ $item->nama }}?"
+                                                class="inline-flex items-center px-3 py-1 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600 transition">
+                                                🗑️ Hapus
                                             </button>
-                                    
-                                            <!-- Dropdown Menu -->
-                                            <div x-show="open" @click.away="open = false" class="absolute left-0 mt-2 w-32 bg-white border rounded shadow-md z-10">
-                                                <button class="block w-full text-left px-4 py-2 text-blue-500 hover:bg-yellow-200" 
-                                                    onclick="toggleModal('modalUpdate{{ $item->id }}')">
-                                                    Edit
-                                                </button>
-                                                <button class="block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100" 
-                                                    onclick="toggleModal('modalDelete{{ $item->id }}')">
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </td>
-                                    
-                                    
                                 </tr>
                                 @include('artikel.category.update-modal')
                                 @include('artikel.category.delete-modal')
-                            @endforeach
+                            @empty
+                                <tr class="hover:bg-gray-50">
+                                    <td class="p-4 border text-center" colspan="5">Tidak ada kategori</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
