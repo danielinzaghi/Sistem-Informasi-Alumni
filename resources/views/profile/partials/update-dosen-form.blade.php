@@ -12,7 +12,7 @@
         <!-- Tampilan Informasi Dosen -->
         <div x-show="!editMode" class="mt-4 bg-gray-100 p-4 rounded-md">
             <p class="text-sm text-gray-800">
-                <strong>{{ __('Nama') }}:</strong> {{ $dosen->nama ?? '-' }}
+                <strong>{{ __('Nama') }}:</strong> {{ $dosen->user->name ?? '-' }}
             </p>
             <p class="text-sm text-gray-800">
                 <strong>{{ __('NIDN') }}:</strong> {{ $dosen->nidn ?? '-' }}
@@ -36,7 +36,7 @@
 
             <div>
                 <x-input-label for="name" :value="__('Nama')" />
-                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $dosen->nama)"
+                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $dosen->user->name)"
                     required autofocus />
                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>

@@ -16,7 +16,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        dd(Auth::user());
+        // dd(Auth::user());
         $userCount = User::count();
         $alumniCount = Alumni::count();
         $dosenCount = Dosen::count();

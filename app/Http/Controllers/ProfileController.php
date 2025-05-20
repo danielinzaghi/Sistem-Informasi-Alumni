@@ -23,7 +23,7 @@ class ProfileController extends Controller
     {
         $user = $request->user();
         $role = $user->roles->first()->name; // Ambil role pertama
-        $dosen = Dosen::where('users_id', $user->id)->first();
+        $dosen = Dosen::where('user_id', $user->id)->first();
         $alumni = Alumni::where('mahasiswa_id', $user->id)->first();
         return view('profile.edit', compact('user', 'role', 'dosen', 'alumni'));
     }
@@ -136,7 +136,6 @@ class ProfileController extends Controller
         $updateResult = DB::table('dosen')
             ->where('id', $dosen->id)
             ->update([
-                'nama' => $validated['name'],
                 'nidn' => $validated['nidn']
             ]);
 

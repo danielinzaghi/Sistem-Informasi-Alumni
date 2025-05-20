@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('content') @role('admin')
+    @section('content') @role(['admin', 'dosen'])
     <div class="container mx-auto p-6">
         <h2 class="text-2xl font-semibold text-blue-800">Dashboard Admin</h2>
 

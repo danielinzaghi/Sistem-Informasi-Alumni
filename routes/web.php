@@ -114,8 +114,9 @@ Route::middleware(['auth', 'role:alumni'])->group(function () {
 // Route untuk Dosen
 Route::middleware(['auth', 'role:dosen'])->group(function () {
     Route::get('/dosen/dashboard', [DashboardController::class, 'index'])->name('dosen.dashboard');
-    Route::patch('/dosen/{id}', [ProfileController::class, 'update'])->name('dosen.update');
-    // Route::resource('/admin/dosen', DosenController::class)->names('admin.dosen');
+    Route::patch('/dosen/{id}', [ProfileController::class, 'updatedosen'])->name('dosen.update');
+    Route::resource('/dosen/article', ArticleController::class)->names('dosen.article');
+    Route::resource('/dosen/tracer-study', TracerStudyController::class)->names('dosen.tracer_study');
 });
 
 
@@ -150,10 +151,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
     ]);
 });
 
-
-    
-Route::middleware(['auth', 'role:dosen'])->group(function () {
-    Route::get('/dosen/dashboard', function () {
-    })->name('dosen.dashboard');
-});
 require __DIR__ . '/auth.php';

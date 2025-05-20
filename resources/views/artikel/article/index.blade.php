@@ -46,7 +46,6 @@
                                     {{ $berita->status == 1 ? 'Published' : 'Private' }}
                                 </span>
                             </td>
-
                             <td class="py-2 px-4 border-b">
                                 {{ $berita->user->name }}</td>
                             <td class="py-2 px-4 border-b">
