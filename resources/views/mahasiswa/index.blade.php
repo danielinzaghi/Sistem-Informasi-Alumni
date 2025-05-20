@@ -98,6 +98,50 @@
             </table>
         </div>
 
+
+
+
+        {{-- edit --}}
+         <!-- Modal Edit -->
+         <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+                <h2 class="text-xl font-bold mb-4">Edit Mahasiswa</h2>
+                <form id="mahasiswaForm" method="POST">
+                    @csrf
+                    <input type="hidden" name="_method" value="PUT">
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700">Nama</label>
+                        <input type="text" name="name" id="edit-name" class="w-full border px-3 py-2 rounded" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700">NIM</label>
+                        <input type="text" name="nim" id="edit-nim" class="w-full border px-3 py-2 rounded" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700">No HP</label>
+                        <input type="text" name="no_hp" id="edit-no_hp" class="w-full border px-3 py-2 rounded">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700">Angkatan</label>
+                        <input type="text" name="angkatan" id="edit-angkatan" class="w-full border px-3 py-2 rounded">
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="button" onclick="closeEditModal()" class="bg-gray-400 text-white px-4 py-2 rounded mr-2">Batal</button>
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div> <!-- Penutup .overflow-x-auto -->
+
+
+        {{-- delete --}}
         <div id="deleteModal" tabindex="-1" class="hidden fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
             <div class="bg-white rounded-lg shadow-lg w-1/3">
                 <div class="p-5">
@@ -135,6 +179,36 @@
                 })
             })
         </script>        
+
+
+        <script>
+            function closeEditModal() {
+    $('#editModal').addClass('hidden');
+}
+
+$(document).on('click', '#edit-btn', function () {
+    const mahasiswaId = $(this).data('id');
+
+    // Ambil data via AJAX
+    $.ajax({
+        url: `/admin/mahasiswa/${mahasiswaId}/edit`,
+        method: 'GET',
+        success: function (response) {
+            // Isi nilai ke dalam form
+            $('#edit-name').val(response.user.name);
+            $('#edit-nim').val(response.nim);
+            $('#edit-no_hp').val(response.no_hp);
+            $('#edit-angkatan').val(response.angkatan);
+
+            // Set form action
+            $('#mahasiswaForm').attr('action', `/admin/mahasiswa/${mahasiswaId}`);
+
+            // Tampilkan modal
+            $('#editModal').removeClass('hidden');
+        }
+    });
+});
+        </script>
     </div>
 </div>
 @endsection
