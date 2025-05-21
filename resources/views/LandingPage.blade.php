@@ -175,9 +175,9 @@
                             <div class="card-icon mb-3">
                                 <i class="fa fa-user fa-5x"></i>
                             </div>
-                            <div class="card-title fw-bolder mb-3">Siswa</div>
+                            <div class="card-title fw-bolder mb-3">Alumni</div>
                             <p class="card-description mb-0">
-                                <span class="fw-bolder display-3">8000</span> orang
+                                <span class="fw-bolder display-3">8000</span>
                             </p>
                         </div>
                     </div>
@@ -188,22 +188,9 @@
                             <div class="card-icon mb-3">
                                 <i class="fa fa-chalkboard-teacher fa-5x"></i>
                             </div>
-                            <div class="card-title fw-bolder mb-3">Guru</div>
+                            <div class="card-title fw-bolder mb-3">Dosen</div>
                             <p class="card-description mb-0">
-                                <span class="fw-bolder display-3">50</span> orang
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card custom-card text-center p-4">
-                        <div class="card-body">
-                            <div class="card-icon mb-3">
-                                <i class="fa fa-cogs fa-5x"></i>
-                            </div>
-                            <div class="card-title fw-bolder mb-3">Tenaga Kependidikan</div>
-                            <p class="card-description mb-0">
-                                <span class="fw-bolder display-3">15</span> orang
+                                <span class="fw-bolder display-3">50</span>
                             </p>
                         </div>
                     </div>

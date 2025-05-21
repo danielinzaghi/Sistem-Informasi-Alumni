@@ -19,8 +19,8 @@
             <tbody>
                 @foreach ($dosen as $data)
                 <tr class="bg-white border-b" style="cursor: pointer;">
-                    <td class="px-2 text-center py-4 border">{{ $loop->iteration }} {{ $data->jurusan->nama_jurusan ?? '-' }}</td>
-                    <td class="px-2 text-center py-4 border">{{ $data->user->name }} {{ $data->programStudi->nama_prodi ?? '-' }}</td>
+                    <td class="px-2 text-center py-4 border">{{ $loop->iteration }} </td>
+                    <td class="px-2 text-center py-4 border">{{ $data->user->name }}</td>
                     <td class="px-2 text-center py-4 border">{{ $data->nidn }}</td>
                     <td class="px-2 text-center py-4 border">{{ $data->user->email }}</td>
                     {{-- <td class="px-2 text-center py-4 border">{{ $data->user->roles->first()->name }}</td> --}}

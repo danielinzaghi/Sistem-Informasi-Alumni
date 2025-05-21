@@ -78,7 +78,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/mahasiswa/{id}/edit', [MahasiswaController::class, 'edit'])->name('admin.mahasiswa.edit');
     Route::put('/admin/mahasiswa/{id}', [MahasiswaController::class, 'update'])->name('admin.mahasiswa.update');
     
-
+    Route::get('/check-jurusan', [JurusanController::class, 'checkNamaJurusan'])->name('check.jurusan');
 
     Route::resource('/admin/alumni', AlumniController::class)->names('admin.alumni');
 

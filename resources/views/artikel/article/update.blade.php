@@ -98,17 +98,15 @@
     </script>
 
     {{-- TinyMCE Editor Script --}}
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
     <script>
-        tinymce.init({
-            selector: '#myeditor',
-            height: 300,
-            menubar: false,
-            plugins: 'lists link image code',
-            toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | code',
-            branding: false,
-        });
+        ClassicEditor
+            .create(document.querySelector('#myeditor'))
+            .catch(error => {
+                console.error(error);
+            });
     </script>
+
 
     @endsection
 </x-app-layout>

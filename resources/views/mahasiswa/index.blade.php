@@ -82,17 +82,17 @@
 
                     <div class="mb-4">
                         <label class="block text-gray-700">NIM</label>
-                        <input type="text" name="nim" id="edit-nim" class="w-full border px-3 py-2 rounded" required>
+                        <input type="number" name="nim" id="edit-nim" class="w-full border px-3 py-2 rounded" required>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-gray-700">No HP</label>
-                        <input type="text" name="no_hp" id="edit-no_hp" class="w-full border px-3 py-2 rounded">
+                        <input type="number" name="no_hp" id="edit-no_hp" class="w-full border px-3 py-2 rounded">
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-gray-700">Angkatan</label>
-                        <input type="text" name="angkatan" id="edit-angkatan" class="w-full border px-3 py-2 rounded">
+                        <input type="number" name="angkatan" id="edit-angkatan" class="w-full border px-3 py-2 rounded">
                     </div>
 
                     <div class="flex justify-end">

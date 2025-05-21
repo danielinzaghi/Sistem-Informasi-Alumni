@@ -1,14 +1,14 @@
 <x-app-layout>
     @section('content') @section('main_folder', 'Jurusan & Prodi')
-    <div class="flex justify-between items-start gap-4 flex-col sm:flex-row">
+    <div class="flex justify-between items-start flex-col sm:flex-row">
         <!-- Daftar Jurusan -->
-        <div class="w-full sm:w-1/3 bg-white p-4 flex flex-col gap-4">
+        <div class="w-full sm:w-1/3 bg-white py-4 flex flex-col gap-4">
             <div class="flex justify-between items-center">
                 <span class="w-full text-md sm:text-2xl text-left font-bold">Daftar Jurusan</span>
-                <button onclick="toggleModal('modalCreateJurusan')" class="px-4 py-2 bg-blue-600 text-white rounded">Tambah</button>
+                <button onclick="toggleModal('modalCreateJurusan')" class="px-4 text-sm py-1 bg-blue-600 text-white rounded">Tambah</button>
             </div>
             <div class="overflow-x-auto">
-                <table class="w-100 sm:min-w-full text-sm text-left text-gray-500 border border-gray-300 shadow-md rounded-lg">
+                <table class="text-sm text-left text-gray-500 border border-gray-300 shadow-md rounded-lg">
                     <thead class="text-[12px] sm:text-sm text-gray-700 bg-white">
                         <tr class="bg-gray-100">
                             <th class="px-2 text-center py-3 border w-[40px]">NO</th>
@@ -22,7 +22,7 @@
                         <tr class="bg-white border-b cursor-pointer jurusan-row" data-id="{{ $j->id }}">
                             <td class="px-2 text-center py-4 border">{{ $loop->iteration }}</td>
                             <td class="px-2 text-center py-4 border">{{ $j->nama_jurusan }}</td>
-                            <td class="px-2 text-center py-4 border">{{ $j->kajur->user->name }}</td>
+                            <td class="px-2 text-center py-4 border">{{ $j->kajur->user->name ?? '-' }}</td>
                             <td class="px-2 text-center py-4 flex justify-center items-center">
                                 <button onclick="toggleModal('modalUpdate{{ $j->id }}')" data-id ="{{ $j->id }}" type="button" class="edit-user-btn text-yellow-400 border border-yellow-400 hover:bg-yellow-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center me-2">
                                     <svg class="w-4 sm:w-6 h-4 sm:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@
         <div class="w-full sm:w-2/3 bg-white p-4 flex flex-col gap-4">
             <div class="flex justify-between items-center">
                 <span class="w-full text-md sm:text-2xl text-left font-bold">Daftar Program Studi</span>
-                <button onclick="toggleModal('modalProdiCreate')" id="createProgramButton" class=" hidden px-4 py-2 bg-blue-600 text-white rounded">Tambah</button>
+                <button onclick="toggleModal('modalProdiCreate')" id="createProgramButton" class=" hidden px-4 py-1 text-sm bg-blue-600 text-white rounded">Tambah</button>
             </div>
 
             <div class="overflow-x-auto">
