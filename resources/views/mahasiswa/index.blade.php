@@ -69,7 +69,7 @@
         {{-- edit --}}
          <!-- Modal Edit -->
          <div id="editModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
-            <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg mx-4">
                 <h2 class="text-xl font-bold mb-4">Edit Mahasiswa</h2>
                 <form id="mahasiswaForm" method="POST">
                     @csrf
