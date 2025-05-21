@@ -1,5 +1,7 @@
 <x-app-layout>
     @section('content')
+    @section('main_folder', 'Broadcast') @section('main_folder-link', route('admin.broadcast.index'))
+    @section('sub_folder', 'Create')
     <div class="container mx-auto mt-4">
         <h2 class="text-2xl font-bold mb-4">Broadcast Message to Alumni</h2>
         
@@ -88,7 +90,7 @@
                     @foreach ($alumnis as $alumni)
                         <li class="flex items-center">
                             <input id="prodi_{{ $alumni->mahasiswa->prodi }}" type="checkbox" value="{{ $alumni->mahasiswa->prodi }}" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 focus:ring-2" checked>
-                            <label for="prodi_{{ $alumni->mahasiswa->prodi }}" class="ml-2 text-sm font-medium text-gray-900">{{ $alumni->mahasiswa->prodi }}</label>
+                            <label for="prodi_{{ $alumni->mahasiswa->prodi }}" class="ml-2 text-sm font-medium text-gray-900">{{ $alumni->mahasiswa->prodi->nama_prodi }}</label>
                         </li>
                     @endforeach
                 </ul>
@@ -116,14 +118,14 @@
                                 <td class="border border-gray-300 px-4 py-2">
                                     <input type="checkbox" name="targets[]" value="{{ $alumni->id }}|{{ $alumni->mahasiswa->no_hp }}|{{ $alumni->mahasiswa->nama }}" class="individual-checkbox">
                                 </td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->nama }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->user->name }}</td>
                                 <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->no_hp }}</td>
                                 <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->nim }}</td>
                                 <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->angkatan }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->prodi }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->prodi->nama_prodi }}</td>
                                 <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->status }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->pekerjaan }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->instansi }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->pekerjaan ?? '-' }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->instansi ?? '-' }}</td>
                                 <td class="border border-gray-300 px-4 py-2">{{ $alumni->tracerStudy->status_saat_ini ?? 'Tidak Diketahui' }}</td>
                             </tr>
                         @endif

@@ -160,6 +160,11 @@
                         bekerjaField.style.display = "none";
                     }
                 }
+
+                // Saat halaman dimuat, pastikan field 'jenis_perusahaan_lainnya' tidak required jika disembunyikan
+                if (jenisPerusahaan.value !== "Lainnya") {
+                    jenisPerusahaanLainnya.required = false;
+                }
             
                 function toggleJenisPerusahaanLainnya() {
                     if (jenisPerusahaan.value === "Lainnya") {
@@ -169,6 +174,11 @@
                         jenisPerusahaanLainnyaField.style.display = "none";
                         jenisPerusahaanLainnya.required = false;
                     }
+                }
+                
+                // Saat halaman dimuat, pastikan field 'jenis_perusahaan_lainnya' tidak required jika disembunyikan
+                if (jenisPerusahaan.value !== "Lainnya") {
+                    jenisPerusahaanLainnya.required = false;
                 }
             
                 toggleBekerjaField();

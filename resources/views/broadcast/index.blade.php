@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('content')
+    @section('content') @section('main_folder', 'Broadcast')
     @if (session('success'))
         <div id="success-message" class="bg-green-500 text-white p-4 rounded mb-4">
             {{ session('success') }}
@@ -13,33 +13,33 @@
         </div>
     @endif
     <div class="container mx-auto mt-4">
-        <h1 class="text-2xl font-bold mb-4">Fonnte API Information</h1>
-        @if ($deviceInfo)
+        <h1 class="text-xl sm:text-2xl font-bold mb-4">Fonnte API Information</h1>
+        @if ($deviceInfo && $deviceInfo["status"] != false)
             <div class="bg-white shadow-md rounded-lg p-6">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <strong>Device:</strong> {{ $deviceInfo['device'] }}
+                        <strong  class="text-md sm:text-xl">Device:</strong> <div class="text-sm sm:text-md">{{ $deviceInfo['device'] }}</div>
                     </div>
                     <div>
-                        <strong>Device Status:</strong> {{ $deviceInfo['device_status'] }}
+                        <strong  class="text-md sm:text-xl">Device Status:</strong> <div class="text-sm sm:text-md">{{ $deviceInfo['device_status'] }}</div>
                     </div>
                     <div>
-                        <strong>Expired:</strong> {{ $deviceInfo['expired'] }}
+                        <strong  class="text-md sm:text-xl">Expired:</strong> <div class="text-sm sm:text-md">{{ $deviceInfo['expired'] }}</div>
                     </div>
                     <div>
-                        <strong>Messages:</strong> {{ $deviceInfo['messages'] }}
+                        <strong  class="text-md sm:text-xl">Messages:</strong> <div class="text-sm sm:text-md">{{ $deviceInfo['messages'] }}</div>
                     </div>
                     <div>
-                        <strong>Name:</strong> {{ $deviceInfo['name'] }}
+                        <strong  class="text-md sm:text-xl">Name:</strong> <div class="text-sm sm:text-md">{{ $deviceInfo['name'] }}</div>
                     </div>
                     <div>
-                        <strong>Package:</strong> {{ $deviceInfo['package'] }}
+                        <strong  class="text-md sm:text-xl">Package:</strong> <div class="text-sm sm:text-md">{{ $deviceInfo['package'] }}</div>
                     </div>
                     <div>
-                        <strong>Quota:</strong> {{ $deviceInfo['quota'] }}
+                        <strong  class="text-md sm:text-xl">Quota:</strong> <div class="text-sm sm:text-md">{{ $deviceInfo['quota'] }}</div>
                     </div>
                     <div>
-                        <strong>Status:</strong> {{ $deviceInfo['status'] ? 'Active' : 'Inactive' }}
+                        <strong  class="text-md sm:text-xl">Status:</strong> <div class="text-sm sm:text-md">{{ $deviceInfo['status'] ? 'Active' : 'Inactive' }}</div>
                     </div>
                 </div>
             </div>
@@ -50,13 +50,13 @@
 
     <div class="container mx-auto mt-4">
         <div class="flex justify-between items-center mb-4">
-            <h1 class="text-2xl font-bold">Broadcast History</h1>
-            <a href="{{ route('admin.broadcast.create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            <h1 class="text-md sm:text-2xl font-bold">Broadcast History</h1>
+            <a href="{{ route('admin.broadcast.create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 sm:px-5 py-1.5 sm:py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                 Tambah Broadcast
             </a>
         </div>
 
-        <div class="bg-white shadow-md rounded-lg p-6">
+        <div class=" overflow-x-auto">
             <table class="w-full sm:min-w-full text-[9px] sm:text-[15px] text-gray-500 border border-gray-300 shadow-md rounded-lg">
                 <thead class="text-gray-700 bg-white">
                     <tr>
