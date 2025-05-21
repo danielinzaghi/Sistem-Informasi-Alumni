@@ -15,6 +15,9 @@
                 <strong>{{ __('Nama') }}:</strong> {{ $dosen->user->name ?? '-' }}
             </p>
             <p class="text-sm text-gray-800">
+                <strong>{{ __('Role') }}:</strong> {{ $dosen->user->roles->first()->name ?? '-' }}
+            </p>
+            <p class="text-sm text-gray-800">
                 <strong>{{ __('NIDN') }}:</strong> {{ $dosen->nidn ?? '-' }}
             </p>
         </div>

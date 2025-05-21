@@ -45,12 +45,14 @@
                             class="inline-flex items-center px-3 py-1 bg-green-500 text-white text-[9px] sm:text-sm font-medium rounded hover:bg-green-600 transition">
                             Show
                         </a>
-                        <a
-                            href="{{ route('admin.tracer-study.export.pdf', $tracer->id) }}"
-                            target="_blank"
-                            class="inline-flex items-center px-3 py-1 bg-red-600 text-white text-[9px] sm:text-sm font-medium rounded hover:bg-red-700 transition">
-                            Export
-                        </a>
+                        @if(Auth::user()->roles->first()->name != 'alumni')
+                            <a
+                                href="{{ route(Auth::user()->roles->first()->name . '.tracer-study.export.pdf', $tracer->id) }}"
+                                target="_blank"
+                                class="inline-flex items-center px-3 py-1 bg-red-600 text-white text-[9px] sm:text-sm font-medium rounded hover:bg-red-700 transition">
+                                Export
+                            </a>
+                        @endif
 
                         @role('alumni')
                         {{-- Tombol Hapus --}}

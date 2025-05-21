@@ -77,6 +77,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/admin/mahasiswa', MahasiswaController::class)->names('admin.mahasiswa');
     Route::get('/admin/mahasiswa/{id}/edit', [MahasiswaController::class, 'edit'])->name('admin.mahasiswa.edit');
     Route::put('/admin/mahasiswa/{id}', [MahasiswaController::class, 'update'])->name('admin.mahasiswa.update');
+    
 
 
     Route::resource('/admin/alumni', AlumniController::class)->names('admin.alumni');
@@ -119,6 +120,7 @@ Route::middleware(['auth', 'role:dosen'])->group(function () {
     Route::patch('/dosen/{id}', [ProfileController::class, 'updatedosen'])->name('dosen.update');
     Route::resource('/dosen/article', ArticleController::class)->names('dosen.article');
     Route::resource('/dosen/tracer-study', TracerStudyController::class)->names('dosen.tracer_study');
+    Route::get('/dosen/tracer-study/{id}/export/pdf', [TracerStudyController::class, 'exportPdf'])->name('dosen.tracer-study.export.pdf');
 });
 
 // route kategori article
