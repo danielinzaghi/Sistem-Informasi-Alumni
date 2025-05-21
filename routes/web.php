@@ -63,6 +63,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('admin/broadcast/create', [BroadcastController::class, 'create'])->name('admin.broadcast.create');
     Route::post('admin/broadcast/send', [BroadcastController::class, 'sendMessage'])->name('admin.broadcast.send');
     Route::resource('admin/tracer-study', TracerStudyController::class)->names('admin.tracer_study');
+    Route::get('admin/tracer-study/{id}/export/pdf', [TracerStudyController::class, 'exportPdf'])->name('admin.tracer-study.export.pdf');
     Route::resource('/admin/jurusan', JurusanController::class)->names('admin.jurusan');
     Route::get('/get-program-studi/{id}', [ProgramStudiController::class, 'getByJurusan']);
 
@@ -118,11 +119,6 @@ Route::middleware(['auth', 'role:dosen'])->group(function () {
     Route::resource('/dosen/article', ArticleController::class)->names('dosen.article');
     Route::resource('/dosen/tracer-study', TracerStudyController::class)->names('dosen.tracer_study');
 });
-
-
-
-
-
 
 // route kategori article
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function() {
