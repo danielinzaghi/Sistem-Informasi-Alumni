@@ -78,6 +78,9 @@
                         <a href="{{ route(Auth::user()->roles->first()->name . '.tracer_study.show', $tracer->id) }}" class="inline-flex items-center px-3 py-1 bg-green-500 text-white text-sm font-medium rounded hover:bg-green-600 transition">
                             👁️ Show
                         </a>
+                        <a href="{{ route('admin.tracer-study.export.pdf', $tracer->id) }}" target="_blank" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-full shadow transition duration-300">
+                            🖨️ Export PDF
+                        </a>
                     
                         @role('alumni')
                         {{-- Tombol Hapus --}}

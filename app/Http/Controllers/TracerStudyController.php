@@ -11,6 +11,7 @@ use App\Models\PencarianKerja;
 use App\Models\PendidikanLanjut;
 use App\Models\TracerStudy;
 use App\Models\Wirausaha;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -291,4 +292,23 @@ class TracerStudyController extends Controller
             return redirect()->back();
         }
     }
+
+    public function exportPDF($id)
+    {
+        $tracerStudi = TracerStudy::findOrFail($id);
+
+        $tracerStudi->load([
+            'alumni.mahasiswa.user',
+            'bekerja',
+            'wirausaha',
+            'pendidikanLanjut',
+            'pencarianKerja',
+            'belumBekerja',
+        ]);
+
+        $pdf = PDF::loadView('tracer_study.pdf', compact('tracerStudi'));
+
+        return $pdf->stream('tracer_study.pdf');
+    }
+
 }
