@@ -42,9 +42,9 @@ Route::get('/broadcast', function () {
 // Route::get('/broadcast', [BroadcastController::class, 'showForm'])->name('broadcast.form');
 Route::post('/broadcast', [BroadcastController::class, 'handleForm'])->name('broadcast.handle');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -89,14 +89,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     //     return view('alumni.index');
     // })->name('admin.alumni');
     // Route::get('/admin/broadcast', function() {
-        
+
     //     return view('broadcast.index');
     // })->name('admin.broadcast');
     Route::resource('category', CategoryController::class)->names([
         'index' => 'CategoryIndex',
         'create' => 'CategoryCreate',
         'store' => 'CategoryStore',
-        'show' => 'Category.show',  
+        'show' => 'Category.show',
         'edit' => 'CategoryEdit',
         'update' => 'CategoryUpdate',
         'destroy' => 'CategoryDelete',
@@ -104,7 +104,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('article', ArticleController::class)->names('admin.article');
 });
 
-    // Route untuk Alumni
+// Route untuk Alumni
 Route::middleware(['auth', 'role:alumni'])->group(function () {
     Route::patch('/alumni/{id}', [ProfileController::class, 'update'])->name('alumni.update');    
     Route::get('/alumni/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
@@ -124,13 +124,13 @@ Route::middleware(['auth', 'role:dosen'])->group(function () {
 });
 
 // route kategori article
-Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function () {
 
     Route::resource('category', CategoryController::class)->names([
         'index' => 'CategoryIndex',
         'create' => 'CategoryCreate',
         'store' => 'CategoryStore',
-        'show' => 'Category.show',  
+        'show' => 'Category.show',
         'edit' => 'CategoryEdit',
         'update' => 'CategoryUpdate',
         'destroy' => 'CategoryDelete',
@@ -138,12 +138,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
 });
 
 // route article
-Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function () {
     Route::resource('article', ArticleController::class)->names([
         'index' => 'ArticleIndex',
         'create' => 'ArticleCreate',
         'store' => 'ArticleStore',
-        'show' => 'ArticleShow',  
+        'show' => 'ArticleShow',
         'edit' => 'ArticleEdit',
         'update' => 'ArticleUpdate',
         'destroy' => 'ArticleDelete',

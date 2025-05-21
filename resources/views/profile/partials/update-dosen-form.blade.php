@@ -12,10 +12,7 @@
         <!-- Tampilan Informasi Dosen -->
         <div x-show="!editMode" class="mt-4 bg-gray-100 p-4 rounded-md">
             <p class="text-sm text-gray-800">
-                <strong>{{ __('Nama') }}:</strong> {{ $dosen->user->name ?? '-' }}
-            </p>
-            <p class="text-sm text-gray-800">
-                <strong>{{ __('Role') }}:</strong> {{ $dosen->user->roles->first()->name ?? '-' }}
+                <strong>{{ __('Nama') }}:</strong> {{ $user->name ?? '-' }}
             </p>
             <p class="text-sm text-gray-800">
                 <strong>{{ __('NIDN') }}:</strong> {{ $dosen->nidn ?? '-' }}

@@ -111,5 +111,6 @@
             }
         });
     </script>
-    @endrole @endsection
+    @endrole 
+    @endsection
 </x-app-layout>
