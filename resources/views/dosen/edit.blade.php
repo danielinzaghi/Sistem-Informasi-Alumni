@@ -1,6 +1,5 @@
 <div
-    id="editModal" tabindex="-1" aria-hidden="true"
-    class=" hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    id="editDosenModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
     <div class="bg-white p-6 rounded-lg w-1/3">
         <h2 class="text-xl font-semibold">Edit Dosen</h2>
 
@@ -45,8 +44,8 @@
 
             <div class="flex justify-end mt-4">
                 <button
-                    type="button"
-                    id="closeCreateModal"
+                    type="button" onclick="closeModal('editDosenModal')"
+                    {{-- id="closeCreateModal" --}}
                     class="px-4 py-2 bg-gray-400 text-white rounded">Batal</button>
                 <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded ml-2">Simpan</button>
             </div>
