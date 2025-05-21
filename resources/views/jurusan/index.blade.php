@@ -6,6 +6,12 @@
             <div class="flex justify-between items-center">
                 <span class="w-full text-md sm:text-2xl text-center font-bold">Daftar Jurusan</span>
                 <span class="w-full text-center font-bold">button</span>
+        <div class="w-1/3 bg-white p-4  flex flex-col items-center justify-center gap-2">
+            <div class="w-full flex justify-between items-center mb-4">
+                <span class="font-bold">Daftar Jurusan</span>
+                <button onclick="toggleModal('modalCreateJurusan')" class="px-4 py-2 bg-blue-600 text-white rounded">
+                    Tambah Jurusan
+                </button>
             </div>
             <table class="w-100 sm:min-w-full text-sm text-left text-gray-500 border border-gray-300 shadow-md rounded-lg">
                 <thead class="text-[12px] sm:text-sm text-gray-700 bg-white">
@@ -16,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($jurusan as  $j)
+                    @foreach ($jurusan as $j)
                     <tr class="bg-white border-b cursor-pointer jurusan-row" data-id="{{ $j->id }}">
                         <td class="px-2 text-center py-4 border">{{ $loop->iteration }}</td>
                         <td class="px-2 text-center py-4 border">{{ $j->nama_jurusan }}</td>
@@ -38,17 +44,20 @@
                                     data-text="Yakin ingin menghapus data {{ $j->nama_jurusan }}?"
                                     class="text-red-600 border border-red-600 hover:bg-red-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm p-2 text-center inline-flex items-center me-2">
                                     <svg class="w-4 sm:w-6 h-4 sm:h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                        <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
-                                    </svg>          
+                                        <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd" />
+                                    </svg>
                                 </button>
                             </form>
+                            {{-- @endif --}}
+                            @include('jurusan.update-modal')
+                            @include('jurusan.create-modal')
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-    
+
         <!-- Daftar Program Studi -->
         <div class="w-full sm:w-2/3 bg-white p-4 flex flex-col gap-4">
             <div class="flex justify-between items-center">
@@ -72,20 +81,20 @@
             </table>
         </div>
     </div>
-    
+
 
     <script>
         $(document).ready(function() {
             $(".jurusan-row").click(function() {
                 let jurusanId = $(this).data("id"); // Ambil ID jurusan yang diklik
-    
+
                 $.ajax({
                     url: "/get-program-studi/" + jurusanId, // URL endpoint untuk ambil data
                     type: "GET",
                     success: function(response) {
                         let programTable = $("#programStudiTable");
                         programTable.empty(); // Kosongkan tabel sebelum isi ulang
-    
+
                         if (response.length === 0) {
                             programTable.append('<tr><td colspan="2" class="text-center py-4">Tidak ada program studi untuk jurusan ini</td></tr>');
                         } else {
@@ -127,6 +136,12 @@
                 });
             });
         });
+    </script>
+
+    <script>
+        function toggleModal(id) {
+            document.getElementById(id).classList.toggle("hidden");
+        }
     </script>
     @endsection
 </x-app-layout>
