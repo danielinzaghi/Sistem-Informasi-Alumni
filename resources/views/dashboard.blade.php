@@ -1,7 +1,8 @@
 <x-app-layout>
-    @section('content') @role('admin')
+    @section('content')
+    @role(['admin', 'dosen'])
     <div class="container mx-auto p-6">
-        <h2 class="text-2xl font-semibold text-blue-800">Dashboard Admin</h2>
+        <h2 class="text-2xl font-semibold text-blue-800">Dashboard</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Card Jumlah Pengguna -->
@@ -111,5 +112,6 @@
             }
         });
     </script>
-    @endrole @endsection
+    @endrole 
+    @endsection
 </x-app-layout>
