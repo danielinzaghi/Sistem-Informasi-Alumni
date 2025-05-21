@@ -30,11 +30,13 @@ class FrontArticleController extends Controller
         $categories = Category::withCount(['articles as total_articles' => function($query) {
             $query->where('status', 1);  // Hanya hitung artikel yang aktif
         }])->latest()->get();
+
+        $popular_posts = Article::orderBy('views', 'desc')->take(3)->where('status', 1)->get();
     
         // Kirim ke view
         return view('home.artikel.show', [
             'article' => $article,
-            'popular_posts' => Article::orderBy('views', 'desc')->take(3)->get(),
+            'popular_posts' => $popular_posts,
             'categories' => $categories,  // Kirim kategori dengan total artikel
         ]);
     }

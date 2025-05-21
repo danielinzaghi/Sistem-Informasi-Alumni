@@ -114,35 +114,35 @@ class ProfileController extends Controller
         // Ambil dosen dengan ID yang diberikan
         $dosen = Dosen::findOrFail($id);
 
-        // Validasi input
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'nidn' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('dosen', 'nidn')->ignore($dosen->id),
-            ],
-        ]);
-
-        // Update user terkait jika ada
-        if ($dosen->user) {
-            $userUpdateResult = $dosen->user->update([
-                'name' => $validated['name'],
-            ]);
-        }
-
-        // Update dosen dengan query builder
-        $updateResult = DB::table('dosen')
-            ->where('id', $dosen->id)
-            ->update([
-                'nidn' => $validated['nidn']
+        try {
+            // Validasi input
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'nidn' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    Rule::unique('dosen', 'nidn')->ignore($dosen->id),
+                ],
             ]);
 
-        if ($updateResult) {
-            return redirect()->route('profile.edit')->with('status', 'profile-updated');
-        } else {
-            return back()->withErrors(['update' => 'Gagal menyimpan data dosen'])->withInput();
+            // Update user terkait jika ada
+            if ($dosen->user) {
+                $userUpdateResult = $dosen->user->update([
+                    'name' => $validated['name'],
+                ]);
+            }
+
+            // Update dosen dengan query builder
+            $updateResult = DB::table('dosen')
+                ->where('id', $dosen->id)
+                ->update([
+                    'nidn' => $validated['nidn']
+                ]);
+                return redirect()->route('profile.edit')->with('status', 'profile-updated');
+        } catch (\Exception $e) {
+            Log::error('Error updating dosen: ' . $e->getMessage());
+            return back()->withErrors(['update' => 'Gagal menyimpan data dosen, ' . $e->getMessage()])->withInput();
         }
     }
 }

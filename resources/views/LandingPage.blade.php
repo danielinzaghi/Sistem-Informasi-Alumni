@@ -68,9 +68,9 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b1f7c1; box-shadow: 0 4px 15px rgba(253, 40, 40, 0.1);">
         <div class="container">
-            <div class="navbar-brand" style="font-size: 1.5rem; font-weight: 700; color: #4336d2;">
+            <a href="{{ route('index') }}" class="navbar-brand" style="font-size: 1.5rem; font-weight: 700; color: #4336d2;">
                 E-Alumni
-            </div>
+            </a>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-lg-5 me-lg-auto">
