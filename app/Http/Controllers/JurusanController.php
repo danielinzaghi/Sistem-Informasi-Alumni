@@ -15,7 +15,14 @@ class JurusanController extends Controller
     {
 
         $jurusan = Jurusan::all();
-        $dosens = Dosen::with('user')->get();
+        $dosens = Dosen::with('user')
+                ->whereDoesntHave('programStudi')
+                ->whereDoesntHave('jurusan')
+                ->get();
+
+        $dosenAll = Dosen::with('user')->get();
+        // dd($dosens->first()->user->name);
+
 
         return view('jurusan.index', compact('jurusan', 'dosens'));
     }
@@ -29,7 +36,6 @@ class JurusanController extends Controller
         $dosens = Dosen::with('user')->get();
 
         toast('Jurusan berhasil ditambah.', 'success')->autoClose(2000);
-
         return view('jurusan.create', compact('jurusan', 'dosens'));
     }
 
@@ -49,7 +55,8 @@ class JurusanController extends Controller
             'id_kajur' => $request->id_kajur,
         ]);
 
-        return redirect()->back()->with('success', 'Jurusan berhasil ditambahkan.');
+        toast('Jurusan berhasil ditambah.', 'success')->autoClose(2000);
+        return redirect()->back();
     }
 
     /**

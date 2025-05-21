@@ -22,7 +22,11 @@ class UserController extends Controller
         $user = User::with('roles', 'mahasiswa', 'dosen', 'alumni')
         ->latest()
         ->where('id', '!=', Auth::id())
+        // ->orderBy('name', 'asc')
         ->get()
+        ->sortBy(function ($user) {
+            return $user->name ?? '';
+        })
         ->sortBy(function ($user) {
             return $user->roles->first()->name ?? '';
         });

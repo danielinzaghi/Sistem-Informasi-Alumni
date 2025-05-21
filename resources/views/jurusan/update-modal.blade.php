@@ -21,9 +21,10 @@
                 <label for="id_kajur{{ $j->id }}" class="block text-sm font-medium text-gray-700">Ketua Jurusan (Kajur)</label>
                 <select name="id_kajur" id="id_kajur{{ $j->id }}" class="mt-1 p-2 w-full border rounded-md @error('id_kajur') border-red-500 @enderror">
                     <option value="">-- Pilih Kajur --</option>
+                    <option id="selectedKajur" value="{{ $j->id_kajur }}" selected>{{ $j->kajur->user->name }}</option>
                     @foreach ($dosens as $d)
-                        <option value="{{ $d->id }}" {{ (old('id_kajur', $j->id_kajur) == $d->id) ? 'selected' : '' }}>
-                            {{ $d->nama }}
+                        <option value="{{ $d->id }}">
+                            {{ $d->user->name }}
                         </option>
                     @endforeach
                 </select>

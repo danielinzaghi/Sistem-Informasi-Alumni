@@ -65,6 +65,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('admin/tracer-study', TracerStudyController::class)->names('admin.tracer_study');
     Route::get('admin/tracer-study/{id}/export/pdf', [TracerStudyController::class, 'exportPdf'])->name('admin.tracer-study.export.pdf');
     Route::resource('/admin/jurusan', JurusanController::class)->names('admin.jurusan');
+    Route::resource('/admin/prodi', ProgramStudiController::class)->names('admin.prodi');
     Route::get('/get-program-studi/{id}', [ProgramStudiController::class, 'getByJurusan']);
 
     // Route::get('/admin/dosen', function() {
