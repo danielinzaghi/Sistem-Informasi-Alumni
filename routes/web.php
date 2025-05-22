@@ -106,16 +106,18 @@ Route::middleware(['auth', 'role:alumni'])->group(function () {
     Route::get('/alumni/dashboard', [DashboardController::class, 'index'])->name('alumni.dashboard');
 
     // Route::resource('tracer_study', TracerStudyController::class);
-    Route::resource('/alumni/tracer-study', TracerStudyController::class)->names('alumni.tracer_study');
-    Route::resource('/alumni/article', ArticleController::class)->names('alumni.article');
 });
+Route::resource('/alumni/tracer-study', TracerStudyController::class)->names('alumni.tracer_study');
+Route::resource('/alumni/article', ArticleController::class)->names('alumni.article');
 
 // Route untuk Dosen
 Route::middleware(['auth', 'role:dosen'])->group(function () {
-    // Route::get('/dosen/dashboard', [DashboardController::class, 'index'])->name('dosen.dashboard');
+    Route::get('/dosen/dashboard', [DashboardController::class, 'index'])->name('dosen.dashboard');
     Route::patch('/dosen/{id}', [ProfileController::class, 'update'])->name('dosen.update');
     // Route::resource('/admin/dosen', DosenController::class)->names('admin.dosen');
-
+    
+    Route::resource('/dosen/tracer-study', TracerStudyController::class)->names('dosen.tracer_study');
+    Route::resource('/dosen/article', ArticleController::class)->names('dosen.article');
 });
 
 
@@ -152,8 +154,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
 
 
     
-Route::middleware(['auth', 'role:dosen'])->group(function () {
-    Route::get('/dosen/dashboard', function () {
-    })->name('dosen.dashboard');
-});
+// Route::middleware(['auth', 'role:dosen'])->group(function () {
+//     Route::get('/dosen/dashboard', function () {
+//     })->name('dosen.dashboard');
+// });
 require __DIR__ . '/auth.php';
