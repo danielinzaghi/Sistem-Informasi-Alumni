@@ -7,7 +7,7 @@
 
         <title>E-Alumni</title>
 
-        {{-- <link rel="icon" href="{{ asset('') }}" type="image/png"> --}}
+        <link rel="icon" href="{{ asset('asset/systemicon/JKB-v2.png') }}" type="image/png" sizes="32x32">
 
         <!-- Fonts -->
         <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
