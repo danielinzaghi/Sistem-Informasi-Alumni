@@ -1,8 +1,9 @@
 <x-app-layout>
-    @section('content') @role(['admin', 'dosen'])
+    @section('content')
     <div class="container mx-auto p-6">
-        <h2 class="text-md sm:text-2xl font-semibold text-blue-800">Dashboard Admin</h2>
+        <h2 class="text-md sm:text-2xl font-semibold text-blue-800">Dashboard {{ ucfirst(strtolower(Auth::user()->roles->first()->name)) }}</h2>
 
+        @role(['admin', 'dosen'])
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-md sm:text-xl">
             <!-- Card Jumlah Pengguna -->
             <div
@@ -55,6 +56,7 @@
                 </div>
             </div>
         </div>
+        @endrole
         <!-- Grafik Statistik Pekerjaan -->
         <div class="mt-8 overflow-x-auto">
             <h3 class="text-md sm:text-xl font-semibold text-gray-700 mb-4">Status Pekerjaan Alumni</h3>
@@ -111,6 +113,5 @@
             }
         });
     </script>
-    @endrole 
     @endsection
 </x-app-layout>

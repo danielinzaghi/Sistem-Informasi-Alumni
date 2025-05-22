@@ -76,6 +76,7 @@ class TracerStudyController extends Controller
                 'alasan_ambil_pekerjaan' => $request->alasan_ambil_pekerjaan,
                 'bekerja_di_luar_bidang' => $request->bekerja_di_luar_bidang
             ]);
+            
         }
 
         if ($request->status_saat_ini == 'Wiraswasta') {
