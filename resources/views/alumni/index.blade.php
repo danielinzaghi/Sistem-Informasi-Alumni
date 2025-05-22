@@ -40,7 +40,7 @@
                                     @method('DELETE')
                                     <button type="submit"
                                     data-confirm-delete="true"
-                                    data-title="Hapus Jurusan?"
+                                    data-title="Hapus Alumni?"
                                     data-text="Yakin ingin menghapus data {{ $alumni->mahasiswa->user->name }}?"
                                     class="text-red-600 border border-red-600 hover:bg-red-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm p-2 inline-flex items-center">
                                         <!-- Icon delete -->
