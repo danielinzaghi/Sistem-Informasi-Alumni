@@ -118,11 +118,12 @@ class ProfileController extends Controller
             // Validasi input
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
                 'nidn' => [
                     'required',
                     'string',
                     'max:255',
-                    Rule::unique('dosen', 'nidn')->ignore($dosen->id),
+                    Rule::unique('dosen','nidn')->ignore($dosen->id),
                 ],
             ]);
 
@@ -130,6 +131,7 @@ class ProfileController extends Controller
             if ($dosen->user) {
                 $userUpdateResult = $dosen->user->update([
                     'name' => $validated['name'],
+                    'email' => $validated['email'],
                 ]);
             }
 

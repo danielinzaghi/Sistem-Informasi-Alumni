@@ -12,6 +12,9 @@
         <!-- Tampilan Informasi Dosen -->
         <div x-show="!editMode" class="mt-4 bg-gray-100 p-4 rounded-md">
             <p class="text-sm text-gray-800">
+                <strong>{{ __('Email') }}:</strong> {{ $user->email ?? '-' }}
+            </p>
+             <p class="text-sm text-gray-800">
                 <strong>{{ __('Nama') }}:</strong> {{ $user->name ?? '-' }}
             </p>
             <p class="text-sm text-gray-800">
@@ -34,6 +37,12 @@
             @csrf
             @method('patch')
 
+            <div>
+                <x-input-label for="email" :value="__('Email')" />
+                <x-text-input id="email" name="email" type="text" class="mt-1 block w-full" :value="old('email', $dosen->user->email)"
+                    required autocomplete="email" />
+                <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            </div>
             <div>
                 <x-input-label for="name" :value="__('Nama')" />
                 <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $dosen->user->name)"
