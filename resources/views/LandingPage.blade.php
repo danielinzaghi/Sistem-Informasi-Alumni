@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>E - Alumni</title>
+    <title>E-Alumni</title>
+
+    <link rel="icon" href="{{ asset('asset/systemicon/JKB-v2.png') }}" type="image/png" sizes="32x32">
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
