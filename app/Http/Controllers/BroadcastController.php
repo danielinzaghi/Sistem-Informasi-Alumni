@@ -61,6 +61,7 @@ class BroadcastController extends Controller
         $broadcasts = Broadcast::with(['alumni.mahasiswa'])->get();
         // Get device information
         $deviceInfo = $this->getDeviceInfoFromApi(); // Call a new method to get device info
+        
 
         // Return the view with alumni data and device information
         return view('broadcast.index', compact('alumnis', 'deviceInfo', 'broadcasts'));

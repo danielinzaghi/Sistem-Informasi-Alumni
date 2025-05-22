@@ -10,7 +10,7 @@ class Dosen extends Model
     use HasFactory;
 
     protected $table = 'dosen';
-    protected $fillable = ['user_id', 'nidn', 'email', 'created_at', 'updated_at'];
+    protected $fillable = ['user_id', 'nidn', 'created_at', 'updated_at'];
 
     public function user()
     {
@@ -19,11 +19,11 @@ class Dosen extends Model
 
     public function programStudi()
     {
-        return $this->hasMany(ProgramStudi::class, 'id_kaprodi');
+        return $this->hasOne(ProgramStudi::class, 'id_kaprodi');
     }
 
     public function jurusan()
     {
-        return $this->belongsTo(Jurusan::class, 'jurusan_id');
+        return $this->hasOne(Jurusan::class, 'id_kajur');
     }
 }

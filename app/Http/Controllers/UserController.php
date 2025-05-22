@@ -22,7 +22,11 @@ class UserController extends Controller
         $user = User::with('roles', 'mahasiswa', 'dosen', 'alumni')
         ->latest()
         ->where('id', '!=', Auth::id())
+        // ->orderBy('name', 'asc')
         ->get()
+        ->sortBy(function ($user) {
+            return $user->name ?? '';
+        })
         ->sortBy(function ($user) {
             return $user->roles->first()->name ?? '';
         });
@@ -47,7 +51,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->prodi);
+        // dd($request->prodi);
         try {
             $validated = $request->validate([
                 'name'      => 'required|string|max:255',

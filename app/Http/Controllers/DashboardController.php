@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Alumni;
 use App\Models\Dosen;
 use App\Models\TracerStudy;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -15,6 +16,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        // dd(Auth::user());
         $userCount = User::count();
         $alumniCount = Alumni::count();
         $dosenCount = Dosen::count();

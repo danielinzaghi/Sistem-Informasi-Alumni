@@ -32,9 +32,88 @@
             </div>
 
             <div class="flex justify-end space-x-2">
-                <button type="button" class="px-4 py-2 bg-gray-400 text-white rounded" onclick="toggleModal('modalCreateJurusan')">Batal</button>
+                <button type="button" class="px-4 py-2 bg-gray-400 text-white rounded" onclick="closeModal('modalCreateJurusan')">Batal</button>
                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Simpan</button>
             </div>
         </form>
     </div>
 </div>
+
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const input = document.getElementById('nama_jurusan');
+        const errorContainer = document.createElement('p');
+        errorContainer.className = 'text-red-500 text-sm mt-1';
+        input.parentNode.appendChild(errorContainer);
+        input.addEventListener('input', function () {
+            const nama = input.value.trim();
+            if (!nama) {
+                errorContainer.textContent = '';
+                return;
+            }
+            fetch(`/check-jurusan?nama_jurusan=${encodeURIComponent(nama)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.exists) {
+                    errorContainer.textContent = 'Nama jurusan sudah ada.';
+                    input.classList.add('border-red-500');
+                } else {
+                    errorContainer.textContent = '';
+                    input.classList.remove('border-red-500');
+                }
+            });
+        });
+        const form = input.closest('form');
+        form.addEventListener('submit', function (e) {
+            if (errorContainer.textContent !== '') {
+                e.preventDefault();
+            }
+        });
+    });
+</script> --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const input = document.getElementById('nama_jurusan');
+
+        // Cari elemen error jika sudah ada
+        let errorContainer = input.parentNode.querySelector('.error-jurusan');
+
+        // Kalau belum ada, buat dan tambahkan
+        if (!errorContainer) {
+            errorContainer = document.createElement('p');
+            errorContainer.className = 'text-red-500 text-sm mt-1 error-jurusan';
+            input.parentNode.appendChild(errorContainer);
+        }
+
+        input.addEventListener('input', function () {
+            const nama = input.value.trim();
+
+            if (!nama) {
+                errorContainer.textContent = '';
+                input.classList.remove('border-red-500');
+                return;
+            }
+
+            fetch(`/check-jurusan?nama_jurusan=${encodeURIComponent(nama)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.exists) {
+                        errorContainer.textContent = 'Nama jurusan sudah ada.';
+                        input.classList.add('border-red-500');
+                    } else {
+                        errorContainer.textContent = '';
+                        input.classList.remove('border-red-500');
+                    }
+                });
+        });
+
+        const form = input.closest('form');
+        form.addEventListener('submit', function (e) {
+            if (errorContainer.textContent !== '') {
+                e.preventDefault();
+            }
+        });
+    });
+
+</script>

@@ -18,7 +18,7 @@ class DosenController extends Controller
         $userDosen = User::whereHas('roles', function ($query) {
             $query->where('name', 'dosen'); //FIlter hanya user dengan role "dosen"
         })->get();
-            
+
         return view('dosen.index', compact('dosen', 'userDosen'));
     }
 

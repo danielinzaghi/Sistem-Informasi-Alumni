@@ -21,9 +21,10 @@
                 <label for="id_kajur{{ $j->id }}" class="block text-sm font-medium text-gray-700">Ketua Jurusan (Kajur)</label>
                 <select name="id_kajur" id="id_kajur{{ $j->id }}" class="mt-1 p-2 w-full border rounded-md @error('id_kajur') border-red-500 @enderror">
                     <option value="">-- Pilih Kajur --</option>
+                    <option id="selectedKajur" value="{{ $j->id_kajur }}" selected>{{ $j->kajur->user->name ?? '-' }}</option>
                     @foreach ($dosens as $d)
-                        <option value="{{ $d->id }}" {{ (old('id_kajur', $j->id_kajur) == $d->id) ? 'selected' : '' }}>
-                            {{ $d->nama }}
+                        <option value="{{ $d->id }}">
+                            {{ $d->user->name }}
                         </option>
                     @endforeach
                 </select>
@@ -40,3 +41,49 @@
         </form>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const input = document.getElementById('nama_jurusan'+{{ $j->id }});
+
+        // Cari elemen error jika sudah ada
+        let errorContainer = input.parentNode.querySelector('.error-jurusan');
+
+        // Kalau belum ada, buat dan tambahkan
+        if (!errorContainer) {
+            errorContainer = document.createElement('p');
+            errorContainer.className = 'text-red-500 text-sm mt-1 error-jurusan';
+            input.parentNode.appendChild(errorContainer);
+        }
+
+        input.addEventListener('input', function () {
+            const nama = input.value.trim();
+
+            if (!nama) {
+                errorContainer.textContent = '';
+                input.classList.remove('border-red-500');
+                return;
+            }
+
+            fetch(`/check-jurusan?nama_jurusan=${encodeURIComponent(nama)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.exists) {
+                        errorContainer.textContent = 'Nama jurusan sudah ada.';
+                        input.classList.add('border-red-500');
+                    } else {
+                        errorContainer.textContent = '';
+                        input.classList.remove('border-red-500');
+                    }
+                });
+        });
+
+        const form = input.closest('form');
+        form.addEventListener('submit', function (e) {
+            if (errorContainer.textContent !== '') {
+                e.preventDefault();
+            }
+        });
+    });
+
+</script>

@@ -46,13 +46,13 @@ class MahasiswaController extends Controller
         return redirect()->route('admin.mahasiswa.index')->with('success', 'mahasiswa berhasil dibuat.');
     }
 
-    public function edit(Mahasiswa $mahasiswa) {
+    public function edit2(Mahasiswa $mahasiswa) {
         $users = User::all();
         $prodis = ProgramStudi::all();
         return view('mahasiswa.edit', compact('prodis', 'users', 'mahasiswa'));
     }
 
-    public function update(UpdateMahasiswaRequest $request , Mahasiswa $mahasiswa ) {
+    public function update2(UpdateMahasiswaRequest $request , Mahasiswa $mahasiswa ) {
         DB::transaction(function () use ($request, $mahasiswa) {
             $validated = $request->validated();
 
@@ -63,18 +63,51 @@ class MahasiswaController extends Controller
 
     }
 
-    public function destroy(Mahasiswa $mahasiswa)
-    {
-        DB::beginTransaction();
+    public function edit($id)
+{
+    $mahasiswa = Mahasiswa::with('user')->findOrFail($id);
+    return response()->json($mahasiswa);
+}
 
-        try{
-            $mahasiswa->delete();
-            DB::commit();
-            return redirect()->route('admin.mahasiswa.index');
+public function update(Request $request, $id)
+{
+    $mahasiswa = Mahasiswa::findOrFail($id);
+    $mahasiswa->nim = $request->nim;
+    $mahasiswa->no_hp = $request->no_hp;
+    $mahasiswa->angkatan = $request->angkatan;
+    $mahasiswa->save();
+
+    $mahasiswa->user->name = $request->name;
+    $mahasiswa->user->save();
+
+    toast('Data berhasil disimpan!', 'success')->autoClose(2000);
+    return redirect()->route('admin.mahasiswa.index');
+}
+
+
+
+public function destroy(Mahasiswa $mahasiswa)
+{
+    DB::beginTransaction();
+
+    try {
+        // Simpan user sebelum hapus mahasiswa
+        $user = $mahasiswa->user;
+
+        // Hapus mahasiswa
+        $mahasiswa->delete();
+
+        // Hapus user jika ada
+        if ($user) {
+            $user->delete();
         }
-        catch (\Exception $e){
-            DB::rollBack();
-            return redirect()->route('admin.mahasiswa.index');
-        }
+
+        DB::commit();
+        return redirect()->route('admin.mahasiswa.index')->with('success-edit', 'Mahasiswa dan User berhasil dihapus.');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->route('admin.mahasiswa.index')->with('error', 'Gagal menghapus data: ' . $e->getMessage());
     }
+}
+
 }

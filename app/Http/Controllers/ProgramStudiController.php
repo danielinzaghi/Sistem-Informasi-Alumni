@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProgramStudi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProgramStudiController extends Controller
 {
@@ -17,7 +18,8 @@ class ProgramStudiController extends Controller
 
     public function getByJurusan($jurusan_id)
     {
-        $programStudi = ProgramStudi::where('jurusan_id', $jurusan_id)->get();
+        $programStudi = ProgramStudi::with('kaprodi.user')
+                        ->where('jurusan_id', $jurusan_id)->get();
 
         return response()->json($programStudi);
     }
@@ -35,7 +37,19 @@ class ProgramStudiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            ProgramStudi::create([
+                'nama_prodi' => $request->nama_prodi,
+                'id_kaprodi' => $request->id_kaprodi,
+                'jurusan_id' => $request->jurusan_id
+            ]);
+
+            toast('Berhasil menambahkan data program studi', 'success');
+            return redirect()->route('admin.jurusan.index');
+        } catch (\Exception $e) {
+            Alert('Error', $e->getMessage(), 'error');
+            return redirect()->route('admin.jurusan.index');
+        }
     }
 
     /**
@@ -57,16 +71,44 @@ class ProgramStudiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ProgramStudi $programStudi)
+    public function update(Request $request, $id)
     {
-        //
+        $programStudi = ProgramStudi::find($id);
+        // dd($request->all(), $programStudi);
+        DB::beginTransaction(); 
+        try {
+            $programStudi->update([
+                'nama_prodi' => $request->nama_prodi,
+                'id_kaprodi' => $request->kaprodi
+            ]);
+            DB::commit();
+            // Simpan ID jurusan dari prodi yang diedit
+            session()->flash('jurusan_id', $programStudi->jurusan_id);
+
+            toast('Berhasil mengubah data program studi', 'success');
+            return redirect()->route('admin.jurusan.index');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Alert('Error', $e->getMessage(), 'error');
+            return redirect()->route('admin.jurusan.index');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProgramStudi $programStudi)
+    public function destroy($id)
     {
-        //
+        $programStudi = ProgramStudi::find($id);
+        // dd($programStudi);
+        try {
+            $programStudi->delete();
+
+            toast('Berhasil menghapus data program studi', 'success');
+            return redirect()->route('admin.jurusan.index');
+        } catch (\Exception $e) {
+            Alert('Error', $e->getMessage(), 'error');
+            return redirect()->route('admin.jurusan.index');
+        }
     }
 }

@@ -63,44 +63,41 @@
             @include('layouts.navigation') @include('layouts.sidebar')
             <main class="p-2 sm:ml-40">
                 <div class="p-4 mt-12">
-                    <div class="flex flex-wrap justify-between gap-y-2 sm:flex-row flex-col">
-                        <!-- Breadcrumb -->
-                        @if (!Route::is('profile.edit'))
-
-                        <nav class="w-full sm:w-auto" aria-label="Breadcrumb">
-                            <ol
-                                class="flex flex-wrap items-center gap-2 md:gap-3 text-xs sm:text-sm md:text-md">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-2 sm:gap-4">
+                    {{-- Breadcrumb --}}
+                    @if (!Route::is('profile.edit'))
+                        <nav class="flex-1" aria-label="Breadcrumb">
+                            <ol class="flex flex-wrap items-center gap-2 md:gap-3 text-xs sm:text-sm md:text-md">
                                 <li class="flex items-center">
-                                    <a
-                                        href="{{ route(Auth::user()->roles->first()->name . '.dashboard') }}"
-                                        class="font-regular text-gray-700 hover:text-blue-600">
+                                    <a href="{{ route(Auth::user()->roles->first()->name . '.dashboard') }}"
+                                    class="font-regular text-gray-700 hover:text-blue-600">
                                         Dashboard
                                     </a>
                                 </li>
                                 <li class="text-gray-400">/</li>
                                 @if (View::hasSection('main_folder'))
-                                <li class="flex items-center">
-                                    <a href="@yield('main_folder-link')" class="font-regular text-gray-700 hover:text-blue-600">
-                                        @yield('main_folder')
-                                    </a>
-                                </li>
-                                @endif @if (View::hasSection('sub_folder'))
-                                <li class="text-gray-400">/</li>
-                                <li aria-current="page">
-                                    <span class="font-regular text-gray-500">@yield('sub_folder')</span>
-                                </li>
+                                    <li class="flex items-center">
+                                        <a href="@yield('main_folder-link')" class="font-regular text-gray-700 hover:text-blue-600">
+                                            @yield('main_folder')
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (View::hasSection('sub_folder'))
+                                    <li class="text-gray-400">/</li>
+                                    <li aria-current="page">
+                                        <span class="font-regular text-gray-500">@yield('sub_folder')</span>
+                                    </li>
                                 @endif
                             </ol>
                         </nav>
-                        <!-- Tanggal -->
-                        <div class="w-full sm:w-auto text-[10px] sm:text-[12px] text-gray-700">
-                            <p class="text-left">
-                                {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
-                            </p>
-                        </div>
-                        @endif
 
-                    </div>
+                        {{-- Tanggal --}}
+                        <div class="text-right text-[10px] sm:text-[12px] text-gray-700 whitespace-nowrap">
+                            {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
+                        </div>
+                    @endif
+                </div>
+
                     <!-- Container Biru di Belakang -->
                     <div class="mt-4">
                         <!-- Container Putih di Depan -->
@@ -196,5 +193,6 @@
                 });
             });
         </script>
+        
     </body>
 </html>
