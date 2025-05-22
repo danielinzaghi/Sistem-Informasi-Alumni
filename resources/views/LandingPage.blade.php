@@ -179,7 +179,7 @@
                             </div>
                             <div class="card-title fw-bolder mb-3">Alumni</div>
                             <p class="card-description mb-0">
-                                <span class="fw-bolder display-3">8000</span>
+                                <span class="fw-bolder display-3">{{ $alumnis }}</span>
                             </p>
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                             </div>
                             <div class="card-title fw-bolder mb-3">Dosen</div>
                             <p class="card-description mb-0">
-                                <span class="fw-bolder display-3">50</span>
+                                <span class="fw-bolder display-3">{{ $dosens }}</span>
                             </p>
                         </div>
                     </div>
@@ -305,10 +305,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 text-md-start">
-                        &copy; {{ date('Y') }} <strong>SDN Bulupayung 04</strong>. All Rights Reserved.
+                        &copy; {{ date('Y') }} <strong>Politeknik Negeri Cilacap</strong>. All Rights Reserved.
                     </div>
                     <div class="col-md-6 text-md-end">
-                        Designed by <strong>Meisya Anggraeni</strong>
+                        Designed by <strong>teknosata</strong>
                     </div>
                 </div>
             </div>

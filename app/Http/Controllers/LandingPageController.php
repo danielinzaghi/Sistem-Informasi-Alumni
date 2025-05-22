@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Dosen;
+use App\Models\Alumni;
 
 
 class LandingPageController extends Controller
 {
     public function index()
     {
+        $dosens = Dosen::count();
+        $alumnis = Alumni::count();
         $articles = Article::with('kategori')->whereStatus(1)->latest()->paginate(6);
-        return view('LandingPage', compact('articles'));
+        return view('LandingPage', compact('articles', 'alumnis', 'dosens'));
     }
 
     public function berita()
