@@ -71,7 +71,7 @@
                     @foreach($broadcasts as $broadcast)
                         <tr>
                             <td class="border border-gray-300 px-4 py-2">{{ $broadcast->id }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $broadcast->alumni->mahasiswa->nama ?? 'N/A' }}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ $broadcast->alumni->mahasiswa->user->name ?? 'N/A' }}</td>
                             <td class="border border-gray-300 px-4 py-2">{{ $broadcast->target }}</td>
                             <td class="border border-gray-300 px-4 py-2">{{ $broadcast->message }}</td>
                             <td class="border border-gray-300 px-4 py-2">{{ $broadcast->detail }}</td>

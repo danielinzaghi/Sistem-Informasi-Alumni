@@ -146,6 +146,12 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
             ]);
+
+            if($user->roles->first()->name = 'mahasiswa' || $user->roles->first()->name = 'alumni'){
+                $user->mahasiswa->update([
+                    'no_hp' => $request->no_hp
+                ]);
+            }
  
             DB::commit();
         

@@ -96,42 +96,44 @@
                 </ul>
             </div>
             
-            <table class="w-full sm:min-w-full text-[9px] sm:text-[15px] text-gray-500 border border-gray-300 shadow-md rounded-lg">
-                <thead class="text-gray-700 bg-white">
-                    <tr>
-                        <th class="border border-gray-300 px-4 py-2">Pilih</th>
-                        <th class="border border-gray-300 px-4 py-2">Nama</th>
-                        <th class="border border-gray-300 px-4 py-2">No HP</th>
-                        <th class="border border-gray-300 px-4 py-2">NIM</th>
-                        <th class="border border-gray-300 px-4 py-2">Angkatan/Tahun Lulus</th>
-                        <th class="border border-gray-300 px-4 py-2">Prodi</th>
-                        <th class="border border-gray-300 px-4 py-2">Status</th>
-                        <th class="border border-gray-300 px-4 py-2">Pekerjaan</th>
-                        <th class="border border-gray-300 px-4 py-2">Instansi</th>
-                        <th class="border border-gray-300 px-4 py-2">Status Saat Ini</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($alumnis as $alumni)
-                        @if ($alumni->mahasiswa)
-                            <tr class="hover:bg-gray-100 alumni-row" data-status="{{ $alumni->tracerStudy->status_saat_ini ?? 'Tidak Diketahui' }}" data-year="{{ $alumni->mahasiswa->angkatan }}" data-prodi="{{ $alumni->mahasiswa->prodi }}">
-                                <td class="border border-gray-300 px-4 py-2">
-                                    <input type="checkbox" name="targets[]" value="{{ $alumni->id }}|{{ $alumni->mahasiswa->no_hp }}|{{ $alumni->mahasiswa->nama }}" class="individual-checkbox">
-                                </td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->user->name }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->no_hp }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->nim }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->angkatan }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->prodi->nama_prodi }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->status }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->pekerjaan ?? '-' }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->instansi ?? '-' }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $alumni->tracerStudy->status_saat_ini ?? 'Tidak Diketahui' }}</td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </tbody>
-            </table>
+            <div class="overflow-x-auto">
+                <table class="w-full sm:min-w-full text-[9px] sm:text-[15px] text-gray-500 border border-gray-300 shadow-md rounded-lg">
+                    <thead class="text-gray-700 bg-white">
+                        <tr>
+                            <th class="border border-gray-300 px-4 py-2">Pilih</th>
+                            <th class="border border-gray-300 px-4 py-2">Nama</th>
+                            <th class="border border-gray-300 px-4 py-2">No HP</th>
+                            <th class="border border-gray-300 px-4 py-2">NIM</th>
+                            <th class="border border-gray-300 px-4 py-2">Angkatan/Tahun Lulus</th>
+                            <th class="border border-gray-300 px-4 py-2">Prodi</th>
+                            <th class="border border-gray-300 px-4 py-2">Status</th>
+                            <th class="border border-gray-300 px-4 py-2">Pekerjaan</th>
+                            <th class="border border-gray-300 px-4 py-2">Instansi</th>
+                            <th class="border border-gray-300 px-4 py-2">Status Saat Ini</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($alumnis as $alumni)
+                            @if ($alumni->mahasiswa)
+                                <tr class="hover:bg-gray-100 alumni-row" data-status="{{ $alumni->tracerStudy->status_saat_ini ?? 'Tidak Diketahui' }}" data-year="{{ $alumni->mahasiswa->angkatan }}" data-prodi="{{ $alumni->mahasiswa->prodi }}">
+                                    <td class="border border-gray-300 px-4 py-2">
+                                        <input type="checkbox" name="targets[]" value="{{ $alumni->id }}|{{ $alumni->mahasiswa->no_hp }}|{{ $alumni->mahasiswa->user->name }}" class="individual-checkbox">
+                                    </td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->user->name }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->no_hp }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->nim }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->angkatan }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->prodi->nama_prodi }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $alumni->mahasiswa->status }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $alumni->pekerjaan ?? '-' }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $alumni->instansi ?? '-' }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $alumni->tracerStudy->status_saat_ini ?? 'Tidak Diketahui' }}</td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             <button type="submit" class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Kirim Pesan</button>
         </form>
     </div>

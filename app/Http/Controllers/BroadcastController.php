@@ -76,6 +76,8 @@ class BroadcastController extends Controller
             'targets.*' => 'string', // Validate each element in the array
         ]);
 
+        // dd($request);
+
         $messageTemplate = $request->input('message'); // Get message from input
         $targets = $request->input('targets'); // Get target numbers from input
 
@@ -86,7 +88,7 @@ class BroadcastController extends Controller
             list($alumniId, $phoneNumber, $name) = explode('|', $target);
 
             // Replace placeholders with actual values
-            $message = str_replace('{name}', $name, $messageTemplate);
+            $message = str_replace('{nama}', $name, $messageTemplate);
             $message = str_replace('{id}', $alumniId, $message); // Replace {id} with the alumni ID
 
             // Store prepared data in the array

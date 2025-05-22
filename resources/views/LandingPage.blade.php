@@ -245,16 +245,15 @@
                 <div class="row">
                     <!-- Bagian 1: Tentang Sekolah -->
                     <div class="col-md-3 col-sm-6 mb-4">
-                        <h5 class="fw-bold">Tentang SDN Bulupayung 04</h5>
+                        <h5 class="fw-bold">Tentang PNC</h5>
                         <p>
-                            SDN Bulupayung 04 menyediakan pendidikan berkualitas dan membentuk siswa menjadi pribadi cerdas dan berkarakter.
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, excepturi cum hic architecto blanditiis facere atque repellat suscipit deleniti beatae.
                         </p>
                         <p class="mb-1"><strong>WhatsApp:</strong> 088232649021</p>
                         <p class="mb-0"><strong>Email:</strong> ameisya20@gmail.com</p>
                     </div>
-    
                     <!-- Bagian 2: Navigasi -->
-                    <div class="col-md-3 col-sm-6 mb-4">
+                    {{-- <div class="col-md-3 col-sm-6 mb-4">
                         <h5 class="fw-bold">Navigasi</h5>
                         <ul class="list-unstyled">
                             <li><a href="#" class="text-white text-decoration-none"><i class="fa fa-chevron-right me-1"></i> Home</a></li>
@@ -265,7 +264,7 @@
                             <li><a href="#" class="text-white text-decoration-none"><i class="fa fa-chevron-right me-1"></i> Contact</a></li>
                             <li><a href="#" class="text-white text-decoration-none"><i class="fa fa-chevron-right me-1"></i> PPDB</a></li>
                         </ul>
-                    </div>
+                    </div> --}}
     
                     <!-- Bagian 3: Artikel Terbaru -->
                     <div class="col-md-3 col-sm-6 mb-4">
