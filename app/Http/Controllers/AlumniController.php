@@ -53,9 +53,8 @@ class AlumniController extends Controller
             $tracerStudy->save();
         });
 
-        
-
-        return redirect()->route('admin.alumni.index')->with('success', 'Alumni berhasil dibuat.');
+        toast('Alumni berhasil dibuat!', 'success')->autoClose(2000);
+        return redirect()->route('admin.alumni.index');
     }
 
     public function edit($id)
@@ -72,7 +71,9 @@ class AlumniController extends Controller
 
             $alumni->update($validated);
         });
-        return redirect()->route('admin.alumni.index')->with('success-edit', 'Data alumni berhasil diperbarui.');
+
+        toast('Alumni berhasil diperbarui!', 'success')->autoClose(2000);
+        return redirect()->route('admin.alumni.index');
     }
 
     public function destroy($id)
@@ -82,10 +83,13 @@ class AlumniController extends Controller
         try {
             $alumni->delete(); // Hapus data
             DB::commit();
-            return redirect()->route('admin.alumni.index')->with('success-delete', 'Data berhasil dihapus');
+
+            toast('Alumni berhasil dihapus!', 'success')->autoClose(2000);
+            return redirect()->route('admin.alumni.index');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.alumni.index')->with('error', 'Gagal menghapus data');
+            Alert('Error', $e->getMessage(), 'error');
+            return redirect()->route('admin.alumni.index');
         }
     }
 
